@@ -68,4 +68,36 @@ function onError(error) {
   navigator.geolocation.getCurrentPosition(onSuccess, onError, { maximumAge: 3000, timeout: 5000, enableHighAccuracy: true });
   };
   
+})
+
+.controller('UserCtrl', function($scope, $http) {
+
+  $scope.userSave = function() {
+    $http.post('http://localhost:9090/users/saves', {"username" : "askos9fgesg"
+  })
+    .success(function(data, status, headers, config) {
+      alert("success");
+    })
+    .error(function(data, status, headers, config) {
+      alert("error"+ data);
+    })
+
+    
+
+    /*$http.get("http://localhost:9090/users/save", { params: { "username": "askos99"} })
+
+      .success(function(data) {
+        alert("success");
+        })
+      .error(function(data) {
+        alert("ERROR");
+        });
+
+   $http({
+    method: 'PUT',
+    url: 'http://localhost:9090/users/saves',
+    data: "username=" + "askos9fgesg",
+    headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+    });*/
+    }
 });
