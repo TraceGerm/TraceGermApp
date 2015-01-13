@@ -76,9 +76,26 @@ function onError(error) {
    
    $http({
     method: 'POST',
-    url: 'http://localhost:9090/users/saves',
-    data: { username: 'askos9frgesg'},
+    url: 'http://localhost:9090/users/save',
+    data: { username: 'gg'},
+    headers: {'Content-Type': 'application/json'}
+    });
+    
+
+    $http({
+    method: 'POST',
+    url: 'http://localhost:9090/places/save',
+    data: { longitude: '56.215'},
+    headers: {'Content-Type': 'application/json'}
+    });
+    
+
+    $http({
+    method: 'POST',
+    url: 'http://localhost:9090/visitDetails/save?username=gg',
+    data:{ timeStamp: '56215'},
     headers: {'Content-Type': 'application/json'}
     });
     }
+
 });
