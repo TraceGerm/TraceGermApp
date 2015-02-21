@@ -4,11 +4,16 @@
   </ion-nav-buttons>
   <ion-content class="has-header">
     <h1>Home</h1>
-    <button ng-controller="GeoCtrl" ng-click="gg()" class="button button-dark">
+    <button ng-controller="WatchGeoCtrl" ng-click="watchposition()" class="button button-dark">
   button-dark
 </button>
 <button ng-controller="UserCtrl" ng-click="userSave()" class="button button-dark">
   button-save
 </button>
+<button ng-controller="FileCtrl" ng-click="FileSave()" class="button button-dark">
+  Save-file
+</button>
+
+
   </ion-content>
 </ion-view>

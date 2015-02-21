@@ -67,35 +67,103 @@ function onError(error) {
 
   navigator.geolocation.getCurrentPosition(onSuccess, onError, { maximumAge: 3000, timeout: 5000, enableHighAccuracy: true });
   };
-  
+
 })
 
-.controller('UserCtrl', function($scope, $http) {
+.controller('WatchGeoCtrl', function($scope, $cordovaGeolocation, $http) {
 
-  $scope.userSave = function() {
-   
-   $http({
-    method: 'POST',
-    url: 'http://localhost:9090/users/save',
-    data: { username: 'gg'},
-    headers: {'Content-Type': 'application/json'}
-    });
-    
+  $scope.watchposition = function() {
+    var watchOptions = {
+      frequency : 300000,
+      timeout : 10000,
+      enableHighAccuracy: true // may cause errors if true
+    };
 
-    $http({
-    method: 'POST',
-    url: 'http://localhost:9090/places/save',
-    data: { longitude: '56.215'},
-    headers: {'Content-Type': 'application/json'}
-    });
-    
+    var onSuccess = function(position) {
+      alert('Latitude: '    + position.coords.latitude          + '\n' +
+      'Longitude: '         + position.coords.longitude         + '\n' +
+      'Altitude: '          + position.coords.altitude          + '\n' +
+      'Accuracy: '          + position.coords.accuracy          + '\n' +
+      'Altitude Accuracy: ' + position.coords.altitudeAccuracy  + '\n' +
+      'Heading: '           + position.coords.heading           + '\n' +
+      'Speed: '             + position.coords.speed             + '\n' +
+      'Timestamp: '         + position.timestamp                + '\n');
 
-    $http({
-    method: 'POST',
-    url: 'http://localhost:9090/visitDetails/save?username=gg',
-    data:{ timeStamp: '56215'},
-    headers: {'Content-Type': 'application/json'}
-    });
+      $http({
+        method: 'POST',
+        url: 'http://localhost:9090/places/save',
+        data: { longitude: position.coords.longitude, latitude: position.coords.latitude,
+        accuracy : position.coords.accuracy },
+        headers: {'Content-Type': 'application/json'}
+      });
+
+    };
+
+    // onError Callback receives a PositionError object
+    //
+    function onError(error) {
+      alert('code: '    + error.code    + '\n' +
+      'message: ' + error.message + '\n');
     }
 
+    var watchID = navigator.geolocation.watchPosition(onSuccess, onError, watchOptions);
+
+  };
+
+})
+
+.controller('FileCtrl', function($scope, $cordovaFile) {
+
+  $scope.FileSave = function() {
+  document.addEventListener('deviceready', function () {
+
+      $cordovaFile.createFile("User.json", false)
+      .then(function (success) {
+        alert("File Created");
+      }, function (error) {
+        alert("Error: "+ error.code);
+      });
+    });
+};
+})
+
+.controller('UserCtrl', function($rootScope,$scope, $http, $ionicPopup) {
+
+  $scope.userSave = function() {
+
+    $rootScope.usename = 'gg';
+    $http({
+      method: 'POST',
+      url: 'http://localhost:9090/users/save',
+      data: { username: 'gg'},
+      headers: {'Content-Type': 'application/json'}
+    }).success(function(data, status, headers, config){
+    $http({
+      method: 'POST',
+      url: 'http://localhost:9090/visitDetails/save?username='+$rootScope.username,
+      data:{ timeStamp: '56215'},
+      headers: {'Content-Type': 'application/json'}
+    });
+    }).error(function(data, status, headers, config){
+    /*handle non 200 statuses*/
+  });
+
+    $http({
+      method: 'POST',
+      url: 'http://localhost:9090/places/save',
+      data: { longitude: '56.215'},
+      headers: {'Content-Type': 'application/json'}
+    }).success(function(data, status, headers, config){
+      //handles succesfull method
+    }).error(function(data, status, headers, config){
+      /*handle non 200 statuses*/
+    });
+
+    $http({
+      method: 'POST',
+      url: 'http://localhost:9090/visitDetails/save?username=gg',
+      data:{ timeStamp: '56215'},
+      headers: {'Content-Type': 'application/json'}
+    });
+  };
 });

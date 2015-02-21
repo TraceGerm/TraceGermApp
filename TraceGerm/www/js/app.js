@@ -6,7 +6,24 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova'])
 
-.run(function($ionicPlatform) {
+.factory('$localStorage', ['$window', function($window) {
+  return {
+    set: function(key, value) {
+      $window.localStorage[key] = value;
+    },
+    get: function(key, defaultValue) {
+      return $window.localStorage[key] || defaultValue;
+    },
+    setObject: function(key, value) {
+      $window.localStorage[key] = JSON.stringify(value);
+    },
+    getObject: function(key) {
+      return JSON.parse($window.localStorage[key] || '{}');
+    }
+  };
+}])
+
+.run(function($ionicPlatform, $state, $cordovaFile) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -68,9 +85,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova'])
       }
     });
   // if none of the above states are matched, use this as the fallback
-  
+
 
   $urlRouterProvider.otherwise('/app/home');
-});  
-
-
+});
