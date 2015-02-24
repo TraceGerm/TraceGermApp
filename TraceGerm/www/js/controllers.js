@@ -114,7 +114,7 @@ function onError(error) {
 
 .controller('FileCtrl', function($scope, $cordovaFile) {
 
-  $scope.FileSave = function() {
+  $scope.SaveFile = function() {
   document.addEventListener('deviceready', function () {
 
       $cordovaFile.createFile("User.json", false)
@@ -125,6 +125,16 @@ function onError(error) {
       });
     });
 };
+})
+
+.controller('EncryptionCtrl', function($scope) {
+
+  $scope.encryptUsername = function(messageField, passphraseField) {
+    var encryptedMessage = CryptoJS.AES.encrypt(messageField, passphraseField);
+    alert("Encrypted Message: "+encryptedMessage);
+    var decryptedMessage = CryptoJS.AES.decrypt(encryptedMessage, passphraseField);
+    alert("Decrypted Message: "+decryptedMessage.toString(CryptoJS.enc.Utf8));
+  };
 })
 
 .controller('UserCtrl', function($rootScope,$scope, $http, $ionicPopup) {
