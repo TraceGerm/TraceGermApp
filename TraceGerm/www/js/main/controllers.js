@@ -129,19 +129,25 @@ function onError(error) {
 
 .controller('EncryptionCtrl', function($scope) {
 
-  $scope.encryptUsername = function(messageField, passphraseField) {
-    var encryptedMessage = CryptoJS.AES.encrypt(messageField, passphraseField);
-    alert("Encrypted Message: "+encryptedMessage);
-    var decryptedMessage = CryptoJS.AES.decrypt(encryptedMessage, passphraseField);
-    alert("Decrypted Message: "+decryptedMessage.toString(CryptoJS.enc.Utf8));
+  $scope.encryptMessage = function(messageField, passphraseField) {
+
+    $scope.encryptedMessage = CryptoJS.AES.encrypt(messageField, passphraseField);
+    return $scope.encryptedMessage;
   };
+
+  $scope.decryptMessage = function(encryptedMessage, passphraseField) {
+
+    $scope.decryptedMessage = CryptoJS.AES.decrypt(encryptedMessage, passphraseField).toString(CryptoJS.enc.Utf8);
+    return $scope.decryptedMessage;
+  };
+
 })
 
-.controller('UserCtrl', function($rootScope,$scope, $http, $ionicPopup) {
+.controller('UserCtrl', function($rootScope, $scope, $http, $ionicPopup) {
 
   $scope.userSave = function() {
 
-    $rootScope.usename = 'gg';
+    $scope.usename = 'gg';
     $http({
       method: 'POST',
       url: 'http://localhost:9090/users/save',
