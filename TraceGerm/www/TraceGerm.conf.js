@@ -19,17 +19,17 @@ module.exports = function(config) {
    	'lib/ionic/js/angular/angular.js',
 	'lib/ionic/js/angular/angular-animate.js',
 	'lib/ionic/js/angular/angular-sanitize.js',
-	'/home/askos/git/TraceGerm/TraceGermApp/TraceGerm/node_modules/angular-mocks/angular-mocks.js',
+	'lib/ng-cordova/dist/ng-cordova.js',
 
 	'lib/ionic/js/angular/angular-resource.js',
 	'lib/ionic/js/angular-ui/angular-ui-router.js',
 	'lib/ionic/js/ionic.js',
-	'lib/ionic/js/ionic-angular.js',
+	'www/lib/ionic/js/ionic-angular.js',
 	'lib/ng-cordova/dist/ng-cordova.js',
 	'http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/aes.js',
 
 	'js/main/*.js',
-	'js/test/*.js',	
+	'js/test/*.js',
     ],
 
 
