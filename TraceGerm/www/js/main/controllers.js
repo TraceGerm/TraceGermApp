@@ -143,6 +143,20 @@ function onError(error) {
 
 })
 
+.controller('TranslateCtrl', function($translate, $scope) {
+  $scope.countList = [
+  { id: 1, choice: 'en', name: 'English' },
+  { id: 2, choice: 'gr', name: 'Greek' }
+  ];
+
+  $scope.countSelected = $scope.countList[0].id;
+
+  $scope.onchange = function(id) {
+      $translate.use(id.choice);
+
+  };
+})
+
 .controller('UserCtrl', function($rootScope, $scope, $http, $ionicPopup) {
 
   $scope.userSave = function() {

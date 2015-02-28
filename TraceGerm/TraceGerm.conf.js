@@ -16,20 +16,20 @@ module.exports = function(config) {
     // list of files / patterns to load in the browser
     files: [
 
-   	'lib/ionic/js/angular/angular.js',
-	'lib/ionic/js/angular/angular-animate.js',
-	'lib/ionic/js/angular/angular-sanitize.js',
-	'/home/askos/git/TraceGerm/TraceGermApp/TraceGerm/node_modules/angular-mocks/angular-mocks.js',
+    'www/lib/ionic/js/angular/angular.js',
+    'www/lib/ionic/js/angular/angular-animate.js',
+    'www/lib/ionic/js/angular/angular-sanitize.js',
+    'node_modules/angular-mocks/angular-mocks.js',
 
-	'lib/ionic/js/angular/angular-resource.js',
-	'lib/ionic/js/angular-ui/angular-ui-router.js',
-	'lib/ionic/js/ionic.js',
-	'lib/ionic/js/ionic-angular.js',
-	'lib/ng-cordova/dist/ng-cordova.js',
-	'http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/aes.js',
+    'www/lib/ionic/js/angular/angular-resource.js',
+    'www/lib/ionic/js/angular-ui/angular-ui-router.js',
+    'www/lib/ionic/js/ionic.js',
+    'www/lib/ionic/js/ionic-angular.js',
+    'www/lib/ng-cordova/dist/ng-cordova.js',
+    'http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/aes.js',
 
-	'js/main/*.js',
-	'js/test/*.js',	
+    'www/js/main/*.js',
+    'www/js/test/*.js',
     ],
 
 

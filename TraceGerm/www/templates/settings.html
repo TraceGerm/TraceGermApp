@@ -16,5 +16,17 @@
         <button type="submit" ng-disabled="settingsForm.$invalid" class="button button-dark">Encrypt</button>
       </form>
     </div>
+
+    <div class="list" ng-controller="TranslateCtrl" >
+
+      <label class="item item-input item-select">
+        <div class="input-label">
+          {{ 'LANGUAGE_SELLECTION' | translate }}
+        </div>
+        <select ng-model="countSelected" ng-options="count.id as count.name for count in countList" ng-change="onchange(countList[countSelected-1])">
+
+        </select >
+      </label>
+    </div>
   </ion-content>
 </ion-view>

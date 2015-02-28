@@ -4,7 +4,7 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova'])
+angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova', 'pascalprecht.translate'])
 
 .factory('$localStorage', ['$window', function($window) {
   return {
@@ -37,7 +37,21 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova'])
   });
 })
 
-.config(function($stateProvider, $urlRouterProvider) {
+.config(function($stateProvider, $urlRouterProvider, $translateProvider) {
+
+  $translateProvider.translations('en', {
+      LANGUAGE : 'English',
+      LANGUAGE_SELLECTION : 'Language',
+      HOME_TITTLE : 'Home'
+  })
+  .translations('gr', {
+      LANGUAGE : 'Ελληνικά',
+      LANGUAGE_SELLECTION : 'Γλώσσα',
+      HOME_TITTLE : 'Aρχική'
+  });
+
+  $translateProvider.preferredLanguage('en');
+
 
   $stateProvider
 
