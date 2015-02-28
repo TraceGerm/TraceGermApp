@@ -6,6 +6,6 @@ notifications:
 before_script:
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
-  - cd TraceGerm/TraceGermApp/TraceGerm/www
+  - cd TraceGermApp/TraceGerm/www
 script:
   ./node_modules/.bin/karma start --browsers Firefox --single-run
