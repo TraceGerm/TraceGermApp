@@ -4,7 +4,7 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova'])
+angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova', 'pascalprecht.translate'])
 
 .factory('$localStorage', ['$window', function($window) {
   return {
@@ -23,8 +23,20 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova'])
   };
 }])
 
-.run(function($ionicPlatform, $state, $cordovaFile) {
+.run(function($ionicPlatform, $state, $cordovaFile, $translate, $cordovaGlobalization) {
   $ionicPlatform.ready(function() {
+
+    $cordovaGlobalization.getPreferredLanguage().then(
+      function(result) {
+        $translate.use((result.value).split("-")[0]).then(function(data) {
+          console.log("SUCCESS -> " + data);
+        }, function(error) {
+          console.log("ERROR -> " + error);
+        });
+      },
+      function(error) {
+        alert("error");
+      });
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
     if(window.cordova && window.cordova.plugins.Keyboard) {
@@ -34,10 +46,12 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova'])
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
+
   });
 })
 
-.config(function($stateProvider, $urlRouterProvider) {
+
+.config(function($stateProvider, $urlRouterProvider, $translateProvider) {
 
   $stateProvider
 
@@ -79,4 +93,18 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova'])
 
 
   $urlRouterProvider.otherwise('/app/home');
+
+  $translateProvider.translations('en', {
+    LANGUAGE : "English",
+    LANGUAGE_SELLECTION : "Language",
+    HOME_TITTLE : "Home"
+  })
+  .translations('el', {
+    LANGUAGE : "Ελληνικά",
+    LANGUAGE_SELLECTION : "Γλώσσα",
+    HOME_TITTLE : "Aρχική"
+  });
+
+  $translateProvider.preferredLanguage("en");
+  $translateProvider.fallbackLanguage("en");
 });

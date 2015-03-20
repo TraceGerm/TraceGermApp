@@ -16,20 +16,38 @@ module.exports = function(config) {
     // list of files / patterns to load in the browser
     files: [
 
+<<<<<<< HEAD:TraceGerm/www/TraceGerm.conf.js
    	'lib/ionic/js/angular/angular.js',
 	'lib/ionic/js/angular/angular-animate.js',
 	'lib/ionic/js/angular/angular-sanitize.js',
-	'/home/askos/git/TraceGerm/TraceGermApp/TraceGerm/node_modules/angular-mocks/angular-mocks.js',
+	'lib/ng-cordova/dist/ng-cordova.js',
 
 	'lib/ionic/js/angular/angular-resource.js',
 	'lib/ionic/js/angular-ui/angular-ui-router.js',
 	'lib/ionic/js/ionic.js',
-	'lib/ionic/js/ionic-angular.js',
+	'www/lib/ionic/js/ionic-angular.js',
 	'lib/ng-cordova/dist/ng-cordova.js',
 	'http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/aes.js',
 
 	'js/main/*.js',
-	'js/test/*.js',	
+	'js/test/*.js',
+=======
+    'www/lib/ionic/js/angular/angular.js',
+    'www/lib/ionic/js/angular/angular-animate.js',
+    'www/lib/ionic/js/angular/angular-sanitize.js',
+    'node_modules/angular-mocks/angular-mocks.js',
+
+    'www/lib/ionic/js/angular/angular-resource.js',
+    'www/lib/ionic/js/angular-ui/angular-ui-router.js',
+    'www/lib/ionic/js/ionic.js',
+    'www/lib/ionic/js/ionic-angular.js',
+    'www/lib/ng-cordova/dist/ng-cordova.js',
+    'http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/aes.js',
+    'www/lib/angular-translate/angular-translate.min.js',
+
+    'www/js/main/*.js',
+    'www/js/test/*.js',
+>>>>>>> dev:TraceGerm/TraceGerm.conf.js
     ],
 
 
@@ -69,7 +87,7 @@ module.exports = function(config) {
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['Chrome'],
+    browsers: ['Chrome', 'Firefox'],
 
 
     // Continuous Integration mode
