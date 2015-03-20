@@ -27,6 +27,7 @@ module.exports = function(config) {
     'www/lib/ionic/js/ionic-angular.js',
     'www/lib/ng-cordova/dist/ng-cordova.js',
     'http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/aes.js',
+    'www/lib/angular-translate/angular-translate.min.js',
 
     'www/js/main/*.js',
     'www/js/test/*.js',

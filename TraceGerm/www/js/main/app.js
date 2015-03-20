@@ -23,8 +23,21 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova', 'pascalp
   };
 }])
 
-.run(function($ionicPlatform, $state, $cordovaFile) {
+.run(function($ionicPlatform, $state, $cordovaFile, $translate, $cordovaGlobalization) {
   $ionicPlatform.ready(function() {
+
+    $cordovaGlobalization.getPreferredLanguage().then(
+      function(result) {
+        $translate.use((result.value).split("-")[0]).then(function(data) {
+          console.log("SUCCESS -> " + data);
+        }, function(error) {
+          console.log("ERROR -> " + error);
+        });
+      },
+      function(error) {
+        alert("error");
+        // error
+      });
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
     if(window.cordova && window.cordova.plugins.Keyboard) {
@@ -34,24 +47,12 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova', 'pascalp
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
+
   });
 })
 
+
 .config(function($stateProvider, $urlRouterProvider, $translateProvider) {
-
-  $translateProvider.translations('en', {
-      LANGUAGE : 'English',
-      LANGUAGE_SELLECTION : 'Language',
-      HOME_TITTLE : 'Home'
-  })
-  .translations('gr', {
-      LANGUAGE : 'Ελληνικά',
-      LANGUAGE_SELLECTION : 'Γλώσσα',
-      HOME_TITTLE : 'Aρχική'
-  });
-
-  $translateProvider.preferredLanguage('en');
-
 
   $stateProvider
 
@@ -93,4 +94,18 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova', 'pascalp
 
 
   $urlRouterProvider.otherwise('/app/home');
+
+  $translateProvider.translations('en', {
+    LANGUAGE : "English",
+    LANGUAGE_SELLECTION : "Language",
+    HOME_TITTLE : "Home"
+  })
+  .translations('el', {
+    LANGUAGE : "Ελληνικά",
+    LANGUAGE_SELLECTION : "Γλώσσα",
+    HOME_TITTLE : "Aρχική"
+  });
+
+  $translateProvider.preferredLanguage("en");
+  $translateProvider.fallbackLanguage("en");
 });
