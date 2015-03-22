@@ -29,9 +29,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova', 'pascalp
     $cordovaGlobalization.getPreferredLanguage().then(
       function(result) {
         $translate.use((result.value).split("-")[0]).then(function(data) {
-          console.log("SUCCESS -> " + data);
         }, function(error) {
-          console.log("ERROR -> " + error);
+          alert("there was an error:"+error.message);
         });
       },
       function(error) {
@@ -94,17 +93,12 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova', 'pascalp
 
   $urlRouterProvider.otherwise('/app/home');
 
-  $translateProvider.translations('en', {
-    LANGUAGE : "English",
-    LANGUAGE_SELLECTION : "Language",
-    HOME_TITTLE : "Home"
-  })
-  .translations('el', {
-    LANGUAGE : "Ελληνικά",
-    LANGUAGE_SELLECTION : "Γλώσσα",
-    HOME_TITTLE : "Aρχική"
+  $translateProvider.useStaticFilesLoader({
+    prefix: 'languages/',
+    suffix: '.json'
   });
 
   $translateProvider.preferredLanguage("en");
   $translateProvider.fallbackLanguage("en");
+  
 });
