@@ -28,9 +28,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova', 'pascalp
 
     $cordovaGlobalization.getPreferredLanguage().then(
       function(result) {
-        $translate.use((result.value).split("-")[0]).then(function(data) {
-        }, function(error) {
-          alert("there was an error:"+error.message);
+        $translate.use((result.value).split("-")[0]).then(function(data) {}, function(error) {
+          alert("there was an error:" + error.message);
         });
       },
       function(error) {
@@ -38,10 +37,10 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova', 'pascalp
       });
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
-    if(window.cordova && window.cordova.plugins.Keyboard) {
+    if (window.cordova && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
     }
-    if(window.StatusBar) {
+    if (window.StatusBar) {
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
@@ -55,38 +54,38 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova', 'pascalp
   $stateProvider
 
     .state('app', {
-      url: "/app",
-      abstract: true,
-      templateUrl: "templates/menu.html",
-      controller: 'AppCtrl'
-    })
+    url: "/app",
+    abstract: true,
+    templateUrl: "templates/menu.html",
+    controller: 'AppCtrl'
+  })
 
-    .state('app.search', {
-      url: "/search",
-      views: {
-        'menuContent' :{
-          templateUrl: "templates/search.html"
-        }
+  .state('app.search', {
+    url: "/search",
+    views: {
+      'menuContent': {
+        templateUrl: "templates/search.html"
       }
-    })
+    }
+  })
 
-    .state('app.home', {
-      url: "/home",
-      views: {
-        'menuContent' :{
-          templateUrl: "templates/home.html"
-        }
+  .state('app.home', {
+    url: "/home",
+    views: {
+      'menuContent': {
+        templateUrl: "templates/home.html"
       }
-    })
+    }
+  })
 
-    .state('app.settings', {
-      url: "/settings",
-      views: {
-        'menuContent' :{
-          templateUrl: "templates/settings.html"
-        }
+  .state('app.settings', {
+    url: "/settings",
+    views: {
+      'menuContent': {
+        templateUrl: "templates/settings.html"
       }
-    });
+    }
+  });
 
   // if none of the above states are matched, use this as the fallback
 
@@ -100,5 +99,5 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova', 'pascalp
 
   $translateProvider.preferredLanguage("en");
   $translateProvider.fallbackLanguage("en");
-  
+
 });

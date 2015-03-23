@@ -1,11 +1,11 @@
 {
 
-  "LANGUAGE" : "English",
-  "LANGUAGE_SELLECTION" : "Language",
-  "HOME_TITTLE" : "Home",
-  "SETTINGS_TITTLE" : "Settings",
-  "SEARCH_TITTLE" : "Search",
-  "LOGIN_TITTLE" : "Login",
-  "MENU_TITTLE" : "Menu"
+  "LANGUAGE": "English",
+  "LANGUAGE_SELLECTION": "Language",
+  "HOME_TITTLE": "Home",
+  "SETTINGS_TITTLE": "Settings",
+  "SEARCH_TITTLE": "Search",
+  "LOGIN_TITTLE": "Login",
+  "MENU_TITTLE": "Menu"
 
 }
