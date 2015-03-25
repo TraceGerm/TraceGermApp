@@ -9,4 +9,4 @@ before_script:
   - sh -e /etc/init.d/xvfb start
   - cd TraceGerm
 script:
-  ./node_modules/karma/bin/karma start TraceGerm.conf.js
+  ./node_modules/.bin/karma start start TraceGerm.conf.js

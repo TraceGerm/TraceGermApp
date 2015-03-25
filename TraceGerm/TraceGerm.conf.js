@@ -16,34 +16,32 @@ module.exports = function(config) {
     // list of files / patterns to load in the browser
     files: [
 
-    'www/lib/ionic/js/angular/angular.js',
-    'www/lib/ionic/js/angular/angular-animate.js',
-    'www/lib/ionic/js/angular/angular-sanitize.js',
-    'node_modules/angular-mocks/angular-mocks.js',
+      'www/lib/angular/angular.js',
+      'www/lib/angular-animate/angular-animate.js',
+      'www/lib/angular-sanitize/angular-sanitize.js',
+      'node_modules/angular-mocks/angular-mocks.js',
 
-    'www/lib/ionic/js/angular/angular-resource.js',
-    'www/lib/ionic/js/angular-ui/angular-ui-router.js',
-    'www/lib/ionic/js/ionic.js',
-    'www/lib/ionic/js/ionic-angular.js',
-    'www/lib/ng-cordova/dist/ng-cordova.js',
-    'http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/aes.js',
-    'www/lib/angular-translate/angular-translate.min.js',
-    'www/lib/angular-translate/angular-translate-loader-static-files.min.js',
+      'node_modules/angular-resource/angular-resource.js',
+      'www/lib/angular-ui-router/release/angular-ui-router.js',
+      'www/lib/ionic/js/ionic.js',
+      'www/lib/ionic/js/ionic-angular.js',
+      'www/lib/ng-cordova/dist/ng-cordova.js',
+      'http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/aes.js',
+      'www/lib/angular-translate/angular-translate.min.js',
+      'www/lib/angular-translate/angular-translate-loader-static-files.min.js',
 
-    'www/js/main/*.js',
-    'www/js/test/*.js',
+      'www/js/main/*.js',
+      'www/js/test/*.js',
     ],
 
 
     // list of files to exclude
-    exclude: [
-    ],
+    exclude: [],
 
 
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
-    preprocessors: {
-    },
+    preprocessors: {},
 
 
     // test results reporter to use
@@ -71,7 +69,7 @@ module.exports = function(config) {
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['Chrome', 'Firefox'],
+    browsers: ['Firefox'],
 
 
     // Continuous Integration mode

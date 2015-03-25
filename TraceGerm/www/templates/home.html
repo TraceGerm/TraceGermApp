@@ -7,18 +7,18 @@
     <div class="home-text">
       <h1>TraceGerm</h1>
       <p>TraceGerm is a tracking application</p>
+
+
+      <button ng-controller="WatchGeoCtrl" ng-click="watchposition()" class="button button-dark">
+        Watch Position
+      </button>
+      <button ng-controller="UserCtrl" ng-click="userSave()" class="button button-dark">
+        Save User
+      </button>
+      <button ng-controller="FileCtrl" ng-click="SaveFile()" class="button button-dark">
+        Save File
+      </button>
+
     </div>
-
-    <button ng-controller="WatchGeoCtrl" ng-click="watchposition()" class="button button-dark">
-      Watch Position
-    </button>
-    <button ng-controller="UserCtrl" ng-click="userSave()" class="button button-dark">
-      Save User
-    </button>
-    <button ng-controller="FileCtrl" ng-click="SaveFile()" class="button button-dark">
-      Save File
-    </button>
-
-
   </ion-content>
 </ion-view>
