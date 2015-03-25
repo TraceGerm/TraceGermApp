@@ -36,15 +36,11 @@ angular.module('starter.controllers', ['ngCordova'])
 
 .controller('GeoCtrl', function($scope, $cordovaGeolocation) {
 
-  $scope.gg = function() {
+  $scope.getCurrentPosition = function() {
     var onSuccess = function(position) {
       alert('Latitude: ' + position.coords.latitude + '\n' +
         'Longitude: ' + position.coords.longitude + '\n' +
-        'Altitude: ' + position.coords.altitude + '\n' +
         'Accuracy: ' + position.coords.accuracy + '\n' +
-        'Altitude Accuracy: ' + position.coords.altitudeAccuracy + '\n' +
-        'Heading: ' + position.coords.heading + '\n' +
-        'Speed: ' + position.coords.speed + '\n' +
         'Timestamp: ' + position.timestamp + '\n');
     };
 
@@ -74,14 +70,6 @@ angular.module('starter.controllers', ['ngCordova'])
     };
 
     var onSuccess = function(position) {
-      alert('Latitude: ' + position.coords.latitude + '\n' +
-        'Longitude: ' + position.coords.longitude + '\n' +
-        'Altitude: ' + position.coords.altitude + '\n' +
-        'Accuracy: ' + position.coords.accuracy + '\n' +
-        'Altitude Accuracy: ' + position.coords.altitudeAccuracy + '\n' +
-        'Heading: ' + position.coords.heading + '\n' +
-        'Speed: ' + position.coords.speed + '\n' +
-        'Timestamp: ' + position.timestamp + '\n');
 
       $http({
         method: 'POST',
@@ -94,6 +82,15 @@ angular.module('starter.controllers', ['ngCordova'])
         headers: {
           'Content-Type': 'application/json'
         }
+      }).success(function(data, status, headers, config) {
+        // this callback will be called asynchronously
+        // when the response is available
+        alert("data was send successfully");
+      }).
+      error(function(data, status, headers, config) {
+        // called asynchronously if an error occurs
+        // or server returns response with an error status.
+        alert("something went wrong:" + status);
       });
 
     };

@@ -1,19 +1,32 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <widget id="com.ionicframework.trackgerm552993" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
   <name>TraceGerm</name>
   <description>
-        An Ionic Framework and Cordova project.
-    </description>
-  <author email="hi@ionicframework" href="http://ionicframework.com/">
-      Ionic Framework Team
-    </author>
-  <content src="index.html"/>
-  <access origin="*"/>
-  <preference name="webviewbounce" value="false"/>
-  <preference name="UIWebViewBounce" value="false"/>
-  <preference name="DisallowOverscroll" value="true"/>
-  <preference name="BackupWebStorage" value="none"/>
+    An Ionic Framework and Cordova project.
+  </description>
+  <author email="askoanti@gmail.com" href="http://antiasko.github.io/">
+    Ionic Framework Team
+  </author>
+  <content src="index.html" />
+  <access origin="*" />
+  <preference name="webviewbounce" value="false" />
+  <preference name="UIWebViewBounce" value="false" />
+  <preference name="DisallowOverscroll" value="true" />
+  <preference name="BackupWebStorage" value="none" />
   <feature name="StatusBar">
-    <param name="ios-package" value="CDVStatusBar" onload="true"/>
+    <param name="ios-package" value="CDVStatusBar" onload="true" />
   </feature>
+
+  <platform name="android">
+    <!-- you can use any density that exists in the Android project -->
+    <splash src="TraceGerm/platforms/android/res/drawable/ionic.png" density="land-hdpi" />
+    <splash src="res/screen/android/splash-land-ldpi.png" density="land-ldpi" />
+    <splash src="res/screen/android/splash-land-mdpi.png" density="land-mdpi" />
+    <splash src="res/screen/android/splash-land-xhdpi.png" density="land-xhdpi" />
+
+    <splash src="res/screen/android/splash-port-hdpi.png" density="port-hdpi" />
+    <splash src="res/screen/android/splash-port-ldpi.png" density="port-ldpi" />
+    <splash src="res/screen/android/splash-port-mdpi.png" density="port-mdpi" />
+    <splash src="res/screen/android/splash-port-xhdpi.png" density="port-xhdpi" />
+  </platform>
 </widget>

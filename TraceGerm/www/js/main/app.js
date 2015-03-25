@@ -31,9 +31,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova', 'pascalp
         $translate.use((result.value).split("-")[0]).then(function(data) {}, function(error) {
           alert("there was an error:" + error.message);
         });
-      },
-      function(error) {
-        alert("error");
       });
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
