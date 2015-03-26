@@ -6,6 +6,8 @@
   "SETTINGS_TITTLE": "Settings",
   "SEARCH_TITTLE": "Search",
   "LOGIN_TITTLE": "Login",
-  "MENU_TITTLE": "Menu"
+  "MENU_TITTLE": "Menu",
+  "ABOUT_TITTLE": "About",
+  "FIRST_USE_TITTLE": "Welcome"
 
 }

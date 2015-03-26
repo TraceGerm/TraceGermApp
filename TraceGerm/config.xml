@@ -13,20 +13,23 @@
   <preference name="UIWebViewBounce" value="false" />
   <preference name="DisallowOverscroll" value="true" />
   <preference name="BackupWebStorage" value="none" />
+  <preference name="AndroidPersistentFileLocation" value="Internal" />
+
+  <preference name="AndroidPersistentFileLocation" value="Compatibility" />
   <feature name="StatusBar">
     <param name="ios-package" value="CDVStatusBar" onload="true" />
   </feature>
 
   <platform name="android">
     <!-- you can use any density that exists in the Android project -->
-    <splash src="TraceGerm/platforms/android/res/drawable/ionic.png" density="land-hdpi" />
-    <splash src="res/screen/android/splash-land-ldpi.png" density="land-ldpi" />
-    <splash src="res/screen/android/splash-land-mdpi.png" density="land-mdpi" />
-    <splash src="res/screen/android/splash-land-xhdpi.png" density="land-xhdpi" />
+    <splash src="platforms/android/res/drawable/ionic.png" density="land-hdpi" />
+    <splash src="platforms/android/res/drawable/ionic.png" density="land-ldpi" />
+    <splash src="platforms/android/res/drawable/ionic.png" density="land-mdpi" />
+    <splash src="platforms/android/res/drawable/ionic.png" density="land-xhdpi" />
 
-    <splash src="res/screen/android/splash-port-hdpi.png" density="port-hdpi" />
-    <splash src="res/screen/android/splash-port-ldpi.png" density="port-ldpi" />
-    <splash src="res/screen/android/splash-port-mdpi.png" density="port-mdpi" />
-    <splash src="res/screen/android/splash-port-xhdpi.png" density="port-xhdpi" />
+    <splash src="platforms/android/res/drawable/ionic.png" density="port-hdpi" />
+    <splash src="platforms/android/res/drawable/ionic.png" density="port-ldpi" />
+    <splash src="platforms/android/res/drawable/ionic.png" density="port-mdpi" />
+    <splash src="platforms/android/res/drawable/ionic.png" density="port-xhdpi" />
   </platform>
 </widget>

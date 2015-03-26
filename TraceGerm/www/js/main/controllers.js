@@ -1,4 +1,4 @@
-angular.module('starter.controllers', ['ngCordova'])
+angular.module('starter.controllers', ['ngCordova', 'ng-cordova-settings'])
 
 .controller('AppCtrl', function($scope, $ionicModal, $timeout) {
   // Form data for the login modal
@@ -108,18 +108,50 @@ angular.module('starter.controllers', ['ngCordova'])
 
 })
 
-.controller('FileCtrl', function($scope, $cordovaFile) {
+.controller('FilesCtrl', function($scope, $cordovaFile) {
 
   $scope.SaveFile = function() {
     document.addEventListener('deviceready', function() {
 
-      $cordovaFile.createFile("UserSettings.json", false)
+      $cordovaFile.createFile(cordova.file.dataDirectory, "UserSettings.json", false)
         .then(function(success) {
           alert("File Created");
+          alert(cordova.file.dataDirectory);
         }, function(error) {
           alert("Error: " + error.code);
         });
     });
+  };
+})
+
+
+.controller('SettingsCtrl', function($scope, settings) {
+
+  $scope.setUsername = function(username) {
+    settings.write('username', username).then(function() {
+        console.log(username);
+      },
+      function(error) {
+        console.log(error);
+        $scope.log += 'error' + '\n';
+      });
+  };
+
+  $scope.getUsername = function() {
+    settings.read('username').then(function(result) {
+      $scope.result = result;
+      alert(result);
+      return result;
+    });
+  };
+
+  $scope.deleteSettings = function() {
+    settings.remove().then(function() {
+        alert("successfully deleted");
+      },
+      function(error) {
+        alert(error.code);
+      });
   };
 })
 

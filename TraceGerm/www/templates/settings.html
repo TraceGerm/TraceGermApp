@@ -17,6 +17,21 @@
       </form>
     </div>
 
+    <div class="list">
+      <form class="simple-form" name="settingsForm" ng-controller="SettingsCtrl" ng-submit="setUsername(usernameField)">
+        <label class="item item-input">
+          <input type="text" name="username" ng-model="usernameField" placeholder="Username (Required!)" required="required">
+        </label>
+        </br>
+        <button type="submit" ng-disabled="settingsForm.$invalid" class="button button-dark">Encrypt</button>
+      </form>
+    </div>
+
+    <button ng-controller="SettingsCtrl" ng-click="getUsername()" class="button button-dark">
+      Get Username
+    </button>
+
+
     <div class="list" ng-controller="TranslateCtrl">
 
       <label class="item item-input item-select">
@@ -27,7 +42,6 @@
 
         </select>
       </label>
-
     </div>
   </ion-content>
 </ion-view>

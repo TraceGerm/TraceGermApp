@@ -4,7 +4,7 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova', 'pascalprecht.translate'])
+angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova', 'pascalprecht.translate', 'ng-cordova-settings'])
 
 .factory('$localStorage', ['$window', function($window) {
   return {
@@ -23,8 +23,13 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova', 'pascalp
   };
 }])
 
-.run(function($ionicPlatform, $state, $cordovaFile, $translate, $cordovaGlobalization) {
+.run(function($ionicPlatform, $state, $cordovaFile, $translate, $cordovaGlobalization, settings, $location) {
   $ionicPlatform.ready(function() {
+
+    settings.read('username').then(function(result) {},
+      function(error) {
+        //$location.path('/app/firstUse');
+      });
 
     $cordovaGlobalization.getPreferredLanguage().then(
       function(result) {
@@ -32,6 +37,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova', 'pascalp
           alert("there was an error:" + error.message);
         });
       });
+
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
     if (window.cordova && window.cordova.plugins.Keyboard) {
@@ -80,6 +86,24 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova', 'pascalp
     views: {
       'menuContent': {
         templateUrl: "templates/settings.html"
+      }
+    }
+  })
+
+  .state('app.about', {
+    url: "/about",
+    views: {
+      'menuContent': {
+        templateUrl: "templates/about.html"
+      }
+    }
+  })
+
+  .state('app.firstUse', {
+    url: "/firstUse",
+    views: {
+      'menuContent': {
+        templateUrl: "templates/firstUse.html"
       }
     }
   });

@@ -1,4 +1,4 @@
-describe('Unit: EncryptionCtrl', function() {
+describe('Unit: SettingsCtrl', function() {
   // Load the module with ContainerContactCtrl, add your module name in here!
   beforeEach(module('starter'));
 
@@ -12,8 +12,8 @@ describe('Unit: EncryptionCtrl', function() {
     $controller = _$controller_;
   }));
 
-  describe('$scope.encryptMessage', function() {
-    it('encrypts a message:', function() {
+  describe('$scope.SaveFile', function() {
+    it('saves a new file:', function() {
       var $scope = {};
       var controller = $controller('EncryptionCtrl', {
         $scope: $scope

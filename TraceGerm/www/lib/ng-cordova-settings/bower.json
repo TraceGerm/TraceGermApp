@@ -1,0 +1,29 @@
+{
+  "name": "ng-cordova-settings",
+  "version": "1.0.0",
+  "homepage": "https://github.com/pbakondy/ng-cordova-settings",
+  "authors": [
+    "Peter Bakondy <pbakondy@gmail.com>"
+  ],
+  "description": "Cordova library to store and read settings permanently on local filesystem",
+  "main": "./dist/ng-cordova-settings.min.js",
+  "ignore": [
+    "**/.*",
+    "gulpfile.js",
+    "src",
+    "config"
+  ],
+  "dependencies": {
+    "ngCordova": ">= 0.1.14-alpha"
+  },
+  "keywords": [
+    "cordova",
+    "cordova plugin",
+    "ionic",
+    "ionic plugin",
+    "angular module",
+    "settings",
+    "filesystem"
+  ],
+  "license": "MIT"
+}
