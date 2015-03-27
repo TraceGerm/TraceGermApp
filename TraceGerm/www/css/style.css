@@ -1,8 +1,9 @@
 /* Empty. Add your own CSS if you like */
 
-ion-view {
-  background-color: #fff;
-}
 .home-text {
   text-align: center;
+}
+.button.button-icon.icon.ion-navicon {
+  position: absolute;
+  left: -20px;
 }
