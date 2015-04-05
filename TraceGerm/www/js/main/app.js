@@ -28,7 +28,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova', 'pascalp
 
     settings.read('username').then(function(result) {},
       function(error) {
-        //$location.path('/app/firstUse');
+        $location.path('/app/firstUse');
       });
 
     $cordovaGlobalization.getPreferredLanguage().then(

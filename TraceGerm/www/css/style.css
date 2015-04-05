@@ -7,3 +7,15 @@
   position: absolute;
   left: -20px;
 }
+.custom-icon {
+  font-size: 21px;
+}
+input {
+  text-align: center;
+}
+::-webkit-input-placeholder {
+  text-align: center;
+}
+:-moz-placeholder {
+  text-align: center;
+}

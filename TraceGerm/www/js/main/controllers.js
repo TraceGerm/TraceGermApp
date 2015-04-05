@@ -60,6 +60,55 @@ angular.module('starter.controllers', ['ngCordova', 'ng-cordova-settings'])
 
 })
 
+.controller('UserRegistrationCtrl', function($scope, $ionicPopup, $http, $cordovaFile, settings, $location) {
+
+  $scope.registerUser = function(username, passphrase) {
+
+    var encryptedUsername = CryptoJS.AES.encrypt(username, passphrase).toString();
+    $http({
+      method: 'POST',
+      url: 'http://localhost:9090/users/save',
+      data: {
+        username: encryptedUsername
+      },
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }).success(function(data, status, headers, config) {
+
+      var alertPopup = $ionicPopup.alert({
+        title: 'Welcome to TraceGerm!',
+        template: 'Now you are able to use tha app!',
+      });
+      alertPopup.then(function(res) {
+        console.log('You can now use the app');
+      });
+
+      settings.write({
+        username: encryptedUsername,
+        passphrase: passphrase
+      }).then(function(result) {},
+        function(error) {
+
+        });
+
+      $location.path('/app/home');
+
+    }).error(function(data, status, headers, config) {
+      /*handle non 200 statuses*/
+      var alertPopup = $ionicPopup.alert({
+        title: 'Alert!',
+        template: 'Please check your internet connection!',
+      });
+      alertPopup.then(function(res) {
+        console.log('Better try again');
+      });
+
+    });
+  };
+
+})
+
 .controller('WatchGeoCtrl', function($scope, $cordovaGeolocation, $http) {
 
   $scope.watchposition = function() {
@@ -193,32 +242,7 @@ angular.module('starter.controllers', ['ngCordova', 'ng-cordova-settings'])
 
 .controller('UserCtrl', function($rootScope, $scope, $http, $ionicPopup) {
 
-  $scope.userSave = function() {
-
-    $scope.usename = 'gg';
-    $http({
-      method: 'POST',
-      url: 'http://localhost:9090/users/save',
-      data: {
-        username: 'gg'
-      },
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    }).success(function(data, status, headers, config) {
-      $http({
-        method: 'POST',
-        url: 'http://localhost:9090/visitDetails/save?username=' + $rootScope.username,
-        data: {
-          timeStamp: '56215'
-        },
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      });
-    }).error(function(data, status, headers, config) {
-      /*handle non 200 statuses*/
-    });
+  $scope.save = function() {
 
     $http({
       method: 'POST',

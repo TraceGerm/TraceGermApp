@@ -6,7 +6,7 @@
     <ion-nav-view name="menuContent" animation="slide-left-right"></ion-nav-view>
   </ion-pane>
 
-  <ion-side-menu side="left" width="160">
+  <ion-side-menu side="left" width="180">
     <header class="bar bar-header bar-dark">
       <h1 class="title">{{ 'MENU_TITTLE' | translate }}</h1>
     </header>
@@ -14,20 +14,19 @@
       <ion-list class="list">
         </ion-item>
         <ion-item nav-clear menu-close href="#/app/home">
-          {{ 'HOME_TITTLE' | translate }}
+          <i class="icon ion-home custom-icon"></i> {{ 'HOME_TITTLE' | translate }}
         </ion-item>
         <ion-item nav-clear menu-close ng-click="login()">
-          {{ 'LOGIN_TITTLE' | translate }}
+          <i class="icon ion-person custom-icon"></i> {{ 'LOGIN_TITTLE' | translate }}
         </ion-item>
         <ion-item nav-clear menu-close href="#/app/search">
-          {{ 'SEARCH_TITTLE' | translate }}
+          <i class="icon ion-search custom-icon"></i> {{ 'SEARCH_TITTLE' | translate }}
         </ion-item>
         <ion-item nav-clear menu-close href="#/app/settings">
-          {{ 'SETTINGS_TITTLE' | translate }}
+          <i class="icon ion-gear-a custom-icon"></i> {{ 'SETTINGS_TITTLE' | translate }}
         </ion-item>
         <ion-item nav-clear menu-close href="#/app/about">
-          {{ 'ABOUT_TITTLE' | translate }}
-        </ion-item>
+          <i class="icon ion-information-circled custom-icon"></i> {{ 'ABOUT_TITTLE' | translate }} </ion-item>
       </ion-list>
     </ion-content>
   </ion-side-menu>
