@@ -10,8 +10,8 @@
   <link href="css/style.css" rel="stylesheet">
 
   <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
-    <link href="css/ionic.app.css" rel="stylesheet">
-    -->
+  <link href="css/ionic.app.css" rel="stylesheet">
+-->
 
   <!-- ionic/angularjs js -->
   <script src="lib/ionic/js/ionic.bundle.js"></script>
@@ -26,14 +26,8 @@
 
 
   <!-- encryption script -->
-  <script type="text/javascript" src="lib/encryption/aes.js">
-  </script>
 
-  <script src="lib/angular-translate/angular-translate.js"></script>
-
-  <!-- your app's js -->
-  <script src="js/main/app.js"></script>
-
+  <script type="text/javascript" src="lib/encryption/aes.js"></script>
 
   <!-- your app's js -->
   <script src="js/main/app.js"></script>
@@ -52,11 +46,10 @@
     // Wait for device API libraries to load
     //
     function onLoad() {
-      document.addEventListener("deviceready", onDeviceReady, false);
-    }
-
-    // device APIs are available
-    //
+        document.addEventListener("deviceready", onDeviceReady, false);
+      }
+      // device APIs are available
+      //
     function onDeviceReady() {
       // Now safe to use device APIs
     }
