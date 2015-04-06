@@ -1,0 +1,16 @@
+{
+
+  "LANGUAGE": "English",
+  "LANGUAGE_SELLECTION": "Language",
+  "HOME_TITTLE": "Home",
+  "SETTINGS_TITTLE": "Settings",
+  "SEARCH_TITTLE": "Search",
+  "LOGIN_TITTLE": "Login",
+  "MENU_TITTLE": "Menu",
+  "ABOUT_TITTLE": "About",
+  "FIRST_USE_TITTLE": "TraceGerm",
+  "REGISTER": "Register",
+  "FIRST_USE_WELCOME": "Welcome to TraceGerm",
+  "FIRST_USE_WELCOME_PARAGRAPH": "TraceGerm is a tracking application that uses user's coordinates for a good purpose! You simply use your preferred username and the app will track your coordinates."
+
+}

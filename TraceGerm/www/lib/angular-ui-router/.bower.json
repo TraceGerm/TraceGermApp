@@ -1,6 +1,10 @@
 {
   "name": "angular-ui-router",
+<<<<<<< HEAD
+  "version": "0.2.13",
+=======
   "version": "0.2.10",
+>>>>>>> master
   "main": "./release/angular-ui-router.js",
   "dependencies": {
     "angular": ">= 1.0.8"
@@ -21,6 +25,16 @@
     "files.js"
   ],
   "homepage": "https://github.com/angular-ui/ui-router",
+<<<<<<< HEAD
+  "_release": "0.2.13",
+  "_resolution": {
+    "type": "version",
+    "tag": "0.2.13",
+    "commit": "c3d543aae43d4600512520a0d70723ac31f2cb62"
+  },
+  "_source": "git://github.com/angular-ui/ui-router.git",
+  "_target": "0.2.13",
+=======
   "_release": "0.2.10",
   "_resolution": {
     "type": "version",
@@ -29,5 +43,6 @@
   },
   "_source": "git://github.com/angular-ui/ui-router.git",
   "_target": "0.2.10",
+>>>>>>> master
   "_originalSource": "angular-ui-router"
 }

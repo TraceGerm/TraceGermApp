@@ -1,19 +1,27 @@
-<ion-view title="{{ 'HOME_TITTLE' | translate }}">
-  <ion-nav-buttons side="left">
-    <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
-  </ion-nav-buttons>
+<ion-view title="{{ 'HOME_TITTLE' | translate }}" class="my-view">
+  <ion-nav-bar align-title="center" class="bar-dark">
+    <ion-nav-buttons side="left" class="my-view">
+      <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+    </ion-nav-buttons>
+  </ion-nav-bar>
   <ion-content class="has-header">
-    <h1>{{ 'HOME_TITTLE' | translate }}</h1>
-    <button ng-controller="WatchGeoCtrl" ng-click="watchposition()" class="button button-dark">
-  Watch Position
-</button>
-<button ng-controller="UserCtrl" ng-click="userSave()" class="button button-dark">
-  Save User
-</button>
-<button ng-controller="FileCtrl" ng-click="SaveFile()" class="button button-dark">
-  Save File
-</button>
+    </br>
+    <div class="home-text">
+      <h1>TraceGerm</h1>
+      <p>TraceGerm is a tracking application</p>
+      <button ng-controller="WatchGeoCtrl" ng-click="watchposition()" class="button button-dark">
+        Watch Position
+      </button>
+      <button ng-controller="UserCtrl" ng-click="userSave()" class="button button-dark">
+        Save User
+      </button>
+      </br>
+      </br>
+      <button ng-controller="SettingsCtrl" ng-click="deleteSettings()" class="button button-dark">
+        Delete Settings
+      </button>
 
 
+    </div>
   </ion-content>
 </ion-view>

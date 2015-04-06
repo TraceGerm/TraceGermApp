@@ -49,7 +49,11 @@ function ancestors(first, second) {
  * @param {Object} object A JavaScript object.
  * @return {Array} Returns the keys of the object as an array.
  */
+<<<<<<< HEAD
+function objectKeys(object) {
+=======
 function keys(object) {
+>>>>>>> master
   if (Object.keys) {
     return Object.keys(object);
   }
@@ -68,7 +72,11 @@ function keys(object) {
  * @param {*} value A value to search the array for.
  * @return {Number} Returns the array index value of `value`, or `-1` if not present.
  */
+<<<<<<< HEAD
+function indexOf(array, value) {
+=======
 function arraySearch(array, value) {
+>>>>>>> master
   if (Array.prototype.indexOf) {
     return array.indexOf(value, Number(arguments[2]) || 0);
   }
@@ -96,11 +104,20 @@ function inheritParams(currentParams, newParams, $current, $to) {
   var parents = ancestors($current, $to), parentParams, inherited = {}, inheritList = [];
 
   for (var i in parents) {
+<<<<<<< HEAD
+    if (!parents[i].params) continue;
+    parentParams = objectKeys(parents[i].params);
+    if (!parentParams.length) continue;
+
+    for (var j in parentParams) {
+      if (indexOf(inheritList, parentParams[j]) >= 0) continue;
+=======
     if (!parents[i].params || !parents[i].params.length) continue;
     parentParams = parents[i].params;
 
     for (var j in parentParams) {
       if (arraySearch(inheritList, parentParams[j]) >= 0) continue;
+>>>>>>> master
       inheritList.push(parentParams[j]);
       inherited[parentParams[j]] = currentParams[parentParams[j]];
     }
@@ -109,6 +126,8 @@ function inheritParams(currentParams, newParams, $current, $to) {
 }
 
 /**
+<<<<<<< HEAD
+=======
  * Normalizes a set of values to string or `null`, filtering them by a list of keys.
  *
  * @param {Array} keys The list of keys to normalize/return.
@@ -126,6 +145,7 @@ function normalize(keys, values) {
 }
 
 /**
+>>>>>>> master
  * Performs a non-strict comparison of the subset of two objects, defined by a list of keys.
  *
  * @param {Object} a The first object.
@@ -162,6 +182,71 @@ function filterByKeys(keys, values) {
   });
   return filtered;
 }
+<<<<<<< HEAD
+
+// like _.indexBy
+// when you know that your index values will be unique, or you want last-one-in to win
+function indexBy(array, propName) {
+  var result = {};
+  forEach(array, function(item) {
+    result[item[propName]] = item;
+  });
+  return result;
+}
+
+// extracted from underscore.js
+// Return a copy of the object only containing the whitelisted properties.
+function pick(obj) {
+  var copy = {};
+  var keys = Array.prototype.concat.apply(Array.prototype, Array.prototype.slice.call(arguments, 1));
+  forEach(keys, function(key) {
+    if (key in obj) copy[key] = obj[key];
+  });
+  return copy;
+}
+
+// extracted from underscore.js
+// Return a copy of the object omitting the blacklisted properties.
+function omit(obj) {
+  var copy = {};
+  var keys = Array.prototype.concat.apply(Array.prototype, Array.prototype.slice.call(arguments, 1));
+  for (var key in obj) {
+    if (indexOf(keys, key) == -1) copy[key] = obj[key];
+  }
+  return copy;
+}
+
+function pluck(collection, key) {
+  var result = isArray(collection) ? [] : {};
+
+  forEach(collection, function(val, i) {
+    result[i] = isFunction(key) ? key(val) : val[key];
+  });
+  return result;
+}
+
+function filter(collection, callback) {
+  var array = isArray(collection);
+  var result = array ? [] : {};
+  forEach(collection, function(val, i) {
+    if (callback(val, i)) {
+      result[array ? result.length : i] = val;
+    }
+  });
+  return result;
+}
+
+function map(collection, callback) {
+  var result = isArray(collection) ? [] : {};
+
+  forEach(collection, function(val, i) {
+    result[i] = callback(val, i);
+  });
+  return result;
+}
+
+=======
+>>>>>>> master
 /**
  * @ngdoc overview
  * @name ui.router.util

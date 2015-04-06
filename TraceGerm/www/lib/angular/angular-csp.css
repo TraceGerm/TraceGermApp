@@ -4,13 +4,19 @@
 
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak],
 .ng-cloak, .x-ng-cloak,
+<<<<<<< HEAD
+.ng-hide:not(.ng-hide-animate) {
+=======
 .ng-hide {
+>>>>>>> master
   display: none !important;
 }
 
 ng\:form {
   display: block;
 }
+<<<<<<< HEAD
+=======
 
 .ng-animate-block-transitions {
   transition:0s all!important;
@@ -22,3 +28,4 @@ ng\:form {
 .ng-hide-add-active, .ng-hide-remove {
   display: block!important;
 }
+>>>>>>> master

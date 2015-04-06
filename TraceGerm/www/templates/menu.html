@@ -1,5 +1,4 @@
 <ion-side-menus>
-
   <ion-pane ion-side-menu-content>
     <ion-nav-bar class="bar-stable nav-title-slide-ios7">
       <ion-nav-back-button class="button-clear"><i class="icon ion-ios7-arrow-back"></i> Back</ion-nav-back-button>
@@ -7,25 +6,27 @@
     <ion-nav-view name="menuContent" animation="slide-left-right"></ion-nav-view>
   </ion-pane>
 
-  <ion-side-menu side="left">
-    <header class="bar bar-header bar-stable">
-      <h1 class="title">Left</h1>
+  <ion-side-menu side="left" width="180">
+    <header class="bar bar-header bar-dark">
+      <h1 class="title">{{ 'MENU_TITTLE' | translate }}</h1>
     </header>
-    <ion-content class="has-header">
-      <ion-list>
+    <ion-content class="has-header mymenu">
+      <ion-list class="list">
         </ion-item>
         <ion-item nav-clear menu-close href="#/app/home">
-          Home
+          <i class="icon ion-home custom-icon"></i> {{ 'HOME_TITTLE' | translate }}
         </ion-item>
         <ion-item nav-clear menu-close ng-click="login()">
-          Login
+          <i class="icon ion-person custom-icon"></i> {{ 'LOGIN_TITTLE' | translate }}
         </ion-item>
         <ion-item nav-clear menu-close href="#/app/search">
-          Search
+          <i class="icon ion-search custom-icon"></i> {{ 'SEARCH_TITTLE' | translate }}
         </ion-item>
         <ion-item nav-clear menu-close href="#/app/settings">
-          Settings
+          <i class="icon ion-gear-a custom-icon"></i> {{ 'SETTINGS_TITTLE' | translate }}
         </ion-item>
+        <ion-item nav-clear menu-close href="#/app/about">
+          <i class="icon ion-information-circled custom-icon"></i> {{ 'ABOUT_TITTLE' | translate }} </ion-item>
       </ion-list>
     </ion-content>
   </ion-side-menu>

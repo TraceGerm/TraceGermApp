@@ -4,7 +4,10 @@
  *
  * @requires ui.router.router.$urlRouterProvider
  * @requires ui.router.util.$urlMatcherFactoryProvider
+<<<<<<< HEAD
+=======
  * @requires $locationProvider
+>>>>>>> master
  *
  * @description
  * The new `$stateProvider` works similar to Angular's v1 router, but it focuses purely
@@ -20,8 +23,13 @@
  *
  * The `$stateProvider` provides interfaces to declare these states for your app.
  */
+<<<<<<< HEAD
+$StateProvider.$inject = ['$urlRouterProvider', '$urlMatcherFactoryProvider'];
+function $StateProvider(   $urlRouterProvider,   $urlMatcherFactory) {
+=======
 $StateProvider.$inject = ['$urlRouterProvider', '$urlMatcherFactoryProvider', '$locationProvider'];
 function $StateProvider(   $urlRouterProvider,   $urlMatcherFactory,           $locationProvider) {
+>>>>>>> master
 
   var root, states = {}, $state, queue = {}, abstractKey = 'abstract';
 
@@ -49,6 +57,16 @@ function $StateProvider(   $urlRouterProvider,   $urlMatcherFactory,           $
 
     // Build a URLMatcher if necessary, either via a relative or absolute URL
     url: function(state) {
+<<<<<<< HEAD
+      var url = state.url, config = { params: state.params || {} };
+
+      if (isString(url)) {
+        if (url.charAt(0) == '^') return $urlMatcherFactory.compile(url.substring(1), config);
+        return (state.parent.navigable || root).url.concat(url, config);
+      }
+
+      if (!url || $urlMatcherFactory.isMatcher(url)) return url;
+=======
       var url = state.url;
 
       if (isString(url)) {
@@ -61,6 +79,7 @@ function $StateProvider(   $urlRouterProvider,   $urlMatcherFactory,           $
       if ($urlMatcherFactory.isMatcher(url) || url == null) {
         return url;
       }
+>>>>>>> master
       throw new Error("Invalid url '" + url + "' in state '" + state + "'");
     },
 
@@ -69,6 +88,20 @@ function $StateProvider(   $urlRouterProvider,   $urlMatcherFactory,           $
       return state.url ? state : (state.parent ? state.parent.navigable : null);
     },
 
+<<<<<<< HEAD
+    // Own parameters for this state. state.url.params is already built at this point. Create and add non-url params
+    ownParams: function(state) {
+      var params = state.url && state.url.params || new $$UMFP.ParamSet();
+      forEach(state.params || {}, function(config, id) {
+        if (!params[id]) params[id] = new $$UMFP.Param(id, null, config, "config");
+      });
+      return params;
+    },
+
+    // Derive parameters for this state and ensure they're a super-set of parent's parameters
+    params: function(state) {
+      return state.parent && state.parent.params ? extend(state.parent.params.$$new(), state.ownParams) : new $$UMFP.ParamSet();
+=======
     // Derive parameters for this state and ensure they're a super-set of parent's parameters
     params: function(state) {
       if (!state.params) {
@@ -77,6 +110,7 @@ function $StateProvider(   $urlRouterProvider,   $urlMatcherFactory,           $
       if (!isArray(state.params)) throw new Error("Invalid params in state '" + state + "'");
       if (state.url) throw new Error("Both params and url specicified in state '" + state + "'");
       return state.params;
+>>>>>>> master
     },
 
     // If there is no explicit multi-view configuration, make one up so we don't have
@@ -94,6 +128,8 @@ function $StateProvider(   $urlRouterProvider,   $urlMatcherFactory,           $
       return views;
     },
 
+<<<<<<< HEAD
+=======
     ownParams: function(state) {
       if (!state.parent) {
         return state.params;
@@ -114,6 +150,7 @@ function $StateProvider(   $urlRouterProvider,   $urlMatcherFactory,           $
       return ownParams;
     },
 
+>>>>>>> master
     // Keep a full path from the root down to this state as this is needed for state activation.
     path: function(state) {
       return state.parent ? state.parent.path.concat(state) : []; // exclude root from path
@@ -134,12 +171,22 @@ function $StateProvider(   $urlRouterProvider,   $urlMatcherFactory,           $
   }
 
   function findState(stateOrName, base) {
+<<<<<<< HEAD
+    if (!stateOrName) return undefined;
+
+=======
+>>>>>>> master
     var isStr = isString(stateOrName),
         name  = isStr ? stateOrName : stateOrName.name,
         path  = isRelative(name);
 
     if (path) {
       if (!base) throw new Error("No reference point given for path '"  + name + "'");
+<<<<<<< HEAD
+      base = findState(base);
+      
+=======
+>>>>>>> master
       var rel = name.split("."), i = 0, pathLength = rel.length, current = base;
 
       for (; i < pathLength; i++) {
@@ -172,6 +219,16 @@ function $StateProvider(   $urlRouterProvider,   $urlMatcherFactory,           $
     queue[parentName].push(state);
   }
 
+<<<<<<< HEAD
+  function flushQueuedChildren(parentName) {
+    var queued = queue[parentName] || [];
+    while(queued.length) {
+      registerState(queued.shift());
+    }
+  }
+
+=======
+>>>>>>> master
   function registerState(state) {
     // Wrap a new object around the state so we can store our private details easily.
     state = inherit(state, {
@@ -187,6 +244,10 @@ function $StateProvider(   $urlRouterProvider,   $urlMatcherFactory,           $
     // Get parent name
     var parentName = (name.indexOf('.') !== -1) ? name.substring(0, name.lastIndexOf('.'))
         : (isString(state.parent)) ? state.parent
+<<<<<<< HEAD
+        : (isObject(state.parent) && isString(state.parent.name)) ? state.parent.name
+=======
+>>>>>>> master
         : '';
 
     // If parent is not registered yet, add state to queue and register later
@@ -203,17 +264,25 @@ function $StateProvider(   $urlRouterProvider,   $urlMatcherFactory,           $
     if (!state[abstractKey] && state.url) {
       $urlRouterProvider.when(state.url, ['$match', '$stateParams', function ($match, $stateParams) {
         if ($state.$current.navigable != state || !equalForKeys($match, $stateParams)) {
+<<<<<<< HEAD
+          $state.transitionTo(state, $match, { inherit: true, location: false });
+=======
           $state.transitionTo(state, $match, { location: false });
+>>>>>>> master
         }
       }]);
     }
 
     // Register any queued children
+<<<<<<< HEAD
+    flushQueuedChildren(name);
+=======
     if (queue[name]) {
       for (var i = 0; i < queue[name].length; i++) {
         registerState(queue[name][i]);
       }
     }
+>>>>>>> master
 
     return state;
   }
@@ -230,12 +299,20 @@ function $StateProvider(   $urlRouterProvider,   $urlMatcherFactory,           $
 
     //match greedy starts
     if (globSegments[0] === '**') {
+<<<<<<< HEAD
+       segments = segments.slice(indexOf(segments, globSegments[1]));
+=======
        segments = segments.slice(segments.indexOf(globSegments[1]));
+>>>>>>> master
        segments.unshift('**');
     }
     //match greedy ends
     if (globSegments[globSegments.length - 1] === '**') {
+<<<<<<< HEAD
+       segments.splice(indexOf(segments, globSegments[globSegments.length - 2]) + 1, Number.MAX_VALUE);
+=======
        segments.splice(segments.indexOf(globSegments[globSegments.length - 2]) + 1, Number.MAX_VALUE);
+>>>>>>> master
        segments.push('**');
     }
 
@@ -297,7 +374,12 @@ function $StateProvider(   $urlRouterProvider,   $urlMatcherFactory,           $
    * - **parent** `{object}` - returns the parent state object.
    * - **data** `{object}` - returns state data, including any inherited data that is not
    *   overridden by own values (if any).
+<<<<<<< HEAD
+   * - **url** `{object}` - returns a {@link ui.router.util.type:UrlMatcher UrlMatcher}
+   *   or `null`.
+=======
    * - **url** `{object}` - returns a {link ui.router.util.type:UrlMatcher} or null.
+>>>>>>> master
    * - **navigable** `{object}` - returns closest ancestor state that has a URL (aka is 
    *   navigable).
    * - **params** `{object}` - returns an array of state params that are ensured to 
@@ -313,17 +395,29 @@ function $StateProvider(   $urlRouterProvider,   $urlMatcherFactory,           $
    * - **path** `{string}` - returns the full path from the root down to this state. 
    *   Needed for state activation.
    * - **includes** `{object}` - returns an object that includes every state that 
+<<<<<<< HEAD
+   *   would pass a `$state.includes()` test.
+=======
    *   would pass a '$state.includes()' test.
+>>>>>>> master
    *
    * @example
    * <pre>
    * // Override the internal 'views' builder with a function that takes the state
    * // definition, and a reference to the internal function being overridden:
+<<<<<<< HEAD
+   * $stateProvider.decorator('views', function (state, parent) {
+   *   var result = {},
+   *       views = parent(state);
+   *
+   *   angular.forEach(views, function (config, name) {
+=======
    * $stateProvider.decorator('views', function ($state, parent) {
    *   var result = {},
    *       views = parent(state);
    *
    *   angular.forEach(view, function (config, name) {
+>>>>>>> master
    *     var autoName = (state.name + '.' + name).replace('.', '/');
    *     config.templateUrl = config.templateUrl || '/partials/' + autoName + '.html';
    *     result[name] = config;
@@ -379,9 +473,18 @@ function $StateProvider(   $urlRouterProvider,   $urlMatcherFactory,           $
    * Registers a state configuration under a given state name. The stateConfig object
    * has the following acceptable properties.
    *
+<<<<<<< HEAD
+   * @param {string} name A unique state name, e.g. "home", "about", "contacts".
+   * To create a parent/child state use a dot, e.g. "about.sales", "home.newest".
+   * @param {object} stateConfig State configuration object.
+   * @param {string|function=} stateConfig.template
+   * <a id='template'></a>
+   *   html template as a string or a function that returns
+=======
    * <a id='template'></a>
    *
    * - **`template`** - {string|function=} - html template as a string or a function that returns
+>>>>>>> master
    *   an html template as a string which should be used by the uiView directives. This property 
    *   takes precedence over templateUrl.
    *   
@@ -390,9 +493,23 @@ function $StateProvider(   $urlRouterProvider,   $urlMatcherFactory,           $
    *   - {array.&lt;object&gt;} - state parameters extracted from the current $location.path() by
    *     applying the current state
    *
+<<<<<<< HEAD
+   * <pre>template:
+   *   "<h1>inline template definition</h1>" +
+   *   "<div ui-view></div>"</pre>
+   * <pre>template: function(params) {
+   *       return "<h1>generated template</h1>"; }</pre>
+   * </div>
+   *
+   * @param {string|function=} stateConfig.templateUrl
+   * <a id='templateUrl'></a>
+   *
+   *   path or function that returns a path to an html
+=======
    * <a id='templateUrl'></a>
    *
    * - **`templateUrl`** - {string|function=} - path or function that returns a path to an html 
+>>>>>>> master
    *   template that should be used by uiView.
    *   
    *   If `templateUrl` is a function, it will be called with the following parameters:
@@ -400,6 +517,65 @@ function $StateProvider(   $urlRouterProvider,   $urlMatcherFactory,           $
    *   - {array.&lt;object&gt;} - state parameters extracted from the current $location.path() by 
    *     applying the current state
    *
+<<<<<<< HEAD
+   * <pre>templateUrl: "home.html"</pre>
+   * <pre>templateUrl: function(params) {
+   *     return myTemplates[params.pageId]; }</pre>
+   *
+   * @param {function=} stateConfig.templateProvider
+   * <a id='templateProvider'></a>
+   *    Provider function that returns HTML content string.
+   * <pre> templateProvider:
+   *       function(MyTemplateService, params) {
+   *         return MyTemplateService.getTemplate(params.pageId);
+   *       }</pre>
+   *
+   * @param {string|function=} stateConfig.controller
+   * <a id='controller'></a>
+   *
+   *  Controller fn that should be associated with newly
+   *   related scope or the name of a registered controller if passed as a string.
+   *   Optionally, the ControllerAs may be declared here.
+   * <pre>controller: "MyRegisteredController"</pre>
+   * <pre>controller:
+   *     "MyRegisteredController as fooCtrl"}</pre>
+   * <pre>controller: function($scope, MyService) {
+   *     $scope.data = MyService.getData(); }</pre>
+   *
+   * @param {function=} stateConfig.controllerProvider
+   * <a id='controllerProvider'></a>
+   *
+   * Injectable provider function that returns the actual controller or string.
+   * <pre>controllerProvider:
+   *   function(MyResolveData) {
+   *     if (MyResolveData.foo)
+   *       return "FooCtrl"
+   *     else if (MyResolveData.bar)
+   *       return "BarCtrl";
+   *     else return function($scope) {
+   *       $scope.baz = "Qux";
+   *     }
+   *   }</pre>
+   *
+   * @param {string=} stateConfig.controllerAs
+   * <a id='controllerAs'></a>
+   * 
+   * A controller alias name. If present the controller will be
+   *   published to scope under the controllerAs name.
+   * <pre>controllerAs: "myCtrl"</pre>
+   *
+   * @param {object=} stateConfig.resolve
+   * <a id='resolve'></a>
+   *
+   * An optional map&lt;string, function&gt; of dependencies which
+   *   should be injected into the controller. If any of these dependencies are promises, 
+   *   the router will wait for them all to be resolved before the controller is instantiated.
+   *   If all the promises are resolved successfully, the $stateChangeSuccess event is fired
+   *   and the values of the resolved promises are injected into any controllers that reference them.
+   *   If any  of the promises are rejected the $stateChangeError event is fired.
+   *
+   *   The map object is:
+=======
    * <a id='templateProvider'></a>
    *
    * - **`templateProvider`** - {function=} - Provider function that returns HTML content
@@ -428,12 +604,196 @@ function $StateProvider(   $urlRouterProvider,   $urlMatcherFactory,           $
    *   controller is instantiated. If all the promises are resolved successfully, the values 
    *   of the resolved promises are injected and $stateChangeSuccess event is fired. If any 
    *   of the promises are rejected the $stateChangeError event is fired. The map object is:
+>>>>>>> master
    *   
    *   - key - {string}: name of dependency to be injected into controller
    *   - factory - {string|function}: If string then it is alias for service. Otherwise if function, 
    *     it is injected and return value it treated as dependency. If result is a promise, it is 
    *     resolved before its value is injected into controller.
    *
+<<<<<<< HEAD
+   * <pre>resolve: {
+   *     myResolve1:
+   *       function($http, $stateParams) {
+   *         return $http.get("/api/foos/"+stateParams.fooID);
+   *       }
+   *     }</pre>
+   *
+   * @param {string=} stateConfig.url
+   * <a id='url'></a>
+   *
+   *   A url fragment with optional parameters. When a state is navigated or
+   *   transitioned to, the `$stateParams` service will be populated with any 
+   *   parameters that were passed.
+   *
+   * examples:
+   * <pre>url: "/home"
+   * url: "/users/:userid"
+   * url: "/books/{bookid:[a-zA-Z_-]}"
+   * url: "/books/{categoryid:int}"
+   * url: "/books/{publishername:string}/{categoryid:int}"
+   * url: "/messages?before&after"
+   * url: "/messages?{before:date}&{after:date}"</pre>
+   * url: "/messages/:mailboxid?{before:date}&{after:date}"
+   *
+   * @param {object=} stateConfig.views
+   * <a id='views'></a>
+   * an optional map&lt;string, object&gt; which defined multiple views, or targets views
+   * manually/explicitly.
+   *
+   * Examples:
+   *
+   * Targets three named `ui-view`s in the parent state's template
+   * <pre>views: {
+   *     header: {
+   *       controller: "headerCtrl",
+   *       templateUrl: "header.html"
+   *     }, body: {
+   *       controller: "bodyCtrl",
+   *       templateUrl: "body.html"
+   *     }, footer: {
+   *       controller: "footCtrl",
+   *       templateUrl: "footer.html"
+   *     }
+   *   }</pre>
+   *
+   * Targets named `ui-view="header"` from grandparent state 'top''s template, and named `ui-view="body" from parent state's template.
+   * <pre>views: {
+   *     'header@top': {
+   *       controller: "msgHeaderCtrl",
+   *       templateUrl: "msgHeader.html"
+   *     }, 'body': {
+   *       controller: "messagesCtrl",
+   *       templateUrl: "messages.html"
+   *     }
+   *   }</pre>
+   *
+   * @param {boolean=} [stateConfig.abstract=false]
+   * <a id='abstract'></a>
+   * An abstract state will never be directly activated,
+   *   but can provide inherited properties to its common children states.
+   * <pre>abstract: true</pre>
+   *
+   * @param {function=} stateConfig.onEnter
+   * <a id='onEnter'></a>
+   *
+   * Callback function for when a state is entered. Good way
+   *   to trigger an action or dispatch an event, such as opening a dialog.
+   * If minifying your scripts, make sure to explictly annotate this function,
+   * because it won't be automatically annotated by your build tools.
+   *
+   * <pre>onEnter: function(MyService, $stateParams) {
+   *     MyService.foo($stateParams.myParam);
+   * }</pre>
+   *
+   * @param {function=} stateConfig.onExit
+   * <a id='onExit'></a>
+   *
+   * Callback function for when a state is exited. Good way to
+   *   trigger an action or dispatch an event, such as opening a dialog.
+   * If minifying your scripts, make sure to explictly annotate this function,
+   * because it won't be automatically annotated by your build tools.
+   *
+   * <pre>onExit: function(MyService, $stateParams) {
+   *     MyService.cleanup($stateParams.myParam);
+   * }</pre>
+   *
+   * @param {boolean=} [stateConfig.reloadOnSearch=true]
+   * <a id='reloadOnSearch'></a>
+   *
+   * If `false`, will not retrigger the same state
+   *   just because a search/query parameter has changed (via $location.search() or $location.hash()). 
+   *   Useful for when you'd like to modify $location.search() without triggering a reload.
+   * <pre>reloadOnSearch: false</pre>
+   *
+   * @param {object=} stateConfig.data
+   * <a id='data'></a>
+   *
+   * Arbitrary data object, useful for custom configuration.  The parent state's `data` is
+   *   prototypally inherited.  In other words, adding a data property to a state adds it to
+   *   the entire subtree via prototypal inheritance.
+   *
+   * <pre>data: {
+   *     requiredRole: 'foo'
+   * } </pre>
+   *
+   * @param {object=} stateConfig.params
+   * <a id='params'></a>
+   *
+   * A map which optionally configures parameters declared in the `url`, or
+   *   defines additional non-url parameters.  For each parameter being
+   *   configured, add a configuration object keyed to the name of the parameter.
+   *
+   *   Each parameter configuration object may contain the following properties:
+   *
+   *   - ** value ** - {object|function=}: specifies the default value for this
+   *     parameter.  This implicitly sets this parameter as optional.
+   *
+   *     When UI-Router routes to a state and no value is
+   *     specified for this parameter in the URL or transition, the
+   *     default value will be used instead.  If `value` is a function,
+   *     it will be injected and invoked, and the return value used.
+   *
+   *     *Note*: `undefined` is treated as "no default value" while `null`
+   *     is treated as "the default value is `null`".
+   *
+   *     *Shorthand*: If you only need to configure the default value of the
+   *     parameter, you may use a shorthand syntax.   In the **`params`**
+   *     map, instead mapping the param name to a full parameter configuration
+   *     object, simply set map it to the default parameter value, e.g.:
+   *
+   * <pre>// define a parameter's default value
+   * params: {
+   *     param1: { value: "defaultValue" }
+   * }
+   * // shorthand default values
+   * params: {
+   *     param1: "defaultValue",
+   *     param2: "param2Default"
+   * }</pre>
+   *
+   *   - ** array ** - {boolean=}: *(default: false)* If true, the param value will be
+   *     treated as an array of values.  If you specified a Type, the value will be
+   *     treated as an array of the specified Type.  Note: query parameter values
+   *     default to a special `"auto"` mode.
+   *
+   *     For query parameters in `"auto"` mode, if multiple  values for a single parameter
+   *     are present in the URL (e.g.: `/foo?bar=1&bar=2&bar=3`) then the values
+   *     are mapped to an array (e.g.: `{ foo: [ '1', '2', '3' ] }`).  However, if
+   *     only one value is present (e.g.: `/foo?bar=1`) then the value is treated as single
+   *     value (e.g.: `{ foo: '1' }`).
+   *
+   * <pre>params: {
+   *     param1: { array: true }
+   * }</pre>
+   *
+   *   - ** squash ** - {bool|string=}: `squash` configures how a default parameter value is represented in the URL when
+   *     the current parameter value is the same as the default value. If `squash` is not set, it uses the
+   *     configured default squash policy.
+   *     (See {@link ui.router.util.$urlMatcherFactory#methods_defaultSquashPolicy `defaultSquashPolicy()`})
+   *
+   *   There are three squash settings:
+   *
+   *     - false: The parameter's default value is not squashed.  It is encoded and included in the URL
+   *     - true: The parameter's default value is omitted from the URL.  If the parameter is preceeded and followed
+   *       by slashes in the state's `url` declaration, then one of those slashes are omitted.
+   *       This can allow for cleaner looking URLs.
+   *     - `"<arbitrary string>"`: The parameter's default value is replaced with an arbitrary placeholder of  your choice.
+   *
+   * <pre>params: {
+   *     param1: {
+   *       value: "defaultId",
+   *       squash: true
+   * } }
+   * // squash "defaultValue" to "~"
+   * params: {
+   *     param1: {
+   *       value: "defaultValue",
+   *       squash: "~"
+   * } }
+   * </pre>
+   *
+=======
    * <a id='url'></a>
    *
    * - **`url`** - {string=} - A url with optional parameters. When a state is navigated or
@@ -476,6 +836,7 @@ function $StateProvider(   $urlRouterProvider,   $urlMatcherFactory,           $
    * <a id='data'></a>
    *
    * - **`data`** - {object=} - Arbitrary data object, useful for custom configuration.
+>>>>>>> master
    *
    * @example
    * <pre>
@@ -484,7 +845,11 @@ function $StateProvider(   $urlRouterProvider,   $urlMatcherFactory,           $
    * // stateName can be a single top-level name (must be unique).
    * $stateProvider.state("home", {});
    *
+<<<<<<< HEAD
+   * // Or it can be a nested state name. This state is a child of the
+=======
    * // Or it can be a nested state name. This state is a child of the 
+>>>>>>> master
    * // above "home" state.
    * $stateProvider.state("home.newest", {});
    *
@@ -498,9 +863,12 @@ function $StateProvider(   $urlRouterProvider,   $urlMatcherFactory,           $
    *   .state("contacts", {});
    * </pre>
    *
+<<<<<<< HEAD
+=======
    * @param {string} name A unique state name, e.g. "home", "about", "contacts". 
    * To create a parent/child state use a dot, e.g. "about.sales", "home.newest".
    * @param {object} definition State configuration object.
+>>>>>>> master
    */
   this.state = state;
   function state(name, definition) {
@@ -521,6 +889,10 @@ function $StateProvider(   $urlRouterProvider,   $urlMatcherFactory,           $
    * @requires $injector
    * @requires ui.router.util.$resolve
    * @requires ui.router.state.$stateParams
+<<<<<<< HEAD
+   * @requires ui.router.router.$urlRouter
+=======
+>>>>>>> master
    *
    * @property {object} params A param object, e.g. {sectionId: section.id)}, that 
    * you'd like to test against the current active state.
@@ -534,15 +906,91 @@ function $StateProvider(   $urlRouterProvider,   $urlMatcherFactory,           $
    * between them. It also provides interfaces to ask for current state or even states
    * you're coming from.
    */
+<<<<<<< HEAD
+  this.$get = $get;
+  $get.$inject = ['$rootScope', '$q', '$view', '$injector', '$resolve', '$stateParams', '$urlRouter', '$location', '$urlMatcherFactory'];
+  function $get(   $rootScope,   $q,   $view,   $injector,   $resolve,   $stateParams,   $urlRouter,   $location,   $urlMatcherFactory) {
+=======
   // $urlRouter is injected just to ensure it gets instantiated
   this.$get = $get;
   $get.$inject = ['$rootScope', '$q', '$view', '$injector', '$resolve', '$stateParams', '$location', '$urlRouter', '$browser'];
   function $get(   $rootScope,   $q,   $view,   $injector,   $resolve,   $stateParams,   $location,   $urlRouter,   $browser) {
+>>>>>>> master
 
     var TransitionSuperseded = $q.reject(new Error('transition superseded'));
     var TransitionPrevented = $q.reject(new Error('transition prevented'));
     var TransitionAborted = $q.reject(new Error('transition aborted'));
     var TransitionFailed = $q.reject(new Error('transition failed'));
+<<<<<<< HEAD
+
+    // Handles the case where a state which is the target of a transition is not found, and the user
+    // can optionally retry or defer the transition
+    function handleRedirect(redirect, state, params, options) {
+      /**
+       * @ngdoc event
+       * @name ui.router.state.$state#$stateNotFound
+       * @eventOf ui.router.state.$state
+       * @eventType broadcast on root scope
+       * @description
+       * Fired when a requested state **cannot be found** using the provided state name during transition.
+       * The event is broadcast allowing any handlers a single chance to deal with the error (usually by
+       * lazy-loading the unfound state). A special `unfoundState` object is passed to the listener handler,
+       * you can see its three properties in the example. You can use `event.preventDefault()` to abort the
+       * transition and the promise returned from `go` will be rejected with a `'transition aborted'` value.
+       *
+       * @param {Object} event Event object.
+       * @param {Object} unfoundState Unfound State information. Contains: `to, toParams, options` properties.
+       * @param {State} fromState Current state object.
+       * @param {Object} fromParams Current state params.
+       *
+       * @example
+       *
+       * <pre>
+       * // somewhere, assume lazy.state has not been defined
+       * $state.go("lazy.state", {a:1, b:2}, {inherit:false});
+       *
+       * // somewhere else
+       * $scope.$on('$stateNotFound',
+       * function(event, unfoundState, fromState, fromParams){
+       *     console.log(unfoundState.to); // "lazy.state"
+       *     console.log(unfoundState.toParams); // {a:1, b:2}
+       *     console.log(unfoundState.options); // {inherit:false} + default options
+       * })
+       * </pre>
+       */
+      var evt = $rootScope.$broadcast('$stateNotFound', redirect, state, params);
+
+      if (evt.defaultPrevented) {
+        $urlRouter.update();
+        return TransitionAborted;
+      }
+
+      if (!evt.retry) {
+        return null;
+      }
+
+      // Allow the handler to return a promise to defer state lookup retry
+      if (options.$retry) {
+        $urlRouter.update();
+        return TransitionFailed;
+      }
+      var retryTransition = $state.transition = $q.when(evt.retry);
+
+      retryTransition.then(function() {
+        if (retryTransition !== $state.transition) return TransitionSuperseded;
+        redirect.options.$retry = true;
+        return $state.transitionTo(redirect.to, redirect.toParams, redirect.options);
+      }, function() {
+        return TransitionAborted;
+      });
+      $urlRouter.update();
+
+      return retryTransition;
+    }
+
+    root.locals = { resolve: null, globals: { $stateParams: {} } };
+
+=======
     var currentLocation = $location.url();
     var baseHref = $browser.baseHref();
 
@@ -554,6 +1002,7 @@ function $StateProvider(   $urlRouterProvider,   $urlMatcherFactory,           $
     }
 
     root.locals = { resolve: null, globals: { $stateParams: {} } };
+>>>>>>> master
     $state = {
       params: {},
       current: root.self,
@@ -584,12 +1033,24 @@ function $StateProvider(   $urlRouterProvider,   $urlMatcherFactory,           $
      * `reload()` is just an alias for:
      * <pre>
      * $state.transitionTo($state.current, $stateParams, { 
+<<<<<<< HEAD
+     *   reload: true, inherit: false, notify: true
+     * });
+     * </pre>
+     *
+     * @returns {promise} A promise representing the state of the new transition. See
+     * {@link ui.router.state.$state#methods_go $state.go}.
+     */
+    $state.reload = function reload() {
+      return $state.transitionTo($state.current, $stateParams, { reload: true, inherit: false, notify: true });
+=======
      *   reload: true, inherit: false, notify: false 
      * });
      * </pre>
      */
     $state.reload = function reload() {
       $state.transitionTo($state.current, $stateParams, { reload: true, inherit: false, notify: false });
+>>>>>>> master
     };
 
     /**
@@ -659,7 +1120,11 @@ function $StateProvider(   $urlRouterProvider,   $urlMatcherFactory,           $
      *
      */
     $state.go = function go(to, params, options) {
+<<<<<<< HEAD
+      return $state.transitionTo(to, params, extend({ inherit: true, relative: $state.$current }, options));
+=======
       return this.transitionTo(to, params, extend({ inherit: true, relative: $state.$current }, options));
+>>>>>>> master
     };
 
     /**
@@ -710,6 +1175,13 @@ function $StateProvider(   $urlRouterProvider,   $urlMatcherFactory,           $
       var evt, toState = findState(to, options.relative);
 
       if (!isDefined(toState)) {
+<<<<<<< HEAD
+        var redirect = { to: to, toParams: toParams, options: options };
+        var redirectResult = handleRedirect(redirect, from.self, fromParams, options);
+
+        if (redirectResult) {
+          return redirectResult;
+=======
         // Broadcast not found event and abort the transition if prevented
         var redirect = { to: to, toParams: toParams, options: options };
 
@@ -767,6 +1239,7 @@ function $StateProvider(   $urlRouterProvider,   $urlMatcherFactory,           $
           });
           syncUrl();
           return retryTransition;
+>>>>>>> master
         }
 
         // Always retry once if the $stateNotFound was not prevented
@@ -775,38 +1248,75 @@ function $StateProvider(   $urlRouterProvider,   $urlMatcherFactory,           $
         toParams = redirect.toParams;
         options = redirect.options;
         toState = findState(to, options.relative);
+<<<<<<< HEAD
+
+        if (!isDefined(toState)) {
+          if (!options.relative) throw new Error("No such state '" + to + "'");
+          throw new Error("Could not resolve '" + to + "' from state '" + options.relative + "'");
+=======
         if (!isDefined(toState)) {
           if (options.relative) throw new Error("Could not resolve '" + to + "' from state '" + options.relative + "'");
           throw new Error("No such state '" + to + "'");
+>>>>>>> master
         }
       }
       if (toState[abstractKey]) throw new Error("Cannot transition to abstract state '" + to + "'");
       if (options.inherit) toParams = inheritParams($stateParams, toParams || {}, $state.$current, toState);
+<<<<<<< HEAD
+      if (!toState.params.$$validates(toParams)) return TransitionFailed;
+
+      toParams = toState.params.$$values(toParams);
+=======
+>>>>>>> master
       to = toState;
 
       var toPath = to.path;
 
       // Starting from the root of the path, keep all levels that haven't changed
+<<<<<<< HEAD
+      var keep = 0, state = toPath[keep], locals = root.locals, toLocals = [];
+
+      if (!options.reload) {
+        while (state && state === fromPath[keep] && state.ownParams.$$equals(toParams, fromParams)) {
+          locals = toLocals[keep] = state.locals;
+          keep++;
+          state = toPath[keep];
+        }
+=======
       var keep, state, locals = root.locals, toLocals = [];
       for (keep = 0, state = toPath[keep];
            state && state === fromPath[keep] && equalForKeys(toParams, fromParams, state.ownParams) && !options.reload;
            keep++, state = toPath[keep]) {
         locals = toLocals[keep] = state.locals;
+>>>>>>> master
       }
 
       // If we're going to the same state and all locals are kept, we've got nothing to do.
       // But clear 'transition', as we still want to cancel any other pending transitions.
+<<<<<<< HEAD
+      // TODO: We may not want to bump 'transition' if we're called from a location change
+      // that we've initiated ourselves, because we might accidentally abort a legitimate
+      // transition initiated from code?
+      if (shouldTriggerReload(to, from, locals, options)) {
+        if (to.self.reloadOnSearch !== false) $urlRouter.update();
+=======
       // TODO: We may not want to bump 'transition' if we're called from a location change that we've initiated ourselves,
       // because we might accidentally abort a legitimate transition initiated from code?
       if (shouldTriggerReload(to, from, locals, options) ) {
         if ( to.self.reloadOnSearch !== false )
           syncUrl();
+>>>>>>> master
         $state.transition = null;
         return $q.when($state.current);
       }
 
+<<<<<<< HEAD
+      // Filter parameters before we pass them to event handlers etc.
+      toParams = filterByKeys(to.params.$$keys(), toParams || {});
+=======
       // Normalize/filter parameters before we pass them to event handlers etc.
       toParams = normalize(to.params, toParams || {});
+>>>>>>> master
 
       // Broadcast start event and cancel the transition if requested
       if (options.notify) {
@@ -837,9 +1347,14 @@ function $StateProvider(   $urlRouterProvider,   $urlMatcherFactory,           $
          * })
          * </pre>
          */
+<<<<<<< HEAD
+        if ($rootScope.$broadcast('$stateChangeStart', to.self, toParams, from.self, fromParams).defaultPrevented) {
+          $urlRouter.update();
+=======
         evt = $rootScope.$broadcast('$stateChangeStart', to.self, toParams, from.self, fromParams);
         if (evt.defaultPrevented) {
           syncUrl();
+>>>>>>> master
           return TransitionPrevented;
         }
       }
@@ -852,9 +1367,16 @@ function $StateProvider(   $urlRouterProvider,   $urlMatcherFactory,           $
       // empty and gets filled asynchronously. We need to keep track of the promise for the
       // (fully resolved) current locals, and pass this down the chain.
       var resolved = $q.when(locals);
+<<<<<<< HEAD
+
+      for (var l = keep; l < toPath.length; l++, state = toPath[l]) {
+        locals = toLocals[l] = inherit(locals);
+        resolved = resolveState(state, toParams, state === to, resolved, locals, options);
+=======
       for (var l=keep; l<toPath.length; l++, state=toPath[l]) {
         locals = toLocals[l] = inherit(locals);
         resolved = resolveState(state, toParams, state===to, resolved, locals);
+>>>>>>> master
       }
 
       // Once everything is resolved, we are ready to perform the actual transition
@@ -867,7 +1389,11 @@ function $StateProvider(   $urlRouterProvider,   $urlMatcherFactory,           $
         if ($state.transition !== transition) return TransitionSuperseded;
 
         // Exit 'from' states not kept
+<<<<<<< HEAD
+        for (l = fromPath.length - 1; l >= keep; l--) {
+=======
         for (l=fromPath.length-1; l>=keep; l--) {
+>>>>>>> master
           exiting = fromPath[l];
           if (exiting.self.onExit) {
             $injector.invoke(exiting.self.onExit, exiting.self, exiting.locals.globals);
@@ -876,7 +1402,11 @@ function $StateProvider(   $urlRouterProvider,   $urlMatcherFactory,           $
         }
 
         // Enter 'to' states not kept
+<<<<<<< HEAD
+        for (l = keep; l < toPath.length; l++) {
+=======
         for (l=keep; l<toPath.length; l++) {
+>>>>>>> master
           entering = toPath[l];
           entering.locals = toLocals[l];
           if (entering.self.onEnter) {
@@ -894,6 +1424,12 @@ function $StateProvider(   $urlRouterProvider,   $urlMatcherFactory,           $
         copy($state.params, $stateParams);
         $state.transition = null;
 
+<<<<<<< HEAD
+        if (options.location && to.navigable) {
+          $urlRouter.push(to.navigable.url, to.navigable.locals.globals.$stateParams, {
+            $$avoidResync: true, replace: options.location === 'replace'
+          });
+=======
         // Update $location
         var toNav = to.navigable;
         if (options.location && toNav) {
@@ -902,6 +1438,7 @@ function $StateProvider(   $urlRouterProvider,   $urlMatcherFactory,           $
           if (options.location === 'replace') {
             $location.replace();
           }
+>>>>>>> master
         }
 
         if (options.notify) {
@@ -921,7 +1458,11 @@ function $StateProvider(   $urlRouterProvider,   $urlMatcherFactory,           $
          */
           $rootScope.$broadcast('$stateChangeSuccess', to.self, toParams, from.self, fromParams);
         }
+<<<<<<< HEAD
+        $urlRouter.update(true);
+=======
         currentLocation = $location.url();
+>>>>>>> master
 
         return $state.current;
       }, function (error) {
@@ -946,8 +1487,16 @@ function $StateProvider(   $urlRouterProvider,   $urlMatcherFactory,           $
          * @param {Object} fromParams The params supplied to the `fromState`.
          * @param {Error} error The resolve error object.
          */
+<<<<<<< HEAD
+        evt = $rootScope.$broadcast('$stateChangeError', to.self, toParams, from.self, fromParams, error);
+
+        if (!evt.defaultPrevented) {
+            $urlRouter.update();
+        }
+=======
         $rootScope.$broadcast('$stateChangeError', to.self, toParams, from.self, fromParams, error);
         syncUrl();
+>>>>>>> master
 
         return $q.reject(error);
       });
@@ -962,12 +1511,47 @@ function $StateProvider(   $urlRouterProvider,   $urlMatcherFactory,           $
      *
      * @description
      * Similar to {@link ui.router.state.$state#methods_includes $state.includes},
+<<<<<<< HEAD
+     * but only checks for the full state name. If params is supplied then it will be
+     * tested for strict equality against the current active params object, so all params
+=======
      * but only checks for the full state name. If params is supplied then it will be 
      * tested for strict equality against the current active params object, so all params 
+>>>>>>> master
      * must match with none missing and no extras.
      *
      * @example
      * <pre>
+<<<<<<< HEAD
+     * $state.$current.name = 'contacts.details.item';
+     *
+     * // absolute name
+     * $state.is('contact.details.item'); // returns true
+     * $state.is(contactDetailItemStateObject); // returns true
+     *
+     * // relative name (. and ^), typically from a template
+     * // E.g. from the 'contacts.details' template
+     * <div ng-class="{highlighted: $state.is('.item')}">Item</div>
+     * </pre>
+     *
+     * @param {string|object} stateOrName The state name (absolute or relative) or state object you'd like to check.
+     * @param {object=} params A param object, e.g. `{sectionId: section.id}`, that you'd like
+     * to test against the current active state.
+     * @param {object=} options An options object.  The options are:
+     *
+     * - **`relative`** - {string|object} -  If `stateOrName` is a relative state name and `options.relative` is set, .is will
+     * test relative to `options.relative` state (or name).
+     *
+     * @returns {boolean} Returns true if it is the state.
+     */
+    $state.is = function is(stateOrName, params, options) {
+      options = extend({ relative: $state.$current }, options || {});
+      var state = findState(stateOrName, options.relative);
+
+      if (!isDefined(state)) { return undefined; }
+      if ($state.$current !== state) { return false; }
+      return params ? equalForKeys(state.params.$$values(params), $stateParams) : true;
+=======
      * $state.is('contact.details.item'); // returns true
      * $state.is(contactDetailItemStateObject); // returns true
      *
@@ -991,6 +1575,7 @@ function $StateProvider(   $urlRouterProvider,   $urlMatcherFactory,           $
       }
 
       return isDefined(params) && params !== null ? angular.equals($stateParams, params) : true;
+>>>>>>> master
     };
 
     /**
@@ -999,25 +1584,47 @@ function $StateProvider(   $urlRouterProvider,   $urlMatcherFactory,           $
      * @methodOf ui.router.state.$state
      *
      * @description
+<<<<<<< HEAD
+     * A method to determine if the current active state is equal to or is the child of the
+=======
      * A method to determine if the current active state is equal to or is the child of the 
+>>>>>>> master
      * state stateName. If any params are passed then they will be tested for a match as well.
      * Not all the parameters need to be passed, just the ones you'd like to test for equality.
      *
      * @example
+<<<<<<< HEAD
+     * Partial and relative names
      * <pre>
      * $state.$current.name = 'contacts.details.item';
      *
+     * // Using partial names
+=======
+     * <pre>
+     * $state.$current.name = 'contacts.details.item';
+     *
+>>>>>>> master
      * $state.includes("contacts"); // returns true
      * $state.includes("contacts.details"); // returns true
      * $state.includes("contacts.details.item"); // returns true
      * $state.includes("contacts.list"); // returns false
      * $state.includes("about"); // returns false
+<<<<<<< HEAD
+     *
+     * // Using relative names (. and ^), typically from a template
+     * // E.g. from the 'contacts.details' template
+     * <div ng-class="{highlighted: $state.includes('.item')}">Item</div>
+     * </pre>
+     *
+     * Basic globbing patterns
+=======
      * </pre>
      *
      * @description
      * Basic globing patterns will also work.
      *
      * @example
+>>>>>>> master
      * <pre>
      * $state.$current.name = 'contacts.details.item.url';
      *
@@ -1030,6 +1637,32 @@ function $StateProvider(   $urlRouterProvider,   $urlMatcherFactory,           $
      * $state.includes("item.**"); // returns false
      * </pre>
      *
+<<<<<<< HEAD
+     * @param {string} stateOrName A partial name, relative name, or glob pattern
+     * to be searched for within the current state name.
+     * @param {object=} params A param object, e.g. `{sectionId: section.id}`,
+     * that you'd like to test against the current active state.
+     * @param {object=} options An options object.  The options are:
+     *
+     * - **`relative`** - {string|object=} -  If `stateOrName` is a relative state reference and `options.relative` is set,
+     * .includes will test relative to `options.relative` state (or name).
+     *
+     * @returns {boolean} Returns true if it does include the state
+     */
+    $state.includes = function includes(stateOrName, params, options) {
+      options = extend({ relative: $state.$current }, options || {});
+      if (isString(stateOrName) && isGlob(stateOrName)) {
+        if (!doesStateMatchGlob(stateOrName)) {
+          return false;
+        }
+        stateOrName = $state.$current.name;
+      }
+
+      var state = findState(stateOrName, options.relative);
+      if (!isDefined(state)) { return undefined; }
+      if (!isDefined($state.$current.includes[state.name])) { return false; }
+      return params ? equalForKeys(state.params.$$values(params), $stateParams, objectKeys(params)) : true;
+=======
      * @param {string} stateOrName A partial name to be searched for within the current state name.
      * @param {object} params A param object, e.g. `{sectionId: section.id}`, 
      * that you'd like to test against the current active state.
@@ -1061,6 +1694,7 @@ function $StateProvider(   $urlRouterProvider,   $urlMatcherFactory,           $
         }
       });
       return validParams;
+>>>>>>> master
     };
 
 
@@ -1084,7 +1718,11 @@ function $StateProvider(   $urlRouterProvider,   $urlMatcherFactory,           $
      * - **`lossy`** - {boolean=true} -  If true, and if there is no url associated with the state provided in the
      *    first parameter, then the constructed href url will be built from the first navigable ancestor (aka
      *    ancestor with a valid url).
+<<<<<<< HEAD
+     * - **`inherit`** - {boolean=true}, If `true` will inherit url parameters from current url.
+=======
      * - **`inherit`** - {boolean=false}, If `true` will inherit url parameters from current url.
+>>>>>>> master
      * - **`relative`** - {object=$state.$current}, When transitioning with relative path (e.g '^'), 
      *    defines which state to be relative from.
      * - **`absolute`** - {boolean=false},  If true will generate an absolute url, e.g. "http://www.example.com/fullurl".
@@ -1092,6 +1730,28 @@ function $StateProvider(   $urlRouterProvider,   $urlMatcherFactory,           $
      * @returns {string} compiled state url
      */
     $state.href = function href(stateOrName, params, options) {
+<<<<<<< HEAD
+      options = extend({
+        lossy:    true,
+        inherit:  true,
+        absolute: false,
+        relative: $state.$current
+      }, options || {});
+
+      var state = findState(stateOrName, options.relative);
+
+      if (!isDefined(state)) return null;
+      if (options.inherit) params = inheritParams($stateParams, params || {}, $state.$current, state);
+      
+      var nav = (state && options.lossy) ? state.navigable : state;
+
+      if (!nav || nav.url === undefined || nav.url === null) {
+        return null;
+      }
+      return $urlRouter.href(nav.url, filterByKeys(state.params.$$keys(), params || {}), {
+        absolute: options.absolute
+      });
+=======
       options = extend({ lossy: true, inherit: false, absolute: false, relative: $state.$current }, options || {});
       var state = findState(stateOrName, options.relative);
       if (!isDefined(state)) return null;
@@ -1119,6 +1779,7 @@ function $StateProvider(   $urlRouterProvider,   $urlMatcherFactory,           $
               url;
       }
       return url;
+>>>>>>> master
     };
 
     /**
@@ -1129,6 +1790,20 @@ function $StateProvider(   $urlRouterProvider,   $urlMatcherFactory,           $
      * @description
      * Returns the state configuration object for any specific state or all states.
      *
+<<<<<<< HEAD
+     * @param {string|object=} stateOrName (absolute or relative) If provided, will only get the config for
+     * the requested state. If not provided, returns an array of ALL state configs.
+     * @param {string|object=} context When stateOrName is a relative state reference, the state will be retrieved relative to context.
+     * @returns {Object|Array} State configuration object or array of all objects.
+     */
+    $state.get = function (stateOrName, context) {
+      if (arguments.length === 0) return map(objectKeys(states), function(name) { return states[name].self; });
+      var state = findState(stateOrName, context || $state.$current);
+      return (state && state.self) ? state.self : null;
+    };
+
+    function resolveState(state, params, paramsAreFiltered, inherited, dst, options) {
+=======
      * @param {string|object=} stateOrName If provided, will only get the config for
      * the requested state. If not provided, returns an array of ALL state configs.
      * @returns {object|array} State configuration object or array of all objects.
@@ -1144,11 +1819,16 @@ function $StateProvider(   $urlRouterProvider,   $urlMatcherFactory,           $
     };
 
     function resolveState(state, params, paramsAreFiltered, inherited, dst) {
+>>>>>>> master
       // Make a restricted $stateParams with only the parameters that apply to this state if
       // necessary. In addition to being available to the controller and onEnter/onExit callbacks,
       // we also need $stateParams to be available for any $injector calls we make during the
       // dependency resolution process.
+<<<<<<< HEAD
+      var $stateParams = (paramsAreFiltered) ? params : filterByKeys(state.params.$$keys(), params);
+=======
       var $stateParams = (paramsAreFiltered) ? params : filterByKeys(state.params, params);
+>>>>>>> master
       var locals = { $stateParams: $stateParams };
 
       // Resolve 'global' dependencies for the state, i.e. those not specific to a view.
@@ -1156,16 +1836,26 @@ function $StateProvider(   $urlRouterProvider,   $urlMatcherFactory,           $
       // to the set that should be visible to the state, and are independent of when we update
       // the global $state and $stateParams values.
       dst.resolve = $resolve.resolve(state.resolve, locals, dst.resolve, state);
+<<<<<<< HEAD
+      var promises = [dst.resolve.then(function (globals) {
+        dst.globals = globals;
+      })];
+=======
       var promises = [ dst.resolve.then(function (globals) {
         dst.globals = globals;
       }) ];
+>>>>>>> master
       if (inherited) promises.push(inherited);
 
       // Resolve template and dependencies for all views.
       forEach(state.views, function (view, name) {
         var injectables = (view.resolve && view.resolve !== state.resolve ? view.resolve : {});
         injectables.$template = [ function () {
+<<<<<<< HEAD
+          return $view.load(name, { view: view, locals: locals, params: $stateParams, notify: options.notify }) || '';
+=======
           return $view.load(name, { view: view, locals: locals, params: $stateParams, notify: false }) || '';
+>>>>>>> master
         }];
 
         promises.push($resolve.resolve(injectables, locals, dst.resolve, state).then(function (result) {
@@ -1193,7 +1883,11 @@ function $StateProvider(   $urlRouterProvider,   $urlMatcherFactory,           $
   }
 
   function shouldTriggerReload(to, from, locals, options) {
+<<<<<<< HEAD
+    if (to === from && ((locals === from.locals && !options.reload) || (to.self.reloadOnSearch === false))) {
+=======
     if ( to === from && ((locals === from.locals && !options.reload) || (to.self.reloadOnSearch === false)) ) {
+>>>>>>> master
       return true;
     }
   }

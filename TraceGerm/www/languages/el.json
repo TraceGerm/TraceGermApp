@@ -1,0 +1,15 @@
+{
+  "LANGUAGE": "Ελληνικά",
+  "LANGUAGE_SELLECTION": "Γλώσσα",
+  "HOME_TITTLE": "Aρχική",
+  "SETTINGS_TITTLE": "Ρυθμίσεις",
+  "SEARCH_TITTLE": "Αναζήτηση",
+  "LOGIN_TITTLE": "Σύνδεση",
+  "MENU_TITTLE": "Μενού",
+  "ABOUT_TITTLE": "Σχετικά",
+  "FIRST_USE_TITTLE": "TraceGerm",
+  "REGISTER": "Εγραφή",
+  "FIRST_USE_WELCOME": "Καλωσήρθατε στο TraceGerm",
+  "FIRST_USE_WELCOME_PARAGRAPH": "TraceGerm is a tracking application that uses user's coordinates for a good purpose! You simply use your preferred username and the app will track your coordinates."
+
+}
