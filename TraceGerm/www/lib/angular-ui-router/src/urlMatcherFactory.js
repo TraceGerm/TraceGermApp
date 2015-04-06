@@ -1,5 +1,8 @@
+<<<<<<< HEAD
 var $$UMFP; // reference to $UrlMatcherFactoryProvider
 
+=======
+>>>>>>> master
 /**
  * @ngdoc object
  * @name ui.router.util.type:UrlMatcher
@@ -17,8 +20,13 @@ var $$UMFP; // reference to $UrlMatcherFactoryProvider
  * * `':'` name - colon placeholder
  * * `'*'` name - catch-all placeholder
  * * `'{' name '}'` - curly placeholder
+<<<<<<< HEAD
  * * `'{' name ':' regexp|type '}'` - curly placeholder with regexp or type name. Should the
  *   regexp itself contain curly braces, they must be in matched pairs or escaped with a backslash.
+=======
+ * * `'{' name ':' regexp '}'` - curly placeholder with regexp. Should the regexp itself contain
+ *   curly braces, they must be in matched pairs or escaped with a backslash.
+>>>>>>> master
  *
  * Parameter names may contain only word characters (latin letters, digits, and underscore) and
  * must be unique within the pattern (across both path and search parameters). For colon 
@@ -39,6 +47,7 @@ var $$UMFP; // reference to $UrlMatcherFactoryProvider
  * * `'/files/{path:.*}'` - Matches any URL starting with '/files/' and captures the rest of the
  *   path into the parameter 'path'.
  * * `'/files/*path'` - ditto.
+<<<<<<< HEAD
  * * `'/calendar/{start:date}'` - Matches "/calendar/2014-11-12" (because the pattern defined
  *   in the built-in  `date` Type matches `2014-11-12`) and provides a Date object in $stateParams.start
  *
@@ -49,12 +58,21 @@ var $$UMFP; // reference to $UrlMatcherFactoryProvider
  *
  * * `caseInsensitive` - `true` if URL matching should be case insensitive, otherwise `false`, the default value (for backward compatibility) is `false`.
  * * `strict` - `false` if matching against a URL with a trailing slash should be treated as equivalent to a URL without a trailing slash, the default value is `true`.
+=======
+ *
+ * @param {string} pattern  the pattern to compile into a matcher.
+ * @param {bool} caseInsensitiveMatch true if url matching should be case insensitive, otherwise false, the default value (for backward compatibility) is false.
+>>>>>>> master
  *
  * @property {string} prefix  A static prefix of this pattern. The matcher guarantees that any
  *   URL matching this matcher (i.e. any string for which {@link ui.router.util.type:UrlMatcher#methods_exec exec()} returns
  *   non-null) will start with this prefix.
  *
+<<<<<<< HEAD
  * @property {string} source  The pattern that was passed into the constructor
+=======
+ * @property {string} source  The pattern that was passed into the contructor
+>>>>>>> master
  *
  * @property {string} sourcePath  The path portion of the source property
  *
@@ -63,10 +81,16 @@ var $$UMFP; // reference to $UrlMatcherFactoryProvider
  * @property {string} regex  The constructed regex that will be used to match against the url when 
  *   it is time to determine which url will match.
  *
+<<<<<<< HEAD
  * @returns {Object}  New `UrlMatcher` object
  */
 function UrlMatcher(pattern, config, parentMatcher) {
   config = extend({ params: {} }, isObject(config) ? config : {});
+=======
+ * @returns {Object}  New UrlMatcher object
+ */
+function UrlMatcher(pattern, caseInsensitiveMatch) {
+>>>>>>> master
 
   // Find all placeholders and create a compiled pattern, using either classic or curly syntax:
   //   '*' name
@@ -75,6 +99,7 @@ function UrlMatcher(pattern, config, parentMatcher) {
   //   '{' name ':' regexp '}'
   // The regular expression is somewhat complicated due to the need to allow curly braces
   // inside the regular expression. The placeholder regexp breaks down as follows:
+<<<<<<< HEAD
   //    ([:*])([\w\[\]]+)              - classic placeholder ($1 / $2) (search version has - for snake-case)
   //    \{([\w\[\]]+)(?:\:( ... ))?\}  - curly brace placeholder ($3) with optional regexp/type ... ($4) (search version has - for snake-case
   //    (?: ... | ... | ... )+         - the regexp consists of any number of atoms, an atom being either
@@ -107,12 +132,35 @@ function UrlMatcher(pattern, config, parentMatcher) {
       default:    surroundPattern = ['(' + squash + "|", ')?'];  break;
     }
     return result + surroundPattern[0] + pattern + surroundPattern[1];
+=======
+  //    ([:*])(\w+)               classic placeholder ($1 / $2)
+  //    \{(\w+)(?:\:( ... ))?\}   curly brace placeholder ($3) with optional regexp ... ($4)
+  //    (?: ... | ... | ... )+    the regexp consists of any number of atoms, an atom being either
+  //    [^{}\\]+                  - anything other than curly braces or backslash
+  //    \\.                       - a backslash escape
+  //    \{(?:[^{}\\]+|\\.)*\}     - a matched set of curly braces containing other atoms
+  var placeholder = /([:*])(\w+)|\{(\w+)(?:\:((?:[^{}\\]+|\\.|\{(?:[^{}\\]+|\\.)*\})+))?\}/g,
+      names = {}, compiled = '^', last = 0, m,
+      segments = this.segments = [],
+      params = this.params = [];
+
+  function addParameter(id) {
+    if (!/^\w+(-+\w+)*$/.test(id)) throw new Error("Invalid parameter name '" + id + "' in pattern '" + pattern + "'");
+    if (names[id]) throw new Error("Duplicate parameter name '" + id + "' in pattern '" + pattern + "'");
+    names[id] = true;
+    params.push(id);
+  }
+
+  function quoteRegExp(string) {
+    return string.replace(/[\\\[\]\^$*+?.()|{}]/g, "\\$&");
+>>>>>>> master
   }
 
   this.source = pattern;
 
   // Split into static segments separated by path parameter placeholders.
   // The number of segments is always 1 more than the number of parameters.
+<<<<<<< HEAD
   function matchDetails(m, isSearch) {
     var id, regexp, segment, type, cfg, arrayMode;
     id          = m[2] || m[3]; // IE[78] returns '' for unmatched groups instead of null
@@ -133,12 +181,24 @@ function UrlMatcher(pattern, config, parentMatcher) {
     param = addParameter(p.id, p.type, p.cfg, "path");
     compiled += quoteRegExp(p.segment, param.type.pattern.source, param.squash);
     segments.push(p.segment);
+=======
+  var id, regexp, segment;
+  while ((m = placeholder.exec(pattern))) {
+    id = m[2] || m[3]; // IE[78] returns '' for unmatched groups instead of null
+    regexp = m[4] || (m[1] == '*' ? '.*' : '[^/]*');
+    segment = pattern.substring(last, m.index);
+    if (segment.indexOf('?') >= 0) break; // we're into the search part
+    compiled += quoteRegExp(segment) + '(' + regexp + ')';
+    addParameter(id);
+    segments.push(segment);
+>>>>>>> master
     last = placeholder.lastIndex;
   }
   segment = pattern.substring(last);
 
   // Find any search parameter names and remove them from the last segment
   var i = segment.indexOf('?');
+<<<<<<< HEAD
 
   if (i >= 0) {
     var search = this.sourceSearch = segment.substring(i);
@@ -154,17 +214,38 @@ function UrlMatcher(pattern, config, parentMatcher) {
         // check if ?&
       }
     }
+=======
+  if (i >= 0) {
+    var search = this.sourceSearch = segment.substring(i);
+    segment = segment.substring(0, i);
+    this.sourcePath = pattern.substring(0, last+i);
+
+    // Allow parameters to be separated by '?' as well as '&' to make concat() easier
+    forEach(search.substring(1).split(/[&?]/), addParameter);
+>>>>>>> master
   } else {
     this.sourcePath = pattern;
     this.sourceSearch = '';
   }
 
+<<<<<<< HEAD
   compiled += quoteRegExp(segment) + (config.strict === false ? '\/?' : '') + '$';
   segments.push(segment);
 
   this.regexp = new RegExp(compiled, config.caseInsensitive ? 'i' : undefined);
   this.prefix = segments[0];
   this.$$paramNames = paramNames;
+=======
+  compiled += quoteRegExp(segment) + '$';
+  segments.push(segment);
+  if(caseInsensitiveMatch){
+    this.regexp = new RegExp(compiled, 'i');
+  }else{
+    this.regexp = new RegExp(compiled);	
+  }
+  
+  this.prefix = segments[0];
+>>>>>>> master
 }
 
 /**
@@ -180,6 +261,7 @@ function UrlMatcher(pattern, config, parentMatcher) {
  *
  * @example
  * The following two matchers are equivalent:
+<<<<<<< HEAD
  * <pre>
  * new UrlMatcher('/user/{id}?q').concat('/details?date');
  * new UrlMatcher('/user/{id}/details?q&date');
@@ -199,6 +281,21 @@ UrlMatcher.prototype.concat = function (pattern, config) {
     squash: $$UMFP.defaultSquashPolicy()
   };
   return new UrlMatcher(this.sourcePath + pattern + this.sourceSearch, extend(defaultConfig, config), this);
+=======
+ * ```
+ * new UrlMatcher('/user/{id}?q').concat('/details?date');
+ * new UrlMatcher('/user/{id}/details?q&date');
+ * ```
+ *
+ * @param {string} pattern  The pattern to append.
+ * @returns {ui.router.util.type:UrlMatcher}  A matcher for the concatenated pattern.
+ */
+UrlMatcher.prototype.concat = function (pattern) {
+  // Because order of search parameters is irrelevant, we can add our own search
+  // parameters to the end of the new pattern. Parse the new pattern by itself
+  // and then join the bits together, but it's much easier to do this on a string level.
+  return new UrlMatcher(this.sourcePath + pattern + this.sourceSearch);
+>>>>>>> master
 };
 
 UrlMatcher.prototype.toString = function () {
@@ -218,12 +315,19 @@ UrlMatcher.prototype.toString = function () {
  * as optional.
  *
  * @example
+<<<<<<< HEAD
  * <pre>
  * new UrlMatcher('/user/{id}?q&r').exec('/user/bob', {
  *   x: '1', q: 'hello'
  * });
  * // returns { id: 'bob', q: 'hello', r: null }
  * </pre>
+=======
+ * ```
+ * new UrlMatcher('/user/{id}?q&r').exec('/user/bob', { x:'1', q:'hello' });
+ * // returns { id:'bob', q:'hello', r:null }
+ * ```
+>>>>>>> master
  *
  * @param {string} path  The URL path to match, e.g. `$location.path()`.
  * @param {Object} searchParams  URL search parameters, e.g. `$location.search()`.
@@ -232,6 +336,7 @@ UrlMatcher.prototype.toString = function () {
 UrlMatcher.prototype.exec = function (path, searchParams) {
   var m = this.regexp.exec(path);
   if (!m) return null;
+<<<<<<< HEAD
   searchParams = searchParams || {};
 
   var paramNames = this.parameters(), nTotal = paramNames.length,
@@ -264,6 +369,17 @@ UrlMatcher.prototype.exec = function (path, searchParams) {
     paramName = paramNames[i];
     values[paramName] = this.params[paramName].value(searchParams[paramName]);
   }
+=======
+
+  var params = this.params, nTotal = params.length,
+    nPath = this.segments.length-1,
+    values = {}, i;
+
+  if (nPath !== m.length - 1) throw new Error("Unbalanced capture group in route '" + this.source + "'");
+
+  for (i=0; i<nPath; i++) values[params[i]] = m[i+1];
+  for (/**/; i<nTotal; i++) values[params[i]] = searchParams[params[i]];
+>>>>>>> master
 
   return values;
 };
@@ -279,6 +395,7 @@ UrlMatcher.prototype.exec = function (path, searchParams) {
  * @returns {Array.<string>}  An array of parameter names. Must be treated as read-only. If the
  *    pattern has no parameters, an empty array is returned.
  */
+<<<<<<< HEAD
 UrlMatcher.prototype.parameters = function (param) {
   if (!isDefined(param)) return this.$$paramNames;
   return this.params[param] || null;
@@ -298,6 +415,10 @@ UrlMatcher.prototype.parameters = function (param) {
  */
 UrlMatcher.prototype.validates = function (params) {
   return this.params.$$validates(params);
+=======
+UrlMatcher.prototype.parameters = function () {
+  return this.params;
+>>>>>>> master
 };
 
 /**
@@ -311,15 +432,23 @@ UrlMatcher.prototype.validates = function (params) {
  * treated as empty strings.
  *
  * @example
+<<<<<<< HEAD
  * <pre>
  * new UrlMatcher('/user/{id}?q').format({ id:'bob', q:'yes' });
  * // returns '/user/bob?q=yes'
  * </pre>
+=======
+ * ```
+ * new UrlMatcher('/user/{id}?q').format({ id:'bob', q:'yes' });
+ * // returns '/user/bob?q=yes'
+ * ```
+>>>>>>> master
  *
  * @param {Object} values  the values to substitute for the parameters in this pattern.
  * @returns {string}  the formatted URL (path and optionally search part).
  */
 UrlMatcher.prototype.format = function (values) {
+<<<<<<< HEAD
   values = values || {};
   var segments = this.segments, params = this.parameters(), paramset = this.params;
   if (!this.validates(values)) return null;
@@ -359,6 +488,24 @@ UrlMatcher.prototype.format = function (values) {
       if (!isArray(encoded)) encoded = [ encoded ];
       encoded = map(encoded, encodeURIComponent).join('&' + name + '=');
       result += (search ? '&' : '?') + (name + '=' + encoded);
+=======
+  var segments = this.segments, params = this.params;
+  if (!values) return segments.join('');
+
+  var nPath = segments.length-1, nTotal = params.length,
+    result = segments[0], i, search, value;
+
+  for (i=0; i<nPath; i++) {
+    value = values[params[i]];
+    // TODO: Maybe we should throw on null here? It's not really good style to use '' and null interchangeabley
+    if (value != null) result += encodeURIComponent(value);
+    result += segments[i+1];
+  }
+  for (/**/; i<nTotal; i++) {
+    value = values[params[i]];
+    if (value != null) {
+      result += (search ? '&' : '?') + params[i] + '=' + encodeURIComponent(value);
+>>>>>>> master
       search = true;
     }
   }
@@ -366,6 +513,7 @@ UrlMatcher.prototype.format = function (values) {
   return result;
 };
 
+<<<<<<< HEAD
 /**
  * @ngdoc object
  * @name ui.router.util.type:Type
@@ -546,6 +694,8 @@ Type.prototype.$asArray = function(mode, isSearch) {
   }
 };
 
+=======
+>>>>>>> master
 
 
 /**
@@ -553,6 +703,7 @@ Type.prototype.$asArray = function(mode, isSearch) {
  * @name ui.router.util.$urlMatcherFactory
  *
  * @description
+<<<<<<< HEAD
  * Factory for {@link ui.router.util.type:UrlMatcher `UrlMatcher`} instances. The factory
  * is also available to providers under the name `$urlMatcherFactoryProvider`.
  */
@@ -696,6 +847,27 @@ function $UrlMatcherFactory() {
       throw new Error("Invalid squash policy: " + value + ". Valid policies: false, true, arbitrary-string");
     defaultSquashPolicy = value;
     return value;
+=======
+ * Factory for {@link ui.router.util.type:UrlMatcher} instances. The factory is also available to providers
+ * under the name `$urlMatcherFactoryProvider`.
+ */
+function $UrlMatcherFactory() {
+
+  var useCaseInsensitiveMatch = false;
+
+  /**
+   * @ngdoc function
+   * @name ui.router.util.$urlMatcherFactory#caseInsensitiveMatch
+   * @methodOf ui.router.util.$urlMatcherFactory
+   *
+   * @description
+   * Define if url matching should be case sensistive, the default behavior, or not.
+   *   
+   * @param {bool} value false to match URL in a case sensitive manner; otherwise true;
+   */
+  this.caseInsensitiveMatch = function(value){
+    useCaseInsensitiveMatch = value;
+>>>>>>> master
   };
 
   /**
@@ -704,6 +876,7 @@ function $UrlMatcherFactory() {
    * @methodOf ui.router.util.$urlMatcherFactory
    *
    * @description
+<<<<<<< HEAD
    * Creates a {@link ui.router.util.type:UrlMatcher `UrlMatcher`} for the specified pattern.
    *
    * @param {string} pattern  The URL pattern.
@@ -712,6 +885,15 @@ function $UrlMatcherFactory() {
    */
   this.compile = function (pattern, config) {
     return new UrlMatcher(pattern, extend(getDefaultConfig(), config));
+=======
+   * Creates a {@link ui.router.util.type:UrlMatcher} for the specified pattern.
+   *   
+   * @param {string} pattern  The URL pattern.
+   * @returns {ui.router.util.type:UrlMatcher}  The UrlMatcher.
+   */
+  this.compile = function (pattern) {
+    return new UrlMatcher(pattern, useCaseInsensitiveMatch);
+>>>>>>> master
   };
 
   /**
@@ -720,6 +902,7 @@ function $UrlMatcherFactory() {
    * @methodOf ui.router.util.$urlMatcherFactory
    *
    * @description
+<<<<<<< HEAD
    * Returns true if the specified object is a `UrlMatcher`, or false otherwise.
    *
    * @param {Object} object  The object to perform the type check against.
@@ -1029,8 +1212,26 @@ function $UrlMatcherFactory() {
   };
 
   this.ParamSet = ParamSet;
+=======
+   * Returns true if the specified object is a UrlMatcher, or false otherwise.
+   *
+   * @param {Object} object  The object to perform the type check against.
+   * @returns {Boolean}  Returns `true` if the object has the following functions: `exec`, `format`, and `concat`.
+   */
+  this.isMatcher = function (o) {
+    return isObject(o) && isFunction(o.exec) && isFunction(o.format) && isFunction(o.concat);
+  };
+  
+  /* No need to document $get, since it returns this */
+  this.$get = function () {
+    return this;
+  };
+>>>>>>> master
 }
 
 // Register as a provider so it's available to other providers
 angular.module('ui.router.util').provider('$urlMatcherFactory', $UrlMatcherFactory);
+<<<<<<< HEAD
 angular.module('ui.router.util').run(['$urlMatcherFactory', function($urlMatcherFactory) { }]);
+=======
+>>>>>>> master

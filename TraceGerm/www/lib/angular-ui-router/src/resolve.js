@@ -41,7 +41,10 @@ function $Resolve(  $q,    $injector) {
    */
   this.study = function (invocables) {
     if (!isObject(invocables)) throw new Error("'invocables' must be an object");
+<<<<<<< HEAD
     var invocableKeys = objectKeys(invocables || {});
+=======
+>>>>>>> master
     
     // Perform a topological sort of invocables to build an ordered plan
     var plan = [], cycle = [], visited = {};
@@ -50,7 +53,11 @@ function $Resolve(  $q,    $injector) {
       
       cycle.push(key);
       if (visited[key] === VISIT_IN_PROGRESS) {
+<<<<<<< HEAD
         cycle.splice(0, indexOf(cycle, key));
+=======
+        cycle.splice(0, cycle.indexOf(key));
+>>>>>>> master
         throw new Error("Cyclic dependency: " + cycle.join(" -> "));
       }
       visited[key] = VISIT_IN_PROGRESS;
@@ -102,8 +109,12 @@ function $Resolve(  $q,    $injector) {
         if (!--wait) {
           if (!merged) merge(values, parent.$$values); 
           result.$$values = values;
+<<<<<<< HEAD
           result.$$promises = result.$$promises || true; // keep for isResolve()
           delete result.$$inheritedValues;
+=======
+          result.$$promises = true; // keep for isResolve()
+>>>>>>> master
           resolution.resolve(values);
         }
       }
@@ -112,13 +123,18 @@ function $Resolve(  $q,    $injector) {
         result.$$failure = reason;
         resolution.reject(reason);
       }
+<<<<<<< HEAD
 
+=======
+      
+>>>>>>> master
       // Short-circuit if parent has already failed
       if (isDefined(parent.$$failure)) {
         fail(parent.$$failure);
         return result;
       }
       
+<<<<<<< HEAD
       if (parent.$$inheritedValues) {
         merge(values, omit(parent.$$inheritedValues, invocableKeys));
       }
@@ -134,6 +150,15 @@ function $Resolve(  $q,    $injector) {
         if (parent.$$inheritedValues) {
           result.$$inheritedValues = omit(parent.$$inheritedValues, invocableKeys);
         }        
+=======
+      // Merge parent values if the parent has already resolved, or merge
+      // parent promises and wait if the parent resolve is still in progress.
+      if (parent.$$values) {
+        merged = merge(values, parent.$$values);
+        done();
+      } else {
+        extend(promises, parent.$$promises);
+>>>>>>> master
         parent.then(done, fail);
       }
       

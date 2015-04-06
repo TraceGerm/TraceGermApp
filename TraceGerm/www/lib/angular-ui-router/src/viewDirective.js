@@ -14,7 +14,11 @@
  * @description
  * The ui-view directive tells $state where to place your templates.
  *
+<<<<<<< HEAD
  * @param {string=} name A view name. The name should be unique amongst the other views in the
+=======
+ * @param {string=} ui-view A view name. The name should be unique amongst the other views in the
+>>>>>>> master
  * same state. You can have views of the same name that live in different states.
  *
  * @param {string=} autoscroll It allows you to set the scroll behavior of the browser window
@@ -111,8 +115,13 @@
  * <ui-view autoscroll='scopeVariable'/>
  * </pre>
  */
+<<<<<<< HEAD
 $ViewDirective.$inject = ['$state', '$injector', '$uiViewScroll', '$interpolate'];
 function $ViewDirective(   $state,   $injector,   $uiViewScroll,   $interpolate) {
+=======
+$ViewDirective.$inject = ['$state', '$injector', '$uiViewScroll'];
+function $ViewDirective(   $state,   $injector,   $uiViewScroll) {
+>>>>>>> master
 
   function getService() {
     return ($injector.has) ? function(service) {
@@ -142,6 +151,7 @@ function $ViewDirective(   $state,   $injector,   $uiViewScroll,   $interpolate)
 
     if ($animate) {
       return {
+<<<<<<< HEAD
         enter: function(element, target, cb) {
           var promise = $animate.enter(element, null, target, cb);
           if (promise && promise.then) promise.then(cb);
@@ -150,6 +160,10 @@ function $ViewDirective(   $state,   $injector,   $uiViewScroll,   $interpolate)
           var promise = $animate.leave(element, cb);
           if (promise && promise.then) promise.then(cb);
         }
+=======
+        enter: function(element, target, cb) { $animate.enter(element, null, target, cb); },
+        leave: function(element, cb) { $animate.leave(element, cb); }
+>>>>>>> master
       };
     }
 
@@ -208,6 +222,7 @@ function $ViewDirective(   $state,   $injector,   $uiViewScroll,   $interpolate)
         }
 
         function updateView(firstTime) {
+<<<<<<< HEAD
           var newScope,
               name            = getUiViewName(scope, attrs, $element, $interpolate),
               previousLocals  = name && $state.$current && $state.$current.locals[name];
@@ -222,6 +237,16 @@ function $ViewDirective(   $state,   $injector,   $uiViewScroll,   $interpolate)
                 currentScope.$emit('$viewContentAnimationEnded');
               }
 
+=======
+          var newScope        = scope.$new(),
+              name            = currentEl && currentEl.data('$uiViewName'),
+              previousLocals  = name && $state.$current && $state.$current.locals[name];
+
+          if (!firstTime && previousLocals === latestLocals) return; // nothing to do
+
+          var clone = $transclude(newScope, function(clone) {
+            renderer.enter(clone, $element, function onUiViewEnter() {
+>>>>>>> master
               if (angular.isDefined(autoScrollExp) && !autoScrollExp || scope.$eval(autoScrollExp)) {
                 $uiViewScroll(clone);
               }
@@ -229,6 +254,11 @@ function $ViewDirective(   $state,   $injector,   $uiViewScroll,   $interpolate)
             cleanupLastView();
           });
 
+<<<<<<< HEAD
+=======
+          latestLocals = $state.$current.locals[clone.data('$uiViewName')];
+
+>>>>>>> master
           currentEl = clone;
           currentScope = newScope;
           /**
@@ -251,16 +281,34 @@ function $ViewDirective(   $state,   $injector,   $uiViewScroll,   $interpolate)
   return directive;
 }
 
+<<<<<<< HEAD
 $ViewDirectiveFill.$inject = ['$compile', '$controller', '$state', '$interpolate'];
 function $ViewDirectiveFill (  $compile,   $controller,   $state,   $interpolate) {
+=======
+$ViewDirectiveFill.$inject = ['$compile', '$controller', '$state'];
+function $ViewDirectiveFill ($compile, $controller, $state) {
+>>>>>>> master
   return {
     restrict: 'ECA',
     priority: -400,
     compile: function (tElement) {
       var initial = tElement.html();
       return function (scope, $element, attrs) {
+<<<<<<< HEAD
         var current = $state.$current,
             name = getUiViewName(scope, attrs, $element, $interpolate),
+=======
+        var name      = attrs.uiView || attrs.name || '',
+            inherited = $element.inheritedData('$uiView');
+
+        if (name.indexOf('@') < 0) {
+          name = name + '@' + (inherited ? inherited.state.name : '');
+        }
+
+        $element.data('$uiViewName', name);
+
+        var current = $state.$current,
+>>>>>>> master
             locals  = current && current.locals[name];
 
         if (! locals) {
@@ -288,6 +336,7 @@ function $ViewDirectiveFill (  $compile,   $controller,   $state,   $interpolate
   };
 }
 
+<<<<<<< HEAD
 /**
  * Shared ui-view code for both directives:
  * Given scope, element, and its attributes, return the view's name
@@ -298,5 +347,7 @@ function getUiViewName(scope, attrs, element, $interpolate) {
   return name.indexOf('@') >= 0 ?  name :  (name + '@' + (inherited ? inherited.state.name : ''));
 }
 
+=======
+>>>>>>> master
 angular.module('ui.router.state').directive('uiView', $ViewDirective);
 angular.module('ui.router.state').directive('uiView', $ViewDirectiveFill);

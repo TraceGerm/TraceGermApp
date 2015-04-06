@@ -83,13 +83,21 @@ function $TemplateFactory(  $http,   $templateCache,   $injector) {
     if (isFunction(url)) url = url(params);
     if (url == null) return null;
     else return $http
+<<<<<<< HEAD
         .get(url, { cache: $templateCache, headers: { Accept: 'text/html' }})
+=======
+        .get(url, { cache: $templateCache })
+>>>>>>> master
         .then(function(response) { return response.data; });
   };
 
   /**
    * @ngdoc function
+<<<<<<< HEAD
    * @name ui.router.util.$templateFactory#fromProvider
+=======
+   * @name ui.router.util.$templateFactory#fromUrl
+>>>>>>> master
    * @methodOf ui.router.util.$templateFactory
    *
    * @description

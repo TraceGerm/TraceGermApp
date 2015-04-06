@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <a name="0.2.13"></a>
 ### 0.2.13 (2014-11-20)
 
@@ -174,13 +175,20 @@ This release is identical to 0.2.8. 0.2.8 was re-tagged in git to fix a problem 
 
 
 ### 0.2.8 (2014-01-16)
+=======
+<a name="v0.2.8"></a>
+### v0.2.8 (2014-01-16)
+>>>>>>> master
 
 
 #### Bug Fixes
 
 * **$state:** allow null to be passed as 'params' param ([094dc30e](https://github.com/angular-ui/ui-router/commit/094dc30e883e1bd14e50a475553bafeaade3b178))
 * **$state.go:** param inheritance shouldn't inherit from siblings ([aea872e0](https://github.com/angular-ui/ui-router/commit/aea872e0b983cb433436ce5875df10c838fccedb))
+<<<<<<< HEAD
 * **bower.json:** fixes bower.json ([eed3cc4d](https://github.com/angular-ui/ui-router/commit/eed3cc4d4dfef1d3ef84b9fd063127538ebf59d3))
+=======
+>>>>>>> master
 * **uiSrefActive:** annotate controller injection ([85921422](https://github.com/angular-ui/ui-router/commit/85921422ff7fb0effed358136426d616cce3d583), closes [#671](https://github.com/angular-ui/ui-router/issues/671))
 * **uiView:**
   * autoscroll tests pass on 1.2.4 & 1.1.5 ([86eacac0](https://github.com/angular-ui/ui-router/commit/86eacac09ca5e9000bd3b9c7ba6e2cc95d883a3a))
@@ -195,3 +203,7 @@ This release is identical to 0.2.8. 0.2.8 was re-tagged in git to fix a problem 
 * **uiView:**
   * merge autoscroll expression test. ([b89e0f87](https://github.com/angular-ui/ui-router/commit/b89e0f871d5cc35c10925ede986c10684d5c9252))
   * cache and test autoscroll expression ([ee262282](https://github.com/angular-ui/ui-router/commit/ee2622828c2ce83807f006a459ac4e11406d9258))
+<<<<<<< HEAD
+=======
+
+>>>>>>> master

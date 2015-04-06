@@ -1,5 +1,9 @@
 /**
+<<<<<<< HEAD:TraceGerm/www/lib/angular-sanitize/angular-sanitize.js
  * @license AngularJS v1.3.13
+=======
+ * @license AngularJS v1.2.28
+>>>>>>> master:TraceGerm/www/lib/angular-sanitize/angular-sanitize.js
  * (c) 2010-2014 Google, Inc. http://angularjs.org
  * License: MIT
  */
@@ -669,7 +673,11 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
                   '" ');
       }
       html.push('href="',
+<<<<<<< HEAD:TraceGerm/www/lib/angular-sanitize/angular-sanitize.js
                 url.replace(/"/g, '&quot;'),
+=======
+                url.replace('"', '&quot;'),
+>>>>>>> master:TraceGerm/www/lib/angular-sanitize/angular-sanitize.js
                 '">');
       addText(text);
       html.push('</a>');

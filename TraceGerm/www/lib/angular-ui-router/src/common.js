@@ -49,7 +49,11 @@ function ancestors(first, second) {
  * @param {Object} object A JavaScript object.
  * @return {Array} Returns the keys of the object as an array.
  */
+<<<<<<< HEAD
 function objectKeys(object) {
+=======
+function keys(object) {
+>>>>>>> master
   if (Object.keys) {
     return Object.keys(object);
   }
@@ -68,7 +72,11 @@ function objectKeys(object) {
  * @param {*} value A value to search the array for.
  * @return {Number} Returns the array index value of `value`, or `-1` if not present.
  */
+<<<<<<< HEAD
 function indexOf(array, value) {
+=======
+function arraySearch(array, value) {
+>>>>>>> master
   if (Array.prototype.indexOf) {
     return array.indexOf(value, Number(arguments[2]) || 0);
   }
@@ -96,12 +104,20 @@ function inheritParams(currentParams, newParams, $current, $to) {
   var parents = ancestors($current, $to), parentParams, inherited = {}, inheritList = [];
 
   for (var i in parents) {
+<<<<<<< HEAD
     if (!parents[i].params) continue;
     parentParams = objectKeys(parents[i].params);
     if (!parentParams.length) continue;
 
     for (var j in parentParams) {
       if (indexOf(inheritList, parentParams[j]) >= 0) continue;
+=======
+    if (!parents[i].params || !parents[i].params.length) continue;
+    parentParams = parents[i].params;
+
+    for (var j in parentParams) {
+      if (arraySearch(inheritList, parentParams[j]) >= 0) continue;
+>>>>>>> master
       inheritList.push(parentParams[j]);
       inherited[parentParams[j]] = currentParams[parentParams[j]];
     }
@@ -110,6 +126,26 @@ function inheritParams(currentParams, newParams, $current, $to) {
 }
 
 /**
+<<<<<<< HEAD
+=======
+ * Normalizes a set of values to string or `null`, filtering them by a list of keys.
+ *
+ * @param {Array} keys The list of keys to normalize/return.
+ * @param {Object} values An object hash of values to normalize.
+ * @return {Object} Returns an object hash of normalized string values.
+ */
+function normalize(keys, values) {
+  var normalized = {};
+
+  forEach(keys, function (name) {
+    var value = values[name];
+    normalized[name] = (value != null) ? String(value) : null;
+  });
+  return normalized;
+}
+
+/**
+>>>>>>> master
  * Performs a non-strict comparison of the subset of two objects, defined by a list of keys.
  *
  * @param {Object} a The first object.
@@ -146,6 +182,7 @@ function filterByKeys(keys, values) {
   });
   return filtered;
 }
+<<<<<<< HEAD
 
 // like _.indexBy
 // when you know that your index values will be unique, or you want last-one-in to win
@@ -208,6 +245,8 @@ function map(collection, callback) {
   return result;
 }
 
+=======
+>>>>>>> master
 /**
  * @ngdoc overview
  * @name ui.router.util
