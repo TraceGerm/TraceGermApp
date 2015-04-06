@@ -14,3 +14,7 @@ TraceGermApp will inform the user in case he/she has been at the same place and 
 
 * **Anonymity**<br>
 TraceGermApp stores only a username and no other personal data of the user except the places he has been. This way it prevents of revealing any other personal information of the user. Moreover, the username is cyphered before it gets stored in database in order to minimize any personal information to get revealed.
+
+## Continuous integration
+Project build status:
+[![Build Status](https://travis-ci.org/TraceGerm/TraceGermApp.svg?branch=master)](https://travis-ci.org/TraceGerm/TraceGermApp)
