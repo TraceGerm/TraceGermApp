@@ -1,9 +1,5 @@
 /**
-<<<<<<< HEAD:TraceGerm/www/lib/angular/angular.js
- * @license AngularJS v1.3.13
-=======
- * @license AngularJS v1.2.28
->>>>>>> master:TraceGerm/www/lib/angular/angular.js
+ * @license AngularJS v1.3.15
  * (c) 2010-2014 Google, Inc. http://angularjs.org
  * License: MIT
  */
@@ -58,11 +54,7 @@ function minErr(module, ErrorConstructor) {
       return match;
     });
 
-<<<<<<< HEAD:TraceGerm/www/lib/angular/angular.js
-    message = message + '\nhttp://errors.angularjs.org/1.3.13/' +
-=======
-    message = message + '\nhttp://errors.angularjs.org/1.2.28/' +
->>>>>>> master:TraceGerm/www/lib/angular/angular.js
+    message = message + '\nhttp://errors.angularjs.org/1.3.15/' +
       (module ? module + '/' : '') + code;
     for (i = 2; i < arguments.length; i++) {
       message = message + (i == 2 ? '?' : '&') + 'p' + (i - 2) + '=' +
@@ -402,13 +394,9 @@ function setHashKey(obj, h) {
  *
  * @description
  * Extends the destination object `dst` by copying own enumerable properties from the `src` object(s)
-<<<<<<< HEAD:TraceGerm/www/lib/angular/angular.js
  * to `dst`. You can specify multiple `src` objects. If you want to preserve original objects, you can do so
  * by passing an empty object as the target: `var object = angular.extend({}, object1, object2)`.
  * Note: Keep in mind that `angular.extend` does not support recursive merge (deep copy).
-=======
- * to `dst`. You can specify multiple `src` objects.
->>>>>>> master:TraceGerm/www/lib/angular/angular.js
  *
  * @param {Object} dst Destination object.
  * @param {...Object} src Source object(s).
@@ -557,6 +545,12 @@ function isString(value) {return typeof value === 'string';}
  *
  * @description
  * Determines if a reference is a `Number`.
+ *
+ * This includes the "special" numbers `NaN`, `+Infinity` and `-Infinity`.
+ *
+ * If you wish to exclude these then you can use the native
+ * [`isFinite'](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/isFinite)
+ * method.
  *
  * @param {*} value Reference to check.
  * @returns {boolean} True if `value` is a `Number`.
@@ -926,10 +920,11 @@ function equals(o1, o2) {
       } else if (isDate(o1)) {
         if (!isDate(o2)) return false;
         return equals(o1.getTime(), o2.getTime());
-      } else if (isRegExp(o1) && isRegExp(o2)) {
-        return o1.toString() == o2.toString();
+      } else if (isRegExp(o1)) {
+        return isRegExp(o2) ? o1.toString() == o2.toString() : false;
       } else {
-        if (isScope(o1) || isScope(o2) || isWindow(o1) || isWindow(o2) || isArray(o2)) return false;
+        if (isScope(o1) || isScope(o2) || isWindow(o1) || isWindow(o2) ||
+          isArray(o2) || isDate(o2) || isRegExp(o2)) return false;
         keySet = {};
         for (key in o1) {
           if (key.charAt(0) === '$' || isFunction(o1[key])) continue;
@@ -2133,19 +2128,11 @@ function toDebugString(obj) {
  * - `codeName` – `{string}` – Code name of the release, such as "jiggling-armfat".
  */
 var version = {
-<<<<<<< HEAD:TraceGerm/www/lib/angular/angular.js
-  full: '1.3.13',    // all of these placeholder strings will be replaced by grunt's
+  full: '1.3.15',    // all of these placeholder strings will be replaced by grunt's
   major: 1,    // package task
   minor: 3,
-  dot: 13,
-  codeName: 'meticulous-riffleshuffle'
-=======
-  full: '1.2.28',    // all of these placeholder strings will be replaced by grunt's
-  major: 1,    // package task
-  minor: 2,
-  dot: 28,
-  codeName: 'finnish-disembarkation'
->>>>>>> master:TraceGerm/www/lib/angular/angular.js
+  dot: 15,
+  codeName: 'locality-filtration'
 };
 
 
@@ -2282,6 +2269,17 @@ function publishExternalAPI(angular) {
   ]);
 }
 
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ *     Any commits to this file should be reviewed with security in mind.  *
+ *   Changes to this file can potentially create security vulnerabilities. *
+ *          An approval from 2 Core members with history of modifying      *
+ *                         this file is required.                          *
+ *                                                                         *
+ *  Does the change somehow allow for arbitrary javascript to be executed? *
+ *    Or allows for someone to change the prototype of built-in objects?   *
+ *     Or gives undesired access to variables likes document or window?    *
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
 /* global JQLitePrototype: true,
   addEventListenerFn: true,
   removeEventListenerFn: true,
@@ -2326,11 +2324,7 @@ function publishExternalAPI(angular) {
  * - [`children()`](http://api.jquery.com/children/) - Does not support selectors
  * - [`clone()`](http://api.jquery.com/clone/)
  * - [`contents()`](http://api.jquery.com/contents/)
-<<<<<<< HEAD:TraceGerm/www/lib/angular/angular.js
  * - [`css()`](http://api.jquery.com/css/) - Only retrieves inline-styles, does not call `getComputedStyle()`
-=======
- * - [`css()`](http://api.jquery.com/css/) - Only retrieves inline-styles, does not call `getComputedStyles()`
->>>>>>> master:TraceGerm/www/lib/angular/angular.js
  * - [`data()`](http://api.jquery.com/data/)
  * - [`detach()`](http://api.jquery.com/detach/)
  * - [`empty()`](http://api.jquery.com/empty/)
@@ -3395,13 +3389,9 @@ HashMap.prototype = {
  * dependency injection (see {@link guide/di dependency injection}).
  *
  * @param {Array.<string|Function>} modules A list of module functions or their aliases. See
-<<<<<<< HEAD:TraceGerm/www/lib/angular/angular.js
  *     {@link angular.module}. The `ng` module must be explicitly added.
  * @param {boolean=} [strictDi=false] Whether the injector should be in strict mode, which
  *     disallows argument name annotation inference.
-=======
- *        {@link angular.module}. The `ng` module must be explicitly added.
->>>>>>> master:TraceGerm/www/lib/angular/angular.js
  * @returns {injector} Injector object. See {@link auto.$injector $injector}.
  *
  * @example
@@ -4713,6 +4703,7 @@ var $AnimateProvider = ['$provide', function($provide) {
        * @return {Promise} the animation callback promise
        */
       leave: function(element, options) {
+        applyStyles(element, options);
         element.remove();
         return asyncPromise();
       },
@@ -5015,12 +5006,9 @@ function Browser(window, document, $log, $sniffer) {
       lastBrowserUrl = location.href,
       baseElement = document.find('base'),
       reloadLocation = null;
-<<<<<<< HEAD:TraceGerm/www/lib/angular/angular.js
 
   cacheState();
   lastHistoryState = cachedState;
-=======
->>>>>>> master:TraceGerm/www/lib/angular/angular.js
 
   /**
    * @name $browser#url
@@ -5056,7 +5044,6 @@ function Browser(window, document, $log, $sniffer) {
 
     // setter
     if (url) {
-<<<<<<< HEAD:TraceGerm/www/lib/angular/angular.js
       var sameState = lastHistoryState === state;
 
       // Don't change anything if previous and current URLs and states match. This also prevents
@@ -5068,30 +5055,15 @@ function Browser(window, document, $log, $sniffer) {
       var sameBase = lastBrowserUrl && stripHash(lastBrowserUrl) === stripHash(url);
       lastBrowserUrl = url;
       lastHistoryState = state;
-=======
-      if (lastBrowserUrl == url) return;
-      var sameBase = lastBrowserUrl && stripHash(lastBrowserUrl) === stripHash(url);
-      lastBrowserUrl = url;
->>>>>>> master:TraceGerm/www/lib/angular/angular.js
       // Don't use history API if only the hash changed
       // due to a bug in IE10/IE11 which leads
       // to not firing a `hashchange` nor `popstate` event
       // in some cases (see #9143).
-<<<<<<< HEAD:TraceGerm/www/lib/angular/angular.js
       if ($sniffer.history && (!sameBase || !sameState)) {
         history[replace ? 'replaceState' : 'pushState'](state, '', url);
         cacheState();
         // Do the assignment again so that those two variables are referentially identical.
         lastHistoryState = cachedState;
-=======
-      if (!sameBase && $sniffer.history) {
-        if (replace) history.replaceState(null, '', url);
-        else {
-          history.pushState(null, '', url);
-          // Crazy Opera Bug: http://my.opera.com/community/forums/topic.dml?id=1185462
-          baseElement.attr('href', baseElement.attr('href'));
-        }
->>>>>>> master:TraceGerm/www/lib/angular/angular.js
       } else {
         if (!sameBase) {
           reloadLocation = url;
@@ -5136,11 +5108,19 @@ function Browser(window, document, $log, $sniffer) {
     fireUrlChange();
   }
 
+  function getCurrentState() {
+    try {
+      return history.state;
+    } catch (e) {
+      // MSIE can reportedly throw when there is no state (UNCONFIRMED).
+    }
+  }
+
   // This variable should be used *only* inside the cacheState function.
   var lastCachedState = null;
   function cacheState() {
     // This should be the only place in $browser where `history.state` is read.
-    cachedState = window.history.state;
+    cachedState = getCurrentState();
     cachedState = isUndefined(cachedState) ? null : cachedState;
 
     // Prevent callbacks fo fire twice if both hashchange & popstate were fired.
@@ -5151,13 +5131,9 @@ function Browser(window, document, $log, $sniffer) {
   }
 
   function fireUrlChange() {
-<<<<<<< HEAD:TraceGerm/www/lib/angular/angular.js
     if (lastBrowserUrl === self.url() && lastHistoryState === cachedState) {
       return;
     }
-=======
-    if (lastBrowserUrl == self.url()) return;
->>>>>>> master:TraceGerm/www/lib/angular/angular.js
 
     lastBrowserUrl = self.url();
     lastHistoryState = cachedState;
@@ -5741,7 +5717,7 @@ function $CacheFactoryProvider() {
  * the document, but it must be a descendent of the {@link ng.$rootElement $rootElement} (IE,
  * element with ng-app attribute), otherwise the template will be ignored.
  *
- * Adding via the $templateCache service:
+ * Adding via the `$templateCache` service:
  *
  * ```js
  * var myApp = angular.module('myApp', []);
@@ -5768,6 +5744,17 @@ function $TemplateCacheProvider() {
     return $cacheFactory('templates');
   }];
 }
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ *     Any commits to this file should be reviewed with security in mind.  *
+ *   Changes to this file can potentially create security vulnerabilities. *
+ *          An approval from 2 Core members with history of modifying      *
+ *                         this file is required.                          *
+ *                                                                         *
+ *  Does the change somehow allow for arbitrary javascript to be executed? *
+ *    Or allows for someone to change the prototype of built-in objects?   *
+ *     Or gives undesired access to variables likes document or window?    *
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 /* ! VARIABLE/FUNCTION NAMING CONVENTIONS THAT APPLY TO THIS FILE!
  *
@@ -5980,7 +5967,8 @@ function $TemplateCacheProvider() {
  * Require another directive and inject its controller as the fourth argument to the linking function. The
  * `require` takes a string name (or array of strings) of the directive(s) to pass in. If an array is used, the
  * injected argument will be an array in corresponding order. If no such directive can be
- * found, or if the directive does not have a controller, then an error is raised. The name can be prefixed with:
+ * found, or if the directive does not have a controller, then an error is raised (unless no link function
+ * is specified, in which case error checking is skipped). The name can be prefixed with:
  *
  * * (no prefix) - Locate the required controller on the current element. Throw an error if not found.
  * * `?` - Attempt to locate the required controller or pass `null` to the `link` fn if not found.
@@ -8783,7 +8771,6 @@ function $HttpProvider() {
 
   var useApplyAsync = false;
   /**
-<<<<<<< HEAD:TraceGerm/www/lib/angular/angular.js
    * @ngdoc method
    * @name $httpProvider#useApplyAsync
    * @description
@@ -8809,21 +8796,6 @@ function $HttpProvider() {
     }
     return useApplyAsync;
   };
-=======
-   * @ngdoc property
-   * @name $httpProvider#interceptors
-   * @description
-   *
-   * Array containing service factories for all synchronous or asynchronous {@link ng.$http $http}
-   * pre-processing of request or postprocessing of responses.
-   *
-   * These service factories are ordered by request, i.e. they are applied in the same order as the
-   * array, on request, but reverse order, on response.
-   *
-   * {@link ng.$http#interceptors Interceptors detailed info}
-   **/
-  var interceptorFactories = this.interceptors = [];
->>>>>>> master:TraceGerm/www/lib/angular/angular.js
 
   /**
    * @ngdoc property
@@ -9002,7 +8974,6 @@ function $HttpProvider() {
      *
      * $http(req).success(function(){...}).error(function(){...});
      * ```
-<<<<<<< HEAD:TraceGerm/www/lib/angular/angular.js
      *
      * ## Transforming Requests and Responses
      *
@@ -9010,8 +8981,6 @@ function $HttpProvider() {
      * and `transformResponse`. These properties can be a single function that returns
      * the transformed value (`function(data, headersGetter, status)`) or an array of such transformation functions,
      * which allows you to `push` or `unshift` a new transformation function into the transformation chain.
-=======
->>>>>>> master:TraceGerm/www/lib/angular/angular.js
      *
      * ### Default Transformations
      *
@@ -9583,7 +9552,6 @@ function $HttpProvider() {
      * @param {Object=} config Optional configuration object
      * @returns {HttpPromise} Future object
      */
-<<<<<<< HEAD:TraceGerm/www/lib/angular/angular.js
 
      /**
       * @ngdoc method
@@ -9598,33 +9566,17 @@ function $HttpProvider() {
       * @returns {HttpPromise} Future object
       */
     createShortMethodsWithData('post', 'put', 'patch');
-=======
->>>>>>> master:TraceGerm/www/lib/angular/angular.js
 
-    /**
-     * @ngdoc method
-     * @name $http#patch
-     *
-     * @description
-     * Shortcut method to perform `PATCH` request.
-     *
-     * @param {string} url Relative or absolute URL specifying the destination of the request
-     * @param {*} data Request content
-     * @param {Object=} config Optional configuration object
-     * @returns {HttpPromise} Future object
-     */
-    createShortMethodsWithData('post', 'put', 'patch');
-
-    /**
-     * @ngdoc property
-     * @name $http#defaults
-     *
-     * @description
-     * Runtime equivalent of the `$httpProvider.defaults` property. Allows configuration of
-     * default headers, withCredentials as well as request and response transformations.
-     *
-     * See "Setting HTTP Headers" and "Transforming Requests and Responses" sections above.
-     */
+        /**
+         * @ngdoc property
+         * @name $http#defaults
+         *
+         * @description
+         * Runtime equivalent of the `$httpProvider.defaults` property. Allows configuration of
+         * default headers, withCredentials as well as request and response transformations.
+         *
+         * See "Setting HTTP Headers" and "Transforming Requests and Responses" sections above.
+         */
     $http.defaults = defaults;
 
 
@@ -10387,7 +10339,6 @@ function $IntervalProvider() {
       *               }
       *             }, 100);
       *           };
-<<<<<<< HEAD:TraceGerm/www/lib/angular/angular.js
       *
       *           $scope.stopFight = function() {
       *             if (angular.isDefined(stop)) {
@@ -10401,21 +10352,6 @@ function $IntervalProvider() {
       *             $scope.blood_2 = 120;
       *           };
       *
-=======
-      *
-      *           $scope.stopFight = function() {
-      *             if (angular.isDefined(stop)) {
-      *               $interval.cancel(stop);
-      *               stop = undefined;
-      *             }
-      *           };
-      *
-      *           $scope.resetFight = function() {
-      *             $scope.blood_1 = 100;
-      *             $scope.blood_2 = 120;
-      *           };
-      *
->>>>>>> master:TraceGerm/www/lib/angular/angular.js
       *           $scope.$on('$destroy', function() {
       *             // Make sure that the interval is destroyed too
       *             $scope.stopFight();
@@ -10582,7 +10518,15 @@ function $LocaleProvider() {
         mediumDate: 'MMM d, y',
         shortDate: 'M/d/yy',
         mediumTime: 'h:mm:ss a',
-        shortTime: 'h:mm a'
+        shortTime: 'h:mm a',
+        ERANAMES: [
+          "Before Christ",
+          "Anno Domini"
+        ],
+        ERAS: [
+          "BC",
+          "AD"
+        ]
       },
 
       pluralCat: function(num) {
@@ -10727,30 +10671,22 @@ function LocationHtml5Url(appBase, basePrefix) {
   };
 
   this.$$parseLinkUrl = function(url, relHref) {
-<<<<<<< HEAD:TraceGerm/www/lib/angular/angular.js
     if (relHref && relHref[0] === '#') {
       // special case for links to hash fragments:
       // keep the old url and only replace the hash fragment
       this.hash(relHref.slice(1));
       return true;
     }
-=======
->>>>>>> master:TraceGerm/www/lib/angular/angular.js
     var appUrl, prevAppUrl;
     var rewrittenUrl;
 
     if ((appUrl = beginsWith(appBase, url)) !== undefined) {
       prevAppUrl = appUrl;
-<<<<<<< HEAD:TraceGerm/www/lib/angular/angular.js
       if ((appUrl = beginsWith(basePrefix, appUrl)) !== undefined) {
-=======
-      if ( (appUrl = beginsWith(basePrefix, appUrl)) !== undefined ) {
->>>>>>> master:TraceGerm/www/lib/angular/angular.js
         rewrittenUrl = appBaseNoFile + (beginsWith('/', appUrl) || appUrl);
       } else {
         rewrittenUrl = appBase + prevAppUrl;
       }
-<<<<<<< HEAD:TraceGerm/www/lib/angular/angular.js
     } else if ((appUrl = beginsWith(appBaseNoFile, url)) !== undefined) {
       rewrittenUrl = appBaseNoFile + appUrl;
     } else if (appBaseNoFile == url + '/') {
@@ -10759,16 +10695,6 @@ function LocationHtml5Url(appBase, basePrefix) {
     if (rewrittenUrl) {
       this.$$parse(rewrittenUrl);
     }
-=======
-    } else if ( (appUrl = beginsWith(appBaseNoFile, url)) !== undefined ) {
-      rewrittenUrl = appBaseNoFile + appUrl;
-    } else if (appBaseNoFile == url + '/') {
-      rewrittenUrl = appBaseNoFile;
-    }
-    if (rewrittenUrl) {
-      this.$$parse(rewrittenUrl);
-    }
->>>>>>> master:TraceGerm/www/lib/angular/angular.js
     return !!rewrittenUrl;
   };
 }
@@ -10869,11 +10795,7 @@ function LocationHashbangUrl(appBase, hashPrefix) {
   };
 
   this.$$parseLinkUrl = function(url, relHref) {
-<<<<<<< HEAD:TraceGerm/www/lib/angular/angular.js
     if (stripHash(appBase) == stripHash(url)) {
-=======
-    if(stripHash(appBase) == stripHash(url)) {
->>>>>>> master:TraceGerm/www/lib/angular/angular.js
       this.$$parse(url);
       return true;
     }
@@ -10898,7 +10820,6 @@ function LocationHashbangInHtml5Url(appBase, hashPrefix) {
   var appBaseNoFile = stripFile(appBase);
 
   this.$$parseLinkUrl = function(url, relHref) {
-<<<<<<< HEAD:TraceGerm/www/lib/angular/angular.js
     if (relHref && relHref[0] === '#') {
       // special case for links to hash fragments:
       // keep the old url and only replace the hash fragment
@@ -10914,16 +10835,6 @@ function LocationHashbangInHtml5Url(appBase, hashPrefix) {
     } else if ((appUrl = beginsWith(appBaseNoFile, url))) {
       rewrittenUrl = appBase + hashPrefix + appUrl;
     } else if (appBaseNoFile === url + '/') {
-=======
-    var rewrittenUrl;
-    var appUrl;
-
-    if ( appBase == stripHash(url) ) {
-      rewrittenUrl = url;
-    } else if ( (appUrl = beginsWith(appBaseNoFile, url)) ) {
-      rewrittenUrl = appBase + hashPrefix + appUrl;
-    } else if ( appBaseNoFile === url + '/') {
->>>>>>> master:TraceGerm/www/lib/angular/angular.js
       rewrittenUrl = appBaseNoFile;
     }
     if (rewrittenUrl) {
@@ -11437,11 +11348,8 @@ function $LocationProvider() {
     }
     $location = new LocationMode(appBase, '#' + hashPrefix);
     $location.$$parseLinkUrl(initialUrl, initialUrl);
-<<<<<<< HEAD:TraceGerm/www/lib/angular/angular.js
 
     $location.$$state = $browser.state();
-=======
->>>>>>> master:TraceGerm/www/lib/angular/angular.js
 
     var IGNORE_URI_REGEXP = /^\s*(javascript|mailto):/i;
 
@@ -11502,11 +11410,7 @@ function $LocationProvider() {
           if ($location.absUrl() != $browser.url()) {
             $rootScope.$apply();
             // hack to work around FF6 bug 684208 when scenario runner clicks on links
-<<<<<<< HEAD:TraceGerm/www/lib/angular/angular.js
             $window.angular['ff-684208-preventDefault'] = true;
-=======
-            window.angular['ff-684208-preventDefault'] = true;
->>>>>>> master:TraceGerm/www/lib/angular/angular.js
           }
         }
       }
@@ -11630,6 +11534,7 @@ function $LocationProvider() {
          <button ng-click="$log.warn(message)">warn</button>
          <button ng-click="$log.info(message)">info</button>
          <button ng-click="$log.error(message)">error</button>
+         <button ng-click="$log.debug(message)">debug</button>
        </div>
      </file>
    </example>
@@ -11759,6 +11664,17 @@ function $LogProvider() {
     }
   }];
 }
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ *     Any commits to this file should be reviewed with security in mind.  *
+ *   Changes to this file can potentially create security vulnerabilities. *
+ *          An approval from 2 Core members with history of modifying      *
+ *                         this file is required.                          *
+ *                                                                         *
+ *  Does the change somehow allow for arbitrary javascript to be executed? *
+ *    Or allows for someone to change the prototype of built-in objects?   *
+ *     Or gives undesired access to variables likes document or window?    *
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 var $parseMinErr = minErr('$parse');
 
@@ -12484,15 +12400,9 @@ Parser.prototype = {
       ensureSafeFunction(fn, expressionText);
 
       // IE doesn't have apply for some native functions
-<<<<<<< HEAD:TraceGerm/www/lib/angular/angular.js
       var v = fn.apply
             ? fn.apply(context, args)
             : fn(args[0], args[1], args[2], args[3], args[4]);
-=======
-      var v = fnPtr.apply
-            ? fnPtr.apply(context, args)
-            : fnPtr(args[0], args[1], args[2], args[3], args[4]);
->>>>>>> master:TraceGerm/www/lib/angular/angular.js
 
       if (args) {
         // Free-up the memory (arguments of the last function call).
@@ -12591,13 +12501,8 @@ function setter(obj, locals, path, setValue, fullExp) {
   return setValue;
 }
 
-<<<<<<< HEAD:TraceGerm/www/lib/angular/angular.js
 var getterFnCacheDefault = createMap();
 var getterFnCacheExpensive = createMap();
-=======
-var getterFnCacheDefault = {};
-var getterFnCacheExpensive = {};
->>>>>>> master:TraceGerm/www/lib/angular/angular.js
 
 function isPossiblyDangerousMemberName(name) {
   return name == 'constructor';
@@ -12617,17 +12522,12 @@ function cspSafeGetterFn(key0, key1, key2, key3, key4, fullExp, expensiveChecks)
   var eso = function(o) {
     return ensureSafeObject(o, fullExp);
   };
-<<<<<<< HEAD:TraceGerm/www/lib/angular/angular.js
-=======
-  var expensiveChecks = options.expensiveChecks;
->>>>>>> master:TraceGerm/www/lib/angular/angular.js
   var eso0 = (expensiveChecks || isPossiblyDangerousMemberName(key0)) ? eso : identity;
   var eso1 = (expensiveChecks || isPossiblyDangerousMemberName(key1)) ? eso : identity;
   var eso2 = (expensiveChecks || isPossiblyDangerousMemberName(key2)) ? eso : identity;
   var eso3 = (expensiveChecks || isPossiblyDangerousMemberName(key3)) ? eso : identity;
   var eso4 = (expensiveChecks || isPossiblyDangerousMemberName(key4)) ? eso : identity;
 
-<<<<<<< HEAD:TraceGerm/www/lib/angular/angular.js
   return function cspSafeGetter(scope, locals) {
     var pathVal = (locals && locals.hasOwnProperty(key0)) ? locals : scope;
 
@@ -12658,126 +12558,14 @@ function getterFnWithEnsureSafeObject(fn, fullExpression) {
   return function(s, l) {
     return fn(s, l, ensureSafeObject, fullExpression);
   };
-=======
-  return !options.unwrapPromises
-      ? function cspSafeGetter(scope, locals) {
-          var pathVal = (locals && locals.hasOwnProperty(key0)) ? locals : scope;
-
-          if (pathVal == null) return pathVal;
-          pathVal = eso0(pathVal[key0]);
-
-          if (!key1) return pathVal;
-          if (pathVal == null) return undefined;
-          pathVal = eso1(pathVal[key1]);
-
-          if (!key2) return pathVal;
-          if (pathVal == null) return undefined;
-          pathVal = eso2(pathVal[key2]);
-
-          if (!key3) return pathVal;
-          if (pathVal == null) return undefined;
-          pathVal = eso3(pathVal[key3]);
-
-          if (!key4) return pathVal;
-          if (pathVal == null) return undefined;
-          pathVal = eso4(pathVal[key4]);
-
-          return pathVal;
-        }
-      : function cspSafePromiseEnabledGetter(scope, locals) {
-          var pathVal = (locals && locals.hasOwnProperty(key0)) ? locals : scope,
-              promise;
-
-          if (pathVal == null) return pathVal;
-
-          pathVal = eso0(pathVal[key0]);
-          if (pathVal && pathVal.then) {
-            promiseWarning(fullExp);
-            if (!("$$v" in pathVal)) {
-              promise = pathVal;
-              promise.$$v = undefined;
-              promise.then(function(val) { promise.$$v = eso0(val); });
-            }
-            pathVal = eso0(pathVal.$$v);
-          }
-
-          if (!key1) return pathVal;
-          if (pathVal == null) return undefined;
-          pathVal = eso1(pathVal[key1]);
-          if (pathVal && pathVal.then) {
-            promiseWarning(fullExp);
-            if (!("$$v" in pathVal)) {
-              promise = pathVal;
-              promise.$$v = undefined;
-              promise.then(function(val) { promise.$$v = eso1(val); });
-            }
-            pathVal = eso1(pathVal.$$v);
-          }
-
-          if (!key2) return pathVal;
-          if (pathVal == null) return undefined;
-          pathVal = eso2(pathVal[key2]);
-          if (pathVal && pathVal.then) {
-            promiseWarning(fullExp);
-            if (!("$$v" in pathVal)) {
-              promise = pathVal;
-              promise.$$v = undefined;
-              promise.then(function(val) { promise.$$v = eso2(val); });
-            }
-            pathVal = eso2(pathVal.$$v);
-          }
-
-          if (!key3) return pathVal;
-          if (pathVal == null) return undefined;
-          pathVal = eso3(pathVal[key3]);
-          if (pathVal && pathVal.then) {
-            promiseWarning(fullExp);
-            if (!("$$v" in pathVal)) {
-              promise = pathVal;
-              promise.$$v = undefined;
-              promise.then(function(val) { promise.$$v = eso3(val); });
-            }
-            pathVal = eso3(pathVal.$$v);
-          }
-
-          if (!key4) return pathVal;
-          if (pathVal == null) return undefined;
-          pathVal = eso4(pathVal[key4]);
-          if (pathVal && pathVal.then) {
-            promiseWarning(fullExp);
-            if (!("$$v" in pathVal)) {
-              promise = pathVal;
-              promise.$$v = undefined;
-              promise.then(function(val) { promise.$$v = eso4(val); });
-            }
-            pathVal = eso4(pathVal.$$v);
-          }
-          return pathVal;
-        };
->>>>>>> master:TraceGerm/www/lib/angular/angular.js
-}
-
-function getterFnWithExtraArgs(fn, fullExpression) {
-  return function(s, l) {
-    return fn(s, l, promiseWarning, ensureSafeObject, fullExpression);
-  };
 }
 
 function getterFn(path, options, fullExp) {
   var expensiveChecks = options.expensiveChecks;
   var getterFnCache = (expensiveChecks ? getterFnCacheExpensive : getterFnCacheDefault);
-<<<<<<< HEAD:TraceGerm/www/lib/angular/angular.js
   var fn = getterFnCache[path];
   if (fn) return fn;
 
-=======
-  // Check whether the cache has this getter already.
-  // We can use hasOwnProperty directly on the cache because we ensure,
-  // see below, that the cache never stores a path called 'hasOwnProperty'
-  if (getterFnCache.hasOwnProperty(path)) {
-    return getterFnCache[path];
-  }
->>>>>>> master:TraceGerm/www/lib/angular/angular.js
 
   var pathKeys = path.split('.'),
       pathKeysLength = pathKeys.length;
@@ -12800,11 +12588,7 @@ function getterFn(path, options, fullExp) {
       };
     }
   } else {
-<<<<<<< HEAD:TraceGerm/www/lib/angular/angular.js
     var code = '';
-=======
-    var code = 'var p;\n';
->>>>>>> master:TraceGerm/www/lib/angular/angular.js
     if (expensiveChecks) {
       code += 's = eso(s, fe);\nl = eso(l, fe);\n';
     }
@@ -12815,52 +12599,22 @@ function getterFn(path, options, fullExp) {
                       // we simply dereference 's' on any .dot notation
                       ? 's'
                       // but if we are first then we check locals first, and if so read it first
-<<<<<<< HEAD:TraceGerm/www/lib/angular/angular.js
                       : '((l&&l.hasOwnProperty("' + key + '"))?l:s)') + '.' + key;
       if (expensiveChecks || isPossiblyDangerousMemberName(key)) {
-=======
-                      : '((l&&l.hasOwnProperty("' + key + '"))?l:s)') + '["' + key + '"]';
-      var wrapWithEso = expensiveChecks || isPossiblyDangerousMemberName(key);
-      if (wrapWithEso) {
->>>>>>> master:TraceGerm/www/lib/angular/angular.js
         lookupJs = 'eso(' + lookupJs + ', fe)';
         needsEnsureSafeObject = true;
       }
       code += 'if(s == null) return undefined;\n' +
               's=' + lookupJs + ';\n';
-<<<<<<< HEAD:TraceGerm/www/lib/angular/angular.js
-=======
-      if (options.unwrapPromises) {
-        code += 'if (s && s.then) {\n' +
-                  ' pw("' + fullExp.replace(/(["\r\n])/g, '\\$1') + '");\n' +
-                  ' if (!("$$v" in s)) {\n' +
-                    ' p=s;\n' +
-                    ' p.$$v = undefined;\n' +
-                    ' p.then(function(v) {p.$$v=' + (wrapWithEso ? 'eso(v)' : 'v') + ';});\n' +
-                    '}\n' +
-                  ' s=' + (wrapWithEso ? 'eso(s.$$v)' : 's.$$v') + '\n' +
-                '}\n';
-
-      }
->>>>>>> master:TraceGerm/www/lib/angular/angular.js
     });
     code += 'return s;';
 
     /* jshint -W054 */
-<<<<<<< HEAD:TraceGerm/www/lib/angular/angular.js
     var evaledFnGetter = new Function('s', 'l', 'eso', 'fe', code); // s=scope, l=locals, eso=ensureSafeObject
     /* jshint +W054 */
     evaledFnGetter.toString = valueFn(code);
     if (needsEnsureSafeObject) {
       evaledFnGetter = getterFnWithEnsureSafeObject(evaledFnGetter, fullExp);
-=======
-    // s=scope, l=locals, pw=promiseWarning, eso=ensureSafeObject, fe=fullExpression
-    var evaledFnGetter = new Function('s', 'l', 'pw', 'eso', 'fe', code);
-    /* jshint +W054 */
-    evaledFnGetter.toString = valueFn(code);
-    if (needsEnsureSafeObject || options.unwrapPromises) {
-      evaledFnGetter = getterFnWithExtraArgs(evaledFnGetter, fullExp);
->>>>>>> master:TraceGerm/www/lib/angular/angular.js
     }
     fn = evaledFnGetter;
   }
@@ -12931,21 +12685,9 @@ function getValueOf(value) {
  *  service.
  */
 function $ParseProvider() {
-<<<<<<< HEAD:TraceGerm/www/lib/angular/angular.js
   var cacheDefault = createMap();
   var cacheExpensive = createMap();
 
-=======
-  var cacheDefault = {};
-  var cacheExpensive = {};
-
-  var $parseOptions = {
-    csp: false,
-    unwrapPromises: false,
-    logPromiseWarnings: true,
-    expensiveChecks: false
-  };
->>>>>>> master:TraceGerm/www/lib/angular/angular.js
 
 
   this.$get = ['$filter', '$sniffer', function($filter, $sniffer) {
@@ -13010,26 +12752,14 @@ function $ParseProvider() {
           }
           return addInterceptor(parsedExpression, interceptorFn);
 
-<<<<<<< HEAD:TraceGerm/www/lib/angular/angular.js
         case 'function':
           return addInterceptor(exp, interceptorFn);
-=======
-  this.$get = ['$filter', '$sniffer', '$log', function($filter, $sniffer, $log) {
-    $parseOptions.csp = $sniffer.csp;
-    var $parseOptionsExpensive = {
-      csp: $parseOptions.csp,
-      unwrapPromises: $parseOptions.unwrapPromises,
-      logPromiseWarnings: $parseOptions.logPromiseWarnings,
-      expensiveChecks: true
-    };
->>>>>>> master:TraceGerm/www/lib/angular/angular.js
 
         default:
           return addInterceptor(noop, interceptorFn);
       }
     };
 
-<<<<<<< HEAD:TraceGerm/www/lib/angular/angular.js
     function collectExpressionInputs(inputs, list) {
       for (var i = 0, ii = inputs.length; i < ii; i++) {
         var input = inputs[i];
@@ -13046,16 +12776,11 @@ function $ParseProvider() {
     }
 
     function expressionInputDirtyCheck(newValue, oldValueOfValue) {
-=======
-    return function(exp, expensiveChecks) {
-      var parsedExpression;
->>>>>>> master:TraceGerm/www/lib/angular/angular.js
 
       if (newValue == null || oldValueOfValue == null) { // null/undefined
         return newValue === oldValueOfValue;
       }
 
-<<<<<<< HEAD:TraceGerm/www/lib/angular/angular.js
       if (typeof newValue === 'object') {
 
         // attempt to convert the value to a primitive type
@@ -13089,17 +12814,11 @@ function $ParseProvider() {
           if (!expressionInputDirtyCheck(newInputValue, oldInputValue)) {
             lastResult = parsedExpression(scope);
             oldInputValue = newInputValue && getValueOf(newInputValue);
-=======
-          var cache = (expensiveChecks ? cacheExpensive : cacheDefault);
-          if (cache.hasOwnProperty(exp)) {
-            return cache[exp];
->>>>>>> master:TraceGerm/www/lib/angular/angular.js
           }
           return lastResult;
         }, listener, objectEquality);
       }
 
-<<<<<<< HEAD:TraceGerm/www/lib/angular/angular.js
       var oldInputValueOfValues = [];
       for (var i = 0, ii = inputExpressions.length; i < ii; i++) {
         oldInputValueOfValues[i] = expressionInputDirtyCheck; // init to something unique so that equals check fails
@@ -13107,12 +12826,6 @@ function $ParseProvider() {
 
       return scope.$watch(function expressionInputsWatch(scope) {
         var changed = false;
-=======
-          var parseOptions = expensiveChecks ? $parseOptionsExpensive : $parseOptions;
-          var lexer = new Lexer(parseOptions);
-          var parser = new Parser(lexer, $filter, parseOptions);
-          parsedExpression = parser.parse(exp);
->>>>>>> master:TraceGerm/www/lib/angular/angular.js
 
         for (var i = 0, ii = inputExpressions.length; i < ii; i++) {
           var newInputValue = inputExpressions[i](scope);
@@ -13231,7 +12944,6 @@ function $ParseProvider() {
  *
  * This is an implementation of promises/deferred objects inspired by
  * [Kris Kowal's Q](https://github.com/kriskowal/q).
-<<<<<<< HEAD:TraceGerm/www/lib/angular/angular.js
  *
  * $q can be used in two fashions --- one which is more similar to Kris Kowal's Q or jQuery's Deferred
  * implementations, and the other which resembles ES6 promises to some degree.
@@ -13275,8 +12987,6 @@ function $ParseProvider() {
  * Note: progress/notify callbacks are not currently supported via the ES6-style interface.
  *
  * However, the more traditional CommonJS-style usage is still available, and documented below.
-=======
->>>>>>> master:TraceGerm/www/lib/angular/angular.js
  *
  * [The CommonJS Promise proposal](http://wiki.commonjs.org/wiki/Promises) describes a promise as an
  * interface for interacting with an object that represents the result of an action that is
@@ -13369,15 +13079,7 @@ function $ParseProvider() {
  *
  * - `catch(errorCallback)` – shorthand for `promise.then(null, errorCallback)`
  *
-<<<<<<< HEAD:TraceGerm/www/lib/angular/angular.js
  * - `finally(callback, notifyCallback)` – allows you to observe either the fulfillment or rejection of a promise,
-=======
- *   Because `catch` is a reserved word in JavaScript and reserved keywords are not supported as
- *   property names by ES3, you'll need to invoke the method like `promise['catch'](callback)` or
- *  `promise.then(null, errorCallback)` to make your code IE8 and Android 2.x compatible.
- *
- * - `finally(callback)` – allows you to observe either the fulfillment or rejection of a promise,
->>>>>>> master:TraceGerm/www/lib/angular/angular.js
  *   but to do so without modifying the final value. This is useful to release resources or do some
  *   clean-up that needs to be done whether the promise was rejected or resolved. See the [full
  *   specification](https://github.com/kriskowal/q/wiki/API-Reference#promisefinallycallback) for
@@ -13909,8 +13611,26 @@ function $RootScopeProvider() {
     return TTL;
   };
 
+  function createChildScopeClass(parent) {
+    function ChildScope() {
+      this.$$watchers = this.$$nextSibling =
+          this.$$childHead = this.$$childTail = null;
+      this.$$listeners = {};
+      this.$$listenerCount = {};
+      this.$$watchersCount = 0;
+      this.$id = nextUid();
+      this.$$ChildScope = null;
+    }
+    ChildScope.prototype = parent;
+    return ChildScope;
+  }
+
   this.$get = ['$injector', '$exceptionHandler', '$parse', '$browser',
       function($injector, $exceptionHandler, $parse, $browser) {
+
+    function destroyChildScope($event) {
+        $event.currentScope.$$destroyed = true;
+    }
 
     /**
      * @ngdoc type
@@ -14034,15 +13754,7 @@ function $RootScopeProvider() {
           // Only create a child scope class if somebody asks for one,
           // but cache it to allow the VM to optimize lookups.
           if (!this.$$ChildScope) {
-            this.$$ChildScope = function ChildScope() {
-              this.$$watchers = this.$$nextSibling =
-                  this.$$childHead = this.$$childTail = null;
-              this.$$listeners = {};
-              this.$$listenerCount = {};
-              this.$id = nextUid();
-              this.$$ChildScope = null;
-            };
-            this.$$ChildScope.prototype = this;
+            this.$$ChildScope = createChildScopeClass(this);
           }
           child = new this.$$ChildScope();
         }
@@ -14060,13 +13772,9 @@ function $RootScopeProvider() {
         // prototypically. In all other cases, this property needs to be set
         // when the parent scope is destroyed.
         // The listener needs to be added after the parent is set
-        if (isolate || parent != this) child.$on('$destroy', destroyChild);
+        if (isolate || parent != this) child.$on('$destroy', destroyChildScope);
 
         return child;
-
-        function destroyChild() {
-          child.$$destroyed = true;
-        }
       },
 
       /**
@@ -14939,11 +14647,7 @@ function $RootScopeProvider() {
 
         var self = this;
         return function() {
-<<<<<<< HEAD:TraceGerm/www/lib/angular/angular.js
           var indexOfListener = namedListeners.indexOf(listener);
-=======
-          var indexOfListener = indexOf(namedListeners, listener);
->>>>>>> master:TraceGerm/www/lib/angular/angular.js
           if (indexOfListener !== -1) {
             namedListeners[indexOfListener] = null;
             decrementListenerCount(self, 1, name);
@@ -15230,6 +14934,17 @@ function $$SanitizeUriProvider() {
     };
   };
 }
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ *     Any commits to this file should be reviewed with security in mind.  *
+ *   Changes to this file can potentially create security vulnerabilities. *
+ *          An approval from 2 Core members with history of modifying      *
+ *                         this file is required.                          *
+ *                                                                         *
+ *  Does the change somehow allow for arbitrary javascript to be executed? *
+ *    Or allows for someone to change the prototype of built-in objects?   *
+ *     Or gives undesired access to variables likes document or window?    *
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 var $sceMinErr = minErr('$sce');
 
@@ -16406,7 +16121,7 @@ function $TemplateRequestProvider() {
       };
 
       return $http.get(tpl, httpOptions)
-        .finally(function() {
+        ['finally'](function() {
           handleRequestFn.totalPendingRequests--;
         })
         .then(function(response) {
@@ -17050,61 +16765,7 @@ function filterFilter() {
     var predicateFn;
     var matchAgainstAnyProp;
 
-<<<<<<< HEAD:TraceGerm/www/lib/angular/angular.js
     switch (typeof expression) {
-=======
-    var search = function(obj, text){
-      if (typeof text === 'string' && text.charAt(0) === '!') {
-        return !search(obj, text.substr(1));
-      }
-      switch (typeof obj) {
-        case 'boolean':
-        case 'number':
-        case 'string':
-          return comparator(obj, text);
-        case 'object':
-          switch (typeof text) {
-            case 'object':
-              return comparator(obj, text);
-            default:
-              for ( var objKey in obj) {
-                if (objKey.charAt(0) !== '$' && search(obj[objKey], text)) {
-                  return true;
-                }
-              }
-              break;
-          }
-          return false;
-        case 'array':
-          for ( var i = 0; i < obj.length; i++) {
-            if (search(obj[i], text)) {
-              return true;
-            }
-          }
-          return false;
-        default:
-          return false;
-      }
-    };
-    switch (typeof expression) {
-      case 'boolean':
-      case 'number':
-      case 'string':
-        // Set up expression object and fall through
-        expression = {$:expression};
-        // jshint -W086
-      case 'object':
-        // jshint +W086
-        for (var key in expression) {
-          (function(path) {
-            if (typeof expression[path] === 'undefined') return;
-            predicates.push(function(value) {
-              return search(path == '$' ? value : (value && value[path]), expression[path]);
-            });
-          })(key);
-        }
-        break;
->>>>>>> master:TraceGerm/www/lib/angular/angular.js
       case 'function':
         predicateFn = expression;
         break;
@@ -17156,8 +16817,8 @@ function createPredicateFn(expression, comparator, matchAgainstAnyProp) {
 }
 
 function deepCompare(actual, expected, comparator, matchAgainstAnyProp, dontMatchWholeObject) {
-  var actualType = typeof actual;
-  var expectedType = typeof expected;
+  var actualType = (actual !== null) ? typeof actual : 'null';
+  var expectedType = (expected !== null) ? typeof expected : 'null';
 
   if ((expectedType === 'string') && (expected.charAt(0) === '!')) {
     return !deepCompare(actual, expected.substring(1), comparator, matchAgainstAnyProp);
@@ -17182,7 +16843,7 @@ function deepCompare(actual, expected, comparator, matchAgainstAnyProp, dontMatc
       } else if (expectedType === 'object') {
         for (key in expected) {
           var expectedVal = expected[key];
-          if (isFunction(expectedVal)) {
+          if (isFunction(expectedVal) || isUndefined(expectedVal)) {
             continue;
           }
 
@@ -17496,6 +17157,14 @@ function ampmGetter(date, formats) {
   return date.getHours() < 12 ? formats.AMPMS[0] : formats.AMPMS[1];
 }
 
+function eraGetter(date, formats) {
+  return date.getFullYear() <= 0 ? formats.ERAS[0] : formats.ERAS[1];
+}
+
+function longEraGetter(date, formats) {
+  return date.getFullYear() <= 0 ? formats.ERANAMES[0] : formats.ERANAMES[1];
+}
+
 var DATE_FORMATS = {
   yyyy: dateGetter('FullYear', 4),
     yy: dateGetter('FullYear', 2, 0, true),
@@ -17522,10 +17191,14 @@ var DATE_FORMATS = {
      a: ampmGetter,
      Z: timeZoneGetter,
     ww: weekGetter(2),
-     w: weekGetter(1)
+     w: weekGetter(1),
+     G: eraGetter,
+     GG: eraGetter,
+     GGG: eraGetter,
+     GGGG: longEraGetter
 };
 
-var DATE_FORMATS_SPLIT = /((?:[^yMdHhmsaZEw']+)|(?:'(?:[^']|'')*')|(?:E+|y+|M+|d+|H+|h+|m+|s+|a|Z|w+))(.*)/,
+var DATE_FORMATS_SPLIT = /((?:[^yMdHhmsaZEwG']+)|(?:'(?:[^']|'')*')|(?:E+|y+|M+|d+|H+|h+|m+|s+|a|Z|G+|w+))(.*)/,
     NUMBER_STRING = /^\-?\d+$/;
 
 /**
@@ -17562,6 +17235,8 @@ var DATE_FORMATS_SPLIT = /((?:[^yMdHhmsaZEw']+)|(?:'(?:[^']|'')*')|(?:E+|y+|M+|d
  *   * `'Z'`: 4 digit (+sign) representation of the timezone offset (-1200-+1200)
  *   * `'ww'`: Week of year, padded (00-53). Week 01 is the week with the first Thursday of the year
  *   * `'w'`: Week of year (0-53). Week 1 is the week with the first Thursday of the year
+ *   * `'G'`, `'GG'`, `'GGG'`: The abbreviated form of the era string (e.g. 'AD')
+ *   * `'GGGG'`: The long form of the era string (e.g. 'Anno Domini')
  *
  *   `format` string can also be one of the following predefined
  *   {@link guide/i18n localizable formats}:
@@ -17820,16 +17495,11 @@ var uppercaseFilter = valueFn(uppercase);
        //   numLimitInput.sendKeys('-3');
        //   letterLimitInput.clear();
        //   letterLimitInput.sendKeys('-3');
-<<<<<<< HEAD:TraceGerm/www/lib/angular/angular.js
        //   longNumberLimitInput.clear();
        //   longNumberLimitInput.sendKeys('-3');
        //   expect(limitedNumbers.getText()).toEqual('Output numbers: [7,8,9]');
        //   expect(limitedLetters.getText()).toEqual('Output letters: ghi');
        //   expect(limitedLongNumber.getText()).toEqual('Output long number: 342');
-=======
-       //   expect(limitedNumbers.getText()).toEqual('Output numbers: [7,8,9]');
-       //   expect(limitedLetters.getText()).toEqual('Output letters: ghi');
->>>>>>> master:TraceGerm/www/lib/angular/angular.js
        // });
 
        it('should not exceed the maximum size of input array', function() {
@@ -17900,6 +17570,43 @@ function limitToFilter() {
  * @param {boolean=} reverse Reverse the order of the array.
  * @returns {Array} Sorted copy of the source array.
  *
+ *
+ * @example
+ * The example below demonstrates a simple ngRepeat, where the data is sorted
+ * by age in descending order (predicate is set to `'-age'`).
+ * `reverse` is not set, which means it defaults to `false`.
+   <example module="orderByExample">
+     <file name="index.html">
+       <script>
+         angular.module('orderByExample', [])
+           .controller('ExampleController', ['$scope', function($scope) {
+             $scope.friends =
+                 [{name:'John', phone:'555-1212', age:10},
+                  {name:'Mary', phone:'555-9876', age:19},
+                  {name:'Mike', phone:'555-4321', age:21},
+                  {name:'Adam', phone:'555-5678', age:35},
+                  {name:'Julie', phone:'555-8765', age:29}];
+           }]);
+       </script>
+       <div ng-controller="ExampleController">
+         <table class="friend">
+           <tr>
+             <th>Name</th>
+             <th>Phone Number</th>
+             <th>Age</th>
+           </tr>
+           <tr ng-repeat="friend in friends | orderBy:'-age'">
+             <td>{{friend.name}}</td>
+             <td>{{friend.phone}}</td>
+             <td>{{friend.age}}</td>
+           </tr>
+         </table>
+       </div>
+     </file>
+   </example>
+ *
+ * The predicate and reverse parameters can be controlled dynamically through scope properties,
+ * as shown in the next example.
  * @example
    <example module="orderByExample">
      <file name="index.html">
@@ -17985,32 +17692,18 @@ orderByFilter.$inject = ['$parse'];
 function orderByFilter($parse) {
   return function(array, sortPredicate, reverseOrder) {
     if (!(isArrayLike(array))) return array;
-<<<<<<< HEAD:TraceGerm/www/lib/angular/angular.js
     sortPredicate = isArray(sortPredicate) ? sortPredicate : [sortPredicate];
     if (sortPredicate.length === 0) { sortPredicate = ['+']; }
     sortPredicate = sortPredicate.map(function(predicate) {
-=======
-    sortPredicate = isArray(sortPredicate) ? sortPredicate: [sortPredicate];
-    if (sortPredicate.length === 0) { sortPredicate = ['+']; }
-    sortPredicate = map(sortPredicate, function(predicate){
->>>>>>> master:TraceGerm/www/lib/angular/angular.js
       var descending = false, get = predicate || identity;
       if (isString(predicate)) {
         if ((predicate.charAt(0) == '+' || predicate.charAt(0) == '-')) {
           descending = predicate.charAt(0) == '-';
           predicate = predicate.substring(1);
         }
-<<<<<<< HEAD:TraceGerm/www/lib/angular/angular.js
         if (predicate === '') {
           // Effectively no predicate was passed so we compare identity
           return reverseComparator(compare, descending);
-=======
-        if ( predicate === '' ) {
-          // Effectively no predicate was passed so we compare identity
-          return reverseComparator(function(a,b) {
-            return compare(a, b);
-          }, descending);
->>>>>>> master:TraceGerm/www/lib/angular/angular.js
         }
         get = $parse(predicate);
         if (get.constant) {
@@ -18288,20 +17981,24 @@ var htmlAnchorDirective = valueFn({
  *
  * @description
  *
- * We shouldn't do this, because it will make the button enabled on Chrome/Firefox but not on IE8 and older IEs:
+ * This directive sets the `disabled` attribute on the element if the
+ * {@link guide/expression expression} inside `ngDisabled` evaluates to truthy.
+ *
+ * A special directive is necessary because we cannot use interpolation inside the `disabled`
+ * attribute.  The following example would make the button enabled on Chrome/Firefox
+ * but not on older IEs:
+ *
  * ```html
- * <div ng-init="scope = { isDisabled: false }">
- *  <button disabled="{{scope.isDisabled}}">Disabled</button>
+ * <!-- See below for an example of ng-disabled being used correctly -->
+ * <div ng-init="isDisabled = false">
+ *  <button disabled="{{isDisabled}}">Disabled</button>
  * </div>
  * ```
  *
- * The HTML specification does not require browsers to preserve the values of boolean attributes
- * such as disabled. (Their presence means true and their absence means false.)
+ * This is because the HTML specification does not require browsers to preserve the values of
+ * boolean attributes such as `disabled` (Their presence means true and their absence means false.)
  * If we put an Angular interpolation expression into such an attribute then the
  * binding information would be lost when the browser removes the attribute.
- * The `ngDisabled` directive solves this problem for the `disabled` attribute.
- * This complementary directive is not removed by the browser and so provides
- * a permanent reliable place to store the binding information.
  *
  * @example
     <example>
@@ -18320,7 +18017,7 @@ var htmlAnchorDirective = valueFn({
  *
  * @element INPUT
  * @param {expression} ngDisabled If the {@link guide/expression expression} is truthy,
- *     then special attribute "disabled" will be set on the element
+ *     then the `disabled` attribute will be set on the element
  */
 
 
@@ -18868,7 +18565,7 @@ function FormController(element, attrs, $scope, $animate, $interpolate) {
  *
  * # Alias: {@link ng.directive:ngForm `ngForm`}
  *
- * In Angular forms can be nested. This means that the outer form is valid when all of the child
+ * In Angular, forms can be nested. This means that the outer form is valid when all of the child
  * forms are valid as well. However, browsers do not allow nesting of `<form>` elements, so
  * Angular provides the {@link ng.directive:ngForm `ngForm`} directive which behaves identically to
  * `<form>` but can be nested.  This allows you to have nested forms, which is very useful when
@@ -19006,9 +18703,11 @@ var formDirectiveFactory = function(isNgForm) {
       name: 'form',
       restrict: isNgForm ? 'EAC' : 'E',
       controller: FormController,
-      compile: function ngFormCompile(formElement) {
+      compile: function ngFormCompile(formElement, attr) {
         // Setup initial state of the control
         formElement.addClass(PRISTINE_CLASS).addClass(VALID_CLASS);
+
+        var nameAttr = attr.name ? 'name' : (isNgForm && attr.ngForm ? 'ngForm' : false);
 
         return {
           pre: function ngFormPreLink(scope, formElement, attr, controller) {
@@ -19040,23 +18739,21 @@ var formDirectiveFactory = function(isNgForm) {
               });
             }
 
-            var parentFormCtrl = controller.$$parentForm,
-                alias = controller.$name;
+            var parentFormCtrl = controller.$$parentForm;
 
-            if (alias) {
-              setter(scope, null, alias, controller, alias);
-              attr.$observe(attr.name ? 'name' : 'ngForm', function(newValue) {
-                if (alias === newValue) return;
-                setter(scope, null, alias, undefined, alias);
-                alias = newValue;
-                setter(scope, null, alias, controller, alias);
-                parentFormCtrl.$$renameControl(controller, alias);
+            if (nameAttr) {
+              setter(scope, null, controller.$name, controller, controller.$name);
+              attr.$observe(nameAttr, function(newValue) {
+                if (controller.$name === newValue) return;
+                setter(scope, null, controller.$name, undefined, controller.$name);
+                parentFormCtrl.$$renameControl(controller, newValue);
+                setter(scope, null, controller.$name, controller, controller.$name);
               });
             }
             formElement.on('$destroy', function() {
               parentFormCtrl.$removeControl(controller);
-              if (alias) {
-                setter(scope, null, alias, undefined, alias);
+              if (nameAttr) {
+                setter(scope, null, attr[nameAttr], undefined, controller.$name);
               }
               extend(controller, nullFormCtrl); //stop propagating child destruction handlers upwards
             });
@@ -20322,7 +20019,7 @@ function numberInputType(scope, element, attr, ctrl, $sniffer, $browser) {
     return value;
   });
 
-  if (attr.min || attr.ngMin) {
+  if (isDefined(attr.min) || attr.ngMin) {
     var minVal;
     ctrl.$validators.min = function(value) {
       return ctrl.$isEmpty(value) || isUndefined(minVal) || value >= minVal;
@@ -20338,7 +20035,7 @@ function numberInputType(scope, element, attr, ctrl, $sniffer, $browser) {
     });
   }
 
-  if (attr.max || attr.ngMax) {
+  if (isDefined(attr.max) || attr.ngMax) {
     var maxVal;
     ctrl.$validators.max = function(value) {
       return ctrl.$isEmpty(value) || isUndefined(maxVal) || value <= maxVal;
@@ -20714,13 +20411,6 @@ var ngValueDirective = function() {
  * An alternative solution to this problem would be using the
  * {@link ng.directive:ngCloak ngCloak} directive.
  *
-<<<<<<< HEAD:TraceGerm/www/lib/angular/angular.js
-=======
- * We are using the {@link ng.service:$sce $sce} service here and include the {@link ngSanitize $sanitize}
- * module to automatically remove "bad" content like inline event listener (e.g. `<span onclick="...">`).
- * However, as we are using `$sce` the model can still decide to provide unsafe content if it marks
- * that content using the `$sce` service.
->>>>>>> master:TraceGerm/www/lib/angular/angular.js
  *
  * @element ANY
  * @param {expression} ngBind {@link guide/expression Expression} to evaluate.
@@ -20808,50 +20498,7 @@ var ngBindDirective = ['$compile', function($compile) {
          var salutationInput = element(by.model('salutation'));
          var nameInput = element(by.model('name'));
 
-<<<<<<< HEAD:TraceGerm/www/lib/angular/angular.js
          expect(salutationElem.getText()).toBe('Hello World!');
-=======
-              // Listen for change events to enable binding
-              element.on('blur keyup change', function() {
-                scope.$evalAsync(read);
-              });
-              read(); // initialize
-
-              // Write data to the model
-              function read() {
-                var html = element.html();
-                // When we clear the content editable the browser leaves a <br> behind
-                // If strip-br attribute is provided then we strip this out
-                if( attrs.stripBr && html == '<br>' ) {
-                  html = '';
-                }
-                ngModel.$setViewValue(html);
-              }
-            }
-          };
-        }]);
-    </file>
-    <file name="index.html">
-      <form name="myForm">
-       <div contenteditable
-            name="myWidget" ng-model="userContent"
-            strip-br="true"
-            required>Change me!</div>
-        <span ng-show="myForm.myWidget.$error.required">Required!</span>
-       <hr>
-       <textarea ng-model="userContent"></textarea>
-      </form>
-    </file>
-    <file name="protractor.js" type="protractor">
-    it('should data-bind and become invalid', function() {
-      if (browser.params.browser == 'safari' || browser.params.browser == 'firefox') {
-        // SafariDriver can't handle contenteditable
-        // and Firefox driver can't clear contenteditables very well
-        return;
-      }
-      var contentEditable = element(by.css('[contenteditable]'));
-      var content = 'Change me!';
->>>>>>> master:TraceGerm/www/lib/angular/angular.js
 
          salutationInput.clear();
          salutationInput.sendKeys('Greetings');
@@ -20955,33 +20602,10 @@ var ngBindHtmlDirective = ['$sce', '$parse', '$compile', function($sce, $parse, 
  * @name ngChange
  *
  * @description
-<<<<<<< HEAD:TraceGerm/www/lib/angular/angular.js
  * Evaluate the given expression when the user changes the input.
  * The expression is evaluated immediately, unlike the JavaScript onchange event
  * which only triggers at the end of a change (usually, when the user leaves the
  * form element or presses the return key).
-=======
- * The `ngModel` directive binds an `input`,`select`, `textarea` (or custom form control) to a
- * property on the scope using {@link ngModel.NgModelController NgModelController},
- * which is created and exposed by this directive.
- *
- * `ngModel` is responsible for:
- *
- * - Binding the view into the model, which other directives such as `input`, `textarea` or `select`
- *   require.
- * - Providing validation behavior (i.e. required, number, email, url).
- * - Keeping the state of the control (valid/invalid, dirty/pristine, validation errors).
- * - Setting related css classes on the element (`ng-valid`, `ng-invalid`, `ng-dirty`, `ng-pristine`) including animations.
- * - Registering the control with its parent {@link ng.directive:form form}.
- *
- * Note: `ngModel` will try to bind to the property given by evaluating the expression on the
- * current scope. If the property doesn't already exist on this scope, it will be created
- * implicitly and added to the scope.
- *
- * For best practices on using `ngModel`, see:
- *
- *  - [Understanding Scopes](https://github.com/angular/angular.js/wiki/Understanding-Scopes)
->>>>>>> master:TraceGerm/www/lib/angular/angular.js
  *
  * The `ngChange` expression is only evaluated when a change in the input value causes
  * a new value to be committed to the model.
@@ -21317,22 +20941,9 @@ var ngClassDirective = classDirective('', true);
  * @restrict AC
  *
  * @description
-<<<<<<< HEAD:TraceGerm/www/lib/angular/angular.js
  * The `ngClassOdd` and `ngClassEven` directives work exactly as
  * {@link ng.directive:ngClass ngClass}, except they work in
  * conjunction with `ngRepeat` and take effect only on odd (even) rows.
-=======
- * Creates a binding that will innerHTML the result of evaluating the `expression` into the current
- * element in a secure way.  By default, the innerHTML-ed content will be sanitized using the {@link
- * ngSanitize.$sanitize $sanitize} service.  To utilize this functionality, ensure that `$sanitize`
- * is available, for example, by including {@link ngSanitize} in your module's dependencies (not in
- * core Angular). In order to use {@link ngSanitize} in your module's dependencies, you need to
- * include "angular-sanitize.js" in your application.
- *
- * You may also bypass sanitization for values you know are safe. To do so, bind to
- * an explicitly trusted value via {@link ng.$sce#trustAsHtml $sce.trustAsHtml}.  See the example
- * under {@link ng.$sce#Example Strict Contextual Escaping (SCE)}.
->>>>>>> master:TraceGerm/www/lib/angular/angular.js
  *
  * This directive can be applied only within the scope of an
  * {@link ng.directive:ngRepeat ngRepeat}.
@@ -21507,7 +21118,6 @@ var ngCloakDirective = ngDirective({
  * @element ANY
  * @scope
  * @priority 500
-<<<<<<< HEAD:TraceGerm/www/lib/angular/angular.js
  * @param {expression} ngController Name of a constructor function registered with the current
  * {@link ng.$controllerProvider $controllerProvider} or an {@link guide/expression expression}
  * that on the current scope evaluates to a constructor function.
@@ -21518,12 +21128,6 @@ var ngCloakDirective = ngDirective({
  * If the current `$controllerProvider` is configured to use globals (via
  * {@link ng.$controllerProvider#allowGlobals `$controllerProvider.allowGlobals()` }), this may
  * also be the name of a globally accessible constructor function (not recommended).
-=======
- * @param {expression} ngController Name of a globally accessible constructor function or an
- *     {@link guide/expression expression} that on the current scope evaluates to a
- *     constructor function. The controller instance can be published into a scope property
- *     by specifying `as propertyName`.
->>>>>>> master:TraceGerm/www/lib/angular/angular.js
  *
  * @example
  * Here is a simple form for editing user contact information. Adding, removing, clearing, and
@@ -21955,11 +21559,7 @@ forEach(
           // etc. that isn't protected by the fast paths in $parse.  We explicitly request better
           // checks at the cost of speed since event handler expressions are not executed as
           // frequently as regular change detection.
-<<<<<<< HEAD:TraceGerm/www/lib/angular/angular.js
           var fn = $parse(attr[directiveName], /* interceptorFn */ null, /* expensiveChecks */ true);
-=======
-          var fn = $parse(attr[directiveName], /* expensiveChecks */ true);
->>>>>>> master:TraceGerm/www/lib/angular/angular.js
           return function ngEventHandler(scope, element) {
             element.on(eventName, function(event) {
               var callback = function() {
@@ -23126,8 +22726,8 @@ is set to `true`. The parse error is stored in `ngModel.$error.parse`.
  * data-binding. Notice how different directives (`contenteditable`, `ng-model`, and `required`)
  * collaborate together to achieve the desired result.
  *
- * Note that `contenteditable` is an HTML5 attribute, which tells the browser to let the element
- * contents be edited in place by the user.  This will not work on older browsers.
+ * `contenteditable` is an HTML5 attribute, which tells the browser to let the element
+ * contents be edited in place by the user.
  *
  * We are using the {@link ng.service:$sce $sce} service here and include the {@link ngSanitize $sanitize}
  * module to automatically remove "bad" content like inline event listener (e.g. `<span onclick="...">`).
@@ -23241,6 +22841,7 @@ var NgModelController = ['$scope', '$exceptionHandler', '$attrs', '$element', '$
       ngModelGet = parsedNgModel,
       ngModelSet = parsedNgModelAssign,
       pendingDebounce = null,
+      parserValid,
       ctrl = this;
 
   this.$$setOptions = function(options) {
@@ -23513,16 +23114,12 @@ var NgModelController = ['$scope', '$exceptionHandler', '$attrs', '$element', '$
     // the model although neither viewValue nor the model on the scope changed
     var modelValue = ctrl.$$rawModelValue;
 
-    // Check if the there's a parse error, so we don't unset it accidentially
-    var parserName = ctrl.$$parserName || 'parse';
-    var parserValid = ctrl.$error[parserName] ? false : undefined;
-
     var prevValid = ctrl.$valid;
     var prevModelValue = ctrl.$modelValue;
 
     var allowInvalid = ctrl.$options && ctrl.$options.allowInvalid;
 
-    ctrl.$$runValidators(parserValid, modelValue, viewValue, function(allValid) {
+    ctrl.$$runValidators(modelValue, viewValue, function(allValid) {
       // If there was no change in validity, don't update the model
       // This prevents changing an invalid modelValue to undefined
       if (!allowInvalid && prevValid !== allValid) {
@@ -23540,12 +23137,12 @@ var NgModelController = ['$scope', '$exceptionHandler', '$attrs', '$element', '$
 
   };
 
-  this.$$runValidators = function(parseValid, modelValue, viewValue, doneCallback) {
+  this.$$runValidators = function(modelValue, viewValue, doneCallback) {
     currentValidationRunId++;
     var localValidationRunId = currentValidationRunId;
 
     // check parser error
-    if (!processParseErrors(parseValid)) {
+    if (!processParseErrors()) {
       validationDone(false);
       return;
     }
@@ -23555,21 +23152,22 @@ var NgModelController = ['$scope', '$exceptionHandler', '$attrs', '$element', '$
     }
     processAsyncValidators();
 
-    function processParseErrors(parseValid) {
+    function processParseErrors() {
       var errorKey = ctrl.$$parserName || 'parse';
-      if (parseValid === undefined) {
+      if (parserValid === undefined) {
         setValidity(errorKey, null);
       } else {
-        setValidity(errorKey, parseValid);
-        if (!parseValid) {
+        if (!parserValid) {
           forEach(ctrl.$validators, function(v, name) {
             setValidity(name, null);
           });
           forEach(ctrl.$asyncValidators, function(v, name) {
             setValidity(name, null);
           });
-          return false;
         }
+        // Set the parse error last, to prevent unsetting it, should a $validators key == parserName
+        setValidity(errorKey, parserValid);
+        return parserValid;
       }
       return true;
     }
@@ -23664,7 +23262,7 @@ var NgModelController = ['$scope', '$exceptionHandler', '$attrs', '$element', '$
   this.$$parseAndValidate = function() {
     var viewValue = ctrl.$$lastCommittedViewValue;
     var modelValue = viewValue;
-    var parserValid = isUndefined(modelValue) ? undefined : true;
+    parserValid = isUndefined(modelValue) ? undefined : true;
 
     if (parserValid) {
       for (var i = 0; i < ctrl.$parsers.length; i++) {
@@ -23690,7 +23288,7 @@ var NgModelController = ['$scope', '$exceptionHandler', '$attrs', '$element', '$
 
     // Pass the $$lastCommittedViewValue here, because the cached viewValue might be out of date.
     // This can happen if e.g. $setViewValue is called from inside a parser
-    ctrl.$$runValidators(parserValid, modelValue, ctrl.$$lastCommittedViewValue, function(allValid) {
+    ctrl.$$runValidators(modelValue, ctrl.$$lastCommittedViewValue, function(allValid) {
       if (!allowInvalid) {
         // Note: Don't check ctrl.$valid here, as we could have
         // external validators (e.g. calculated on the server),
@@ -23811,6 +23409,7 @@ var NgModelController = ['$scope', '$exceptionHandler', '$attrs', '$element', '$
     // TODO(perf): why not move this to the action fn?
     if (modelValue !== ctrl.$modelValue) {
       ctrl.$modelValue = ctrl.$$rawModelValue = modelValue;
+      parserValid = undefined;
 
       var formatters = ctrl.$formatters,
           idx = formatters.length;
@@ -23823,7 +23422,7 @@ var NgModelController = ['$scope', '$exceptionHandler', '$attrs', '$element', '$
         ctrl.$viewValue = ctrl.$$lastCommittedViewValue = viewValue;
         ctrl.$render();
 
-        ctrl.$$runValidators(undefined, modelValue, viewValue, noop);
+        ctrl.$$runValidators(modelValue, viewValue, noop);
       }
     }
 
@@ -24639,6 +24238,55 @@ var ngPluralizeDirective = ['$locale', '$interpolate', function($locale, $interp
  * when keys are deleted and reinstated.
  *
  *
+ * # Tracking and Duplicates
+ *
+ * When the contents of the collection change, `ngRepeat` makes the corresponding changes to the DOM:
+ *
+ * * When an item is added, a new instance of the template is added to the DOM.
+ * * When an item is removed, its template instance is removed from the DOM.
+ * * When items are reordered, their respective templates are reordered in the DOM.
+ *
+ * By default, `ngRepeat` does not allow duplicate items in arrays. This is because when
+ * there are duplicates, it is not possible to maintain a one-to-one mapping between collection
+ * items and DOM elements.
+ *
+ * If you do need to repeat duplicate items, you can substitute the default tracking behavior
+ * with your own using the `track by` expression.
+ *
+ * For example, you may track items by the index of each item in the collection, using the
+ * special scope property `$index`:
+ * ```html
+ *    <div ng-repeat="n in [42, 42, 43, 43] track by $index">
+ *      {{n}}
+ *    </div>
+ * ```
+ *
+ * You may use arbitrary expressions in `track by`, including references to custom functions
+ * on the scope:
+ * ```html
+ *    <div ng-repeat="n in [42, 42, 43, 43] track by myTrackingFunction(n)">
+ *      {{n}}
+ *    </div>
+ * ```
+ *
+ * If you are working with objects that have an identifier property, you can track
+ * by the identifier instead of the whole object. Should you reload your data later, `ngRepeat`
+ * will not have to rebuild the DOM elements for items it has already rendered, even if the
+ * JavaScript objects in the collection have been substituted for new ones:
+ * ```html
+ *    <div ng-repeat="model in collection track by model.id">
+ *      {{model.name}}
+ *    </div>
+ * ```
+ *
+ * When no `track by` expression is provided, it is equivalent to tracking by the built-in
+ * `$id` function, which tracks items by their identity:
+ * ```html
+ *    <div ng-repeat="obj in collection track by $id(obj)">
+ *      {{obj.prop}}
+ *    </div>
+ * ```
+ *
  * # Special repeat start and end points
  * To repeat a series of elements instead of just one parent element, ngRepeat (as well as other ng directives) supports extending
  * the range of the repeater by defining explicit start and end points by using **ng-repeat-start** and **ng-repeat-end** respectively.
@@ -24706,12 +24354,12 @@ var ngPluralizeDirective = ['$locale', '$interpolate', function($locale, $interp
  *
  *     For example: `(name, age) in {'adam':10, 'amalie':12}`.
  *
- *   * `variable in expression track by tracking_expression` – You can also provide an optional tracking function
- *     which can be used to associate the objects in the collection with the DOM elements. If no tracking function
- *     is specified the ng-repeat associates elements by identity in the collection. It is an error to have
- *     more than one tracking function to resolve to the same key. (This would mean that two distinct objects are
- *     mapped to the same DOM element, which is not possible.)  Filters should be applied to the expression,
- *     before specifying a tracking expression.
+ *   * `variable in expression track by tracking_expression` – You can also provide an optional tracking expression
+ *     which can be used to associate the objects in the collection with the DOM elements. If no tracking expression
+ *     is specified, ng-repeat associates elements by identity. It is an error to have
+ *     more than one tracking expression value resolve to the same key. (This would mean that two distinct objects are
+ *     mapped to the same DOM element, which is not possible.)  If filters are used in the expression, they should be
+ *     applied before the tracking expression.
  *
  *     For example: `item in items` is equivalent to `item in items track by $id(item)`. This implies that the DOM elements
  *     will be associated by item identity in the array.
@@ -26459,11 +26107,7 @@ var selectDirective = ['$compile', '$parse', function($compile,   $parse) {
                     id: option.id,
                     selected: option.selected
                 });
-<<<<<<< HEAD:TraceGerm/www/lib/angular/angular.js
                 updateLabelMap(labelMap, option.label, true);
-=======
-                selectCtrl.addOption(option.label, element);
->>>>>>> master:TraceGerm/www/lib/angular/angular.js
                 if (lastElement) {
                   lastElement.after(element);
                 } else {
@@ -26474,15 +26118,9 @@ var selectDirective = ['$compile', '$parse', function($compile,   $parse) {
             }
             // remove any excessive OPTIONs in a group
             index++; // increment since the existingOptions[0] is parent element not OPTION
-<<<<<<< HEAD:TraceGerm/www/lib/angular/angular.js
             while (existingOptions.length > index) {
               option = existingOptions.pop();
               updateLabelMap(labelMap, option.label, false);
-=======
-            while(existingOptions.length > index) {
-              option = existingOptions.pop();
-              selectCtrl.removeOption(option.label);
->>>>>>> master:TraceGerm/www/lib/angular/angular.js
               option.element.remove();
             }
           }
