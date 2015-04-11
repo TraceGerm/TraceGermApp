@@ -1,4 +1,4 @@
-starter.controller('TranslateCtrl', function($translate, $scope, $cordovaGlobalization) {
+starter.controller('TranslateCtrl', function($translate, $scope, $cordovaGlobalization, settings) {
   $scope.countList = [{
     id: 1,
     choice: 'en',
@@ -13,6 +13,16 @@ starter.controller('TranslateCtrl', function($translate, $scope, $cordovaGlobali
 
   $scope.onchange = function(id) {
 
+    $scope.setLanguage = function(id) {
+      settings.write('language', id).then(function() {
+          console.log(id);
+        },
+        function(error) {
+          console.log(error);
+          $scope.log += 'error' + '\n';
+        });
+    };
+    $scope.setLanguage(id);
     $translate.use(id.choice);
 
   };

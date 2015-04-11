@@ -44,4 +44,4 @@ starter.controller('WatchGeoCtrl', function($scope, $cordovaGeolocation, $http) 
 
   };
 
-})
+});

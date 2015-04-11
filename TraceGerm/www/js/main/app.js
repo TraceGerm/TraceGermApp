@@ -31,11 +31,12 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova', 'pascalp
         $location.path('/app/firstUse');
       });
 
-    $cordovaGlobalization.getPreferredLanguage().then(
-      function(result) {
-        $translate.use((result.value).split("-")[0]).then(function(data) {}, function(error) {
-          alert("there was an error:" + error.message);
-        });
+    settings.read('language').then(function(result) {
+        console.log(result.choice);
+        $translate.use(result.choice);
+      },
+      function(error) {
+        console.log("no languages was chosen");
       });
 
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -104,6 +105,15 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova', 'pascalp
     views: {
       'menuContent': {
         templateUrl: "templates/firstUse.html"
+      }
+    }
+  })
+
+  .state('app.alert', {
+    url: "/alert",
+    views: {
+      'menuContent': {
+        templateUrl: "templates/alert.html"
       }
     }
   });
