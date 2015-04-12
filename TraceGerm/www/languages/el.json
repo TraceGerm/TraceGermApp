@@ -10,6 +10,7 @@
   "FIRST_USE_TITTLE": "TraceGerm",
   "REGISTER": "Εγραφή",
   "FIRST_USE_WELCOME": "Καλωσήρθατε στο TraceGerm",
-  "FIRST_USE_WELCOME_PARAGRAPH": "TraceGerm is a tracking application that uses user's coordinates for a good purpose! You simply use your preferred username and the app will track your coordinates."
+  "FIRST_USE_WELCOME_PARAGRAPH": "TraceGerm is a tracking application that uses user's coordinates for a good purpose! You simply use your preferred username and the app will track your coordinates.",
+  "ALERT_TITTLE": "Κίνδυνος"
 
 }

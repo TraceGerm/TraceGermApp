@@ -1,4 +1,4 @@
-starter.controller('WatchGeoCtrl', function($scope, $cordovaGeolocation, $http) {
+starter.controller('WatchGeoCtrl', function($scope, $cordovaGeolocation, $http, settings) {
 
   $scope.watchposition = function() {
     var watchOptions = {
@@ -20,10 +20,8 @@ starter.controller('WatchGeoCtrl', function($scope, $cordovaGeolocation, $http) 
         headers: {
           'Content-Type': 'application/json'
         }
-      }).success(function(data, status, headers, config) {
-        // this callback will be called asynchronously
-        // when the response is available
-        alert("data was send successfully");
+      }).success(function(response, status, headers, config) {
+        saveDetails(response);
       }).
       error(function(data, status, headers, config) {
         // called asynchronously if an error occurs
@@ -40,8 +38,41 @@ starter.controller('WatchGeoCtrl', function($scope, $cordovaGeolocation, $http) 
         'message: ' + error.message + '\n');
     }
 
+
+
+    var saveDetails = function(response) {
+
+      settings.read('username').then(function(username) {
+
+          var timestamp = new Date();
+          timestamp = timestamp.getTime();
+          $http({
+            method: 'POST',
+            url: 'http://localhost:9090/visitDetails/save/user/' + username + '/place/' +
+              response,
+            data: {
+              timestamp: timestamp
+            },
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          }).success(function(response, status, headers, config) {
+
+          }).
+          error(function(data, status, headers, config) {
+            // called asynchronously if an error occurs
+            // or server returns response with an error status.
+            alert("something went wrong:" + status);
+          });
+        },
+        function(error) {
+          $location.path('/app/firstUse');
+        });
+    };
+
+
     var watchID = navigator.geolocation.watchPosition(onSuccess, onError, watchOptions);
 
   };
 
-})
+});

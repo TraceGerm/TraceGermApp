@@ -2,7 +2,11 @@ starter.controller('UserRegistrationCtrl', function($scope, $ionicPopup, $http, 
 
   $scope.registerUser = function(username, passphrase) {
 
-    var encryptedUsername = CryptoJS.AES.encrypt(username, passphrase).toString();
+    var encryptedUsername;
+    do {
+      encryptedUsername = CryptoJS.AES.encrypt(username, passphrase).toString();
+    }
+    while (encryptedUsername.indexOf("/") > -1);
     $http({
       method: 'POST',
       url: 'http://localhost:9090/users/save',
