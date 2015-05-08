@@ -1,4 +1,5 @@
 {
+
   "LANGUAGE": "Ελληνικά",
   "LANGUAGE_SELLECTION": "Γλώσσα",
   "HOME_TITTLE": "Aρχική",
@@ -11,6 +12,8 @@
   "REGISTER": "Εγραφή",
   "FIRST_USE_WELCOME": "Καλωσήρθατε στο TraceGerm",
   "FIRST_USE_WELCOME_PARAGRAPH": "TraceGerm is a tracking application that uses user's coordinates for a good purpose! You simply use your preferred username and the app will track your coordinates.",
-  "ALERT_TITTLE": "Κίνδυνος"
+  "ALERT_TITTLE": "Κίνδυνος",
+  "ALERT_CONTENT": "Παρακαλώ χρησιμοποιήστε αυτό το κουμπί μόνο αν είστε σίγουρος ότι έχετε κάποια μεταδιδόμενη ασθένεια.",
+  "WATCH_LOCATION_TOGGLE": "Παρακολούθησε τη θέση μου"
 
 }

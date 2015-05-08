@@ -15,9 +15,9 @@ starter.controller('AlertCtrl', function($scope, $http, settings) {
             'Content-Type': 'application/json',
           }
         }).success(function(data, status, headers, config) {
-          //handles succesfull method
+          alert("Your alert was ignited!");
         }).error(function(data, status, headers, config) {
-
+          alert("Something went wrong!");
         });
       },
       function(error) {

@@ -3,10 +3,7 @@
  * @name ui.router.router.$urlRouterProvider
  *
  * @requires ui.router.util.$urlMatcherFactoryProvider
-<<<<<<< HEAD
  * @requires $locationProvider
-=======
->>>>>>> master
  *
  * @description
  * `$urlRouterProvider` has the responsibility of watching `$location`. 
@@ -17,16 +14,9 @@
  * There are several methods on `$urlRouterProvider` that make it useful to use directly
  * in your module config.
  */
-<<<<<<< HEAD
 $UrlRouterProvider.$inject = ['$locationProvider', '$urlMatcherFactoryProvider'];
 function $UrlRouterProvider(   $locationProvider,   $urlMatcherFactory) {
   var rules = [], otherwise = null, interceptDeferred = false, listener;
-=======
-$UrlRouterProvider.$inject = ['$urlMatcherFactoryProvider'];
-function $UrlRouterProvider(  $urlMatcherFactory) {
-  var rules = [], 
-      otherwise = null;
->>>>>>> master
 
   // Returns a string that is a prefix of all strings matching the RegExp
   function regExpPrefix(re) {
@@ -47,11 +37,7 @@ function $UrlRouterProvider(  $urlMatcherFactory) {
    * @methodOf ui.router.router.$urlRouterProvider
    *
    * @description
-<<<<<<< HEAD
    * Defines rules that are used by `$urlRouterProvider` to find matches for
-=======
-   * Defines rules that are used by `$urlRouterProvider to find matches for
->>>>>>> master
    * specific URLs.
    *
    * @example
@@ -74,7 +60,6 @@ function $UrlRouterProvider(  $urlMatcherFactory) {
    * @param {object} rule Handler function that takes `$injector` and `$location`
    * services as arguments. You can use them to return a valid path as a string.
    *
-<<<<<<< HEAD
    * @return {object} `$urlRouterProvider` - `$urlRouterProvider` instance
    */
   this.rule = function (rule) {
@@ -82,16 +67,6 @@ function $UrlRouterProvider(  $urlMatcherFactory) {
     rules.push(rule);
     return this;
   };
-=======
-   * @return {object} $urlRouterProvider - $urlRouterProvider instance
-   */
-  this.rule =
-    function (rule) {
-      if (!isFunction(rule)) throw new Error("'rule' must be a function");
-      rules.push(rule);
-      return this;
-    };
->>>>>>> master
 
   /**
    * @ngdoc object
@@ -99,11 +74,7 @@ function $UrlRouterProvider(  $urlMatcherFactory) {
    * @methodOf ui.router.router.$urlRouterProvider
    *
    * @description
-<<<<<<< HEAD
    * Defines a path that is used when an invalid route is requested.
-=======
-   * Defines a path that is used when an invalied route is requested.
->>>>>>> master
    *
    * @example
    * <pre>
@@ -117,18 +88,13 @@ function $UrlRouterProvider(  $urlMatcherFactory) {
    *
    *   // Example of using function rule as param
    *   $urlRouterProvider.otherwise(function ($injector, $location) {
-<<<<<<< HEAD
    *     return '/a/valid/url';
-=======
-   *     ...
->>>>>>> master
    *   });
    * });
    * </pre>
    *
    * @param {string|object} rule The url path you want to redirect to or a function 
    * rule that returns the url path. The function version is passed two params: 
-<<<<<<< HEAD
    * `$injector` and `$location` services, and must return a url string.
    *
    * @return {object} `$urlRouterProvider` - `$urlRouterProvider` instance
@@ -142,22 +108,6 @@ function $UrlRouterProvider(  $urlMatcherFactory) {
     otherwise = rule;
     return this;
   };
-=======
-   * `$injector` and `$location` services.
-   *
-   * @return {object} $urlRouterProvider - $urlRouterProvider instance
-   */
-  this.otherwise =
-    function (rule) {
-      if (isString(rule)) {
-        var redirect = rule;
-        rule = function () { return redirect; };
-      }
-      else if (!isFunction(rule)) throw new Error("'rule' must be a function");
-      otherwise = rule;
-      return this;
-    };
->>>>>>> master
 
 
   function handleIfMatch($injector, handler, match) {
@@ -173,13 +123,8 @@ function $UrlRouterProvider(  $urlMatcherFactory) {
    *
    * @description
    * Registers a handler for a given url matching. if handle is a string, it is
-<<<<<<< HEAD
    * treated as a redirect, and is interpolated according to the syntax of match
    * (i.e. like `String.replace()` for `RegExp`, or like a `UrlMatcher` pattern otherwise).
-=======
-   * treated as a redirect, and is interpolated according to the syyntax of match
-   * (i.e. like String.replace() for RegExp, or like a UrlMatcher pattern otherwise).
->>>>>>> master
    *
    * If the handler is a function, it is injectable. It gets invoked if `$location`
    * matches. You have the option of inject the match object as `$match`.
@@ -208,7 +153,6 @@ function $UrlRouterProvider(  $urlMatcherFactory) {
    * @param {string|object} what The incoming path that you want to redirect.
    * @param {string|object} handler The path you want to redirect your user to.
    */
-<<<<<<< HEAD
   this.when = function (what, handler) {
     var redirect, handlerIsString = isString(handler);
     if (isString(what)) what = $urlMatcherFactory.compile(what);
@@ -304,53 +248,6 @@ function $UrlRouterProvider(  $urlMatcherFactory) {
     if (defer === undefined) defer = true;
     interceptDeferred = defer;
   };
-=======
-  this.when =
-    function (what, handler) {
-      var redirect, handlerIsString = isString(handler);
-      if (isString(what)) what = $urlMatcherFactory.compile(what);
-
-      if (!handlerIsString && !isFunction(handler) && !isArray(handler))
-        throw new Error("invalid 'handler' in when()");
-
-      var strategies = {
-        matcher: function (what, handler) {
-          if (handlerIsString) {
-            redirect = $urlMatcherFactory.compile(handler);
-            handler = ['$match', function ($match) { return redirect.format($match); }];
-          }
-          return extend(function ($injector, $location) {
-            return handleIfMatch($injector, handler, what.exec($location.path(), $location.search()));
-          }, {
-            prefix: isString(what.prefix) ? what.prefix : ''
-          });
-        },
-        regex: function (what, handler) {
-          if (what.global || what.sticky) throw new Error("when() RegExp must not be global or sticky");
-
-          if (handlerIsString) {
-            redirect = handler;
-            handler = ['$match', function ($match) { return interpolate(redirect, $match); }];
-          }
-          return extend(function ($injector, $location) {
-            return handleIfMatch($injector, handler, what.exec($location.path()));
-          }, {
-            prefix: regExpPrefix(what)
-          });
-        }
-      };
-
-      var check = { matcher: $urlMatcherFactory.isMatcher(what), regex: what instanceof RegExp };
-
-      for (var n in check) {
-        if (check[n]) {
-          return this.rule(strategies[n](what, handler));
-        }
-      }
-
-      throw new Error("invalid 'what' in when()");
-    };
->>>>>>> master
 
   /**
    * @ngdoc object
@@ -359,15 +256,11 @@ function $UrlRouterProvider(  $urlMatcherFactory) {
    * @requires $location
    * @requires $rootScope
    * @requires $injector
-<<<<<<< HEAD
    * @requires $browser
-=======
->>>>>>> master
    *
    * @description
    *
    */
-<<<<<<< HEAD
   this.$get = $get;
   $get.$inject = ['$location', '$rootScope', '$injector', '$browser'];
   function $get(   $location,   $rootScope,   $injector,   $browser) {
@@ -515,64 +408,6 @@ function $UrlRouterProvider(  $urlMatcherFactory) {
       }
     };
   }
-=======
-  this.$get =
-    [        '$location', '$rootScope', '$injector',
-    function ($location,   $rootScope,   $injector) {
-      // TODO: Optimize groups of rules with non-empty prefix into some sort of decision tree
-      function update(evt) {
-        if (evt && evt.defaultPrevented) return;
-        function check(rule) {
-          var handled = rule($injector, $location);
-          if (handled) {
-            if (isString(handled)) $location.replace().url(handled);
-            return true;
-          }
-          return false;
-        }
-        var n=rules.length, i;
-        for (i=0; i<n; i++) {
-          if (check(rules[i])) return;
-        }
-        // always check otherwise last to allow dynamic updates to the set of rules
-        if (otherwise) check(otherwise);
-      }
-
-      $rootScope.$on('$locationChangeSuccess', update);
-
-      return {
-        /**
-         * @ngdoc function
-         * @name ui.router.router.$urlRouter#sync
-         * @methodOf ui.router.router.$urlRouter
-         *
-         * @description
-         * Triggers an update; the same update that happens when the address bar url changes, aka `$locationChangeSuccess`.
-         * This method is useful when you need to use `preventDefault()` on the `$locationChangeSuccess` event, 
-         * perform some custom logic (route protection, auth, config, redirection, etc) and then finally proceed 
-         * with the transition by calling `$urlRouter.sync()`.
-         *
-         * @example
-         * <pre>
-         * angular.module('app', ['ui.router']);
-         *   .run(function($rootScope, $urlRouter) {
-         *     $rootScope.$on('$locationChangeSuccess', function(evt) {
-         *       // Halt state change from even starting
-         *       evt.preventDefault();
-         *       // Perform custom logic
-         *       var meetsRequirement = ...
-         *       // Continue with the update and state transition if logic allows
-         *       if (meetsRequirement) $urlRouter.sync();
-         *     });
-         * });
-         * </pre>
-         */
-        sync: function () {
-          update();
-        }
-      };
-    }];
->>>>>>> master
 }
 
 angular.module('ui.router.router').provider('$urlRouter', $UrlRouterProvider);

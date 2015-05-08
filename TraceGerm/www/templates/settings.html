@@ -6,34 +6,13 @@
   </ion-nav-bar>
   <ion-content class="has-header">
 
-    <div class="list">
-      <form class="simple-form" name="settingsForm" ng-controller="EncryptionCtrl" ng-submit="encryptMessage(messageField, passphraseField)">
-        <label class="item item-input">
-          <input type="text" name="messageField" ng-model="messageField" placeholder="Message (Required!)" required="required">
-        </label>
-        <label class="item item-input">
-          <input type="text" name="passphraseField" ng-model="passphraseField" placeholder="Passphrase (Required!)" required="required">
-        </label>
-        </br>
-        <button type="submit" ng-disabled="settingsForm.$invalid" class="button button-dark">Encrypt</button>
-      </form>
-    </div>
-
-    <div class="list">
-      <form class="simple-form" name="settingsForm" ng-controller="SettingsCtrl" ng-submit="setUsername(usernameField)">
-        <label class="item item-input">
-          <input type="text" name="username" ng-model="usernameField" placeholder="Username (Required!)" required="required">
-        </label>
-        </br>
-        <button type="submit" ng-disabled="settingsForm.$invalid" class="button button-dark">Encrypt</button>
-      </form>
-    </div>
-
+    <ion-toggle ng-controller="WatchGeoCtrl" ng-model="geolocation.checked" ng-change="watchGeolocationChange()" toggle-class="toggle-dark">
+      {{'WATCH_LOCATION_TOGGLE' | translate}}</ion-toggle>
+<div>
     <button ng-controller="SettingsCtrl" ng-click="getUsername()" class="button button-dark">
       Get Username
     </button>
-
-
+  </div>
     <div class="list" ng-controller="TranslateCtrl">
 
       <label class="item item-input item-select">
