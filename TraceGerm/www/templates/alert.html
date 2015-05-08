@@ -6,15 +6,14 @@
   </ion-nav-bar>
   <ion-content class="has-header">
     </br>
+    <div>
+      <ui-gmap-google-map center='map.center' zoom='map.zoom'></ui-gmap-google-map>
+    </div>
     <div class="home-text">
-
       <p>{{'ALERT_CONTENT' | translate}}</p>
       <button ng-controller="AlertCtrl" ng-click="createAlert()" class="button button-dark">
         {{ 'ALERT_TITTLE' | translate }}
       </button>
-
-
-
     </div>
   </ion-content>
 </ion-view>

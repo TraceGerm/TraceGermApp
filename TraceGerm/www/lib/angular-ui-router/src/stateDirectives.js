@@ -1,12 +1,7 @@
-<<<<<<< HEAD
 function parseStateRef(ref, current) {
   var preparsed = ref.match(/^\s*({[^}]*})\s*$/), parsed;
   if (preparsed) ref = current + '(' + preparsed[1] + ')';
   parsed = ref.replace(/\n/g, " ").match(/^([^(]+?)\s*(\((.*)\))?$/);
-=======
-function parseStateRef(ref) {
-  var parsed = ref.replace(/\n/g, " ").match(/^([^(]+?)\s*(\((.*)\))?$/);
->>>>>>> master
   if (!parsed || parsed.length !== 4) throw new Error("Invalid state ref '" + ref + "'");
   return { state: parsed[1], paramExpr: parsed[3] || null };
 }
@@ -50,11 +45,7 @@ function stateContext(el) {
  * Here's an example of how you'd use ui-sref and how it would compile. If you have the 
  * following template:
  * <pre>
-<<<<<<< HEAD
  * <a ui-sref="home">Home</a> | <a ui-sref="about">About</a> | <a ui-sref="{page: 2}">Next page</a>
-=======
- * <a ui-sref="home">Home</a> | <a ui-sref="about">About</a>
->>>>>>> master
  * 
  * <ul>
  *     <li ng-repeat="contact in contacts">
@@ -63,15 +54,9 @@ function stateContext(el) {
  * </ul>
  * </pre>
  * 
-<<<<<<< HEAD
  * Then the compiled html would be (assuming Html5Mode is off and current state is contacts):
  * <pre>
  * <a href="#/home" ui-sref="home">Home</a> | <a href="#/about" ui-sref="about">About</a> | <a href="#/contacts?page=2" ui-sref="{page: 2}">Next page</a>
-=======
- * Then the compiled html would be (assuming Html5Mode is off):
- * <pre>
- * <a href="#/home" ui-sref="home">Home</a> | <a href="#/about" ui-sref="about">About</a>
->>>>>>> master
  * 
  * <ul>
  *     <li ng-repeat="contact in contacts">
@@ -97,7 +82,6 @@ function $StateRefDirective($state, $timeout) {
 
   return {
     restrict: 'A',
-<<<<<<< HEAD
     require: ['?^uiSrefActive', '?^uiSrefActiveEq'],
     link: function(scope, element, attrs, uiSrefActive) {
       var ref = parseStateRef(attrs.uiSref, $state.current.name);
@@ -109,19 +93,6 @@ function $StateRefDirective($state, $timeout) {
       var options = { relative: base, inherit: true };
       var optionsOverride = scope.$eval(attrs.uiSrefOpts) || {};
 
-=======
-    require: '?^uiSrefActive',
-    link: function(scope, element, attrs, uiSrefActive) {
-      var ref = parseStateRef(attrs.uiSref);
-      var params = null, url = null, base = stateContext(element) || $state.$current;
-      var isForm = element[0].nodeName === "FORM";
-      var attr = isForm ? "action" : "href", nav = true;
-
-      var options = {
-        relative: base
-      };
-      var optionsOverride = scope.$eval(attrs.uiSrefOpts) || {};
->>>>>>> master
       angular.forEach(allowedOptions, function(option) {
         if (option in optionsOverride) {
           options[option] = optionsOverride[option];
@@ -129,7 +100,6 @@ function $StateRefDirective($state, $timeout) {
       });
 
       var update = function(newVal) {
-<<<<<<< HEAD
         if (newVal) params = angular.copy(newVal);
         if (!nav) return;
 
@@ -144,32 +114,13 @@ function $StateRefDirective($state, $timeout) {
           return false;
         }
         attrs.$set(attr, newHref);
-=======
-        if (newVal) params = newVal;
-        if (!nav) return;
-
-        var newHref = $state.href(ref.state, params, options);
-
-        if (uiSrefActive) {
-          uiSrefActive.$$setStateInfo(ref.state, params);
-        }
-        if (!newHref) {
-          nav = false;
-          return false;
-        }
-        element[0][attr] = newHref;
->>>>>>> master
       };
 
       if (ref.paramExpr) {
         scope.$watch(ref.paramExpr, function(newVal, oldVal) {
           if (newVal !== params) update(newVal);
         }, true);
-<<<<<<< HEAD
         params = angular.copy(scope.$eval(ref.paramExpr));
-=======
-        params = scope.$eval(ref.paramExpr);
->>>>>>> master
       }
       update();
 
@@ -179,7 +130,6 @@ function $StateRefDirective($state, $timeout) {
         var button = e.which || e.button;
         if ( !(button > 1 || e.ctrlKey || e.metaKey || e.shiftKey || element.attr('target')) ) {
           // HACK: This is to allow ng-clicks to be processed before the transition is initiated:
-<<<<<<< HEAD
           var transition = $timeout(function() {
             $state.go(ref.state, params, options);
           });
@@ -191,12 +141,6 @@ function $StateRefDirective($state, $timeout) {
             if (ignorePreventDefaultCount-- <= 0)
               $timeout.cancel(transition);
           };
-=======
-          $timeout(function() {
-            $state.go(ref.state, params, options);
-          });
-          e.preventDefault();
->>>>>>> master
         }
       });
     }
@@ -214,7 +158,6 @@ function $StateRefDirective($state, $timeout) {
  * @restrict A
  *
  * @description
-<<<<<<< HEAD
  * A directive working alongside ui-sref to add classes to an element when the
  * related ui-sref directive's state is active, and removing them when it is inactive.
  * The primary use-case is to simplify the special appearance of navigation menus
@@ -229,14 +172,6 @@ function $StateRefDirective($state, $timeout) {
  * it's children, then you will use
  * {@link ui.router.state.directive:ui-sref-active-eq ui-sref-active-eq}
  *
-=======
- * A directive working alongside ui-sref to add classes to an element when the 
- * related ui-sref directive's state is active, and removing them when it is inactive.
- * The primary use-case is to simplify the special appearance of navigation menus 
- * relying on `ui-sref`, by having the "active" state's menu button appear different,
- * distinguishing it from the inactive menu items.
- *
->>>>>>> master
  * @example
  * Given the following template:
  * <pre>
@@ -246,14 +181,9 @@ function $StateRefDirective($state, $timeout) {
  *   </li>
  * </ul>
  * </pre>
-<<<<<<< HEAD
  *
  *
  * When the app state is "app.user" (or any children states), and contains the state parameter "user" with value "bilbobaggins",
-=======
- * 
- * When the app state is "app.user", and contains the state parameter "user" with value "bilbobaggins", 
->>>>>>> master
  * the resulting HTML will appear as (note the 'active' class):
  * <pre>
  * <ul>
@@ -262,17 +192,10 @@ function $StateRefDirective($state, $timeout) {
  *   </li>
  * </ul>
  * </pre>
-<<<<<<< HEAD
  *
  * The class name is interpolated **once** during the directives link time (any further changes to the
  * interpolated value are ignored).
  *
-=======
- * 
- * The class name is interpolated **once** during the directives link time (any further changes to the 
- * interpolated value are ignored). 
- * 
->>>>>>> master
  * Multiple classes may be specified in a space-separated format:
  * <pre>
  * <ul>
@@ -282,7 +205,6 @@ function $StateRefDirective($state, $timeout) {
  * </ul>
  * </pre>
  */
-<<<<<<< HEAD
 
 /**
  * @ngdoc directive
@@ -313,20 +235,6 @@ function $StateRefActiveDirective($state, $stateParams, $interpolate) {
 
       // Allow uiSref to communicate with uiSrefActive[Equals]
       this.$$setStateInfo = function (newState, newParams) {
-=======
-$StateActiveDirective.$inject = ['$state', '$stateParams', '$interpolate'];
-function $StateActiveDirective($state, $stateParams, $interpolate) {
-  return {
-    restrict: "A",
-    controller: ['$scope', '$element', '$attrs', function($scope, $element, $attrs) {
-      var state, params, activeClass;
-
-      // There probably isn't much point in $observing this
-      activeClass = $interpolate($attrs.uiSrefActive || '', false)($scope);
-
-      // Allow uiSref to communicate with uiSrefActive
-      this.$$setStateInfo = function(newState, newParams) {
->>>>>>> master
         state = $state.get(newState, stateContext($element));
         params = newParams;
         update();
@@ -336,28 +244,19 @@ function $StateActiveDirective($state, $stateParams, $interpolate) {
 
       // Update route state
       function update() {
-<<<<<<< HEAD
         if (isMatch()) {
-=======
-        if ($state.$current.self === state && matchesParams()) {
->>>>>>> master
           $element.addClass(activeClass);
         } else {
           $element.removeClass(activeClass);
         }
       }
 
-<<<<<<< HEAD
       function isMatch() {
         if (typeof $attrs.uiSrefActiveEq !== 'undefined') {
           return state && $state.is(state.name, params);
         } else {
           return state && $state.includes(state.name, params);
         }
-=======
-      function matchesParams() {
-        return !params || equalForKeys(params, $stateParams);
->>>>>>> master
       }
     }]
   };
@@ -365,9 +264,5 @@ function $StateActiveDirective($state, $stateParams, $interpolate) {
 
 angular.module('ui.router.state')
   .directive('uiSref', $StateRefDirective)
-<<<<<<< HEAD
   .directive('uiSrefActive', $StateRefActiveDirective)
   .directive('uiSrefActiveEq', $StateRefActiveDirective);
-=======
-  .directive('uiSrefActive', $StateActiveDirective);
->>>>>>> master

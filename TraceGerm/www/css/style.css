@@ -19,3 +19,7 @@ input {
 :-moz-placeholder {
   text-align: center;
 }
+
+.angular-google-map-container {
+  height: 200px;
+}

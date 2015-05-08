@@ -1,5 +1,6 @@
 starter.controller('WatchGeoCtrl', function($scope, $cordovaGeolocation, $http, settings) {
 
+
   $scope.watchposition = function() {
     var watchOptions = {
       frequency: 300000,
@@ -73,6 +74,22 @@ starter.controller('WatchGeoCtrl', function($scope, $cordovaGeolocation, $http, 
 
     var watchID = navigator.geolocation.watchPosition(onSuccess, onError, watchOptions);
 
+  };
+
+  $scope.watchGeolocationChange = function() {
+    settings.write('watchGeolocation', $scope.geolocation.checked).then(function() {
+      if ($scope.geolocation.checked) {
+        $scope.watchposition();
+      }
+    },
+      function(error) {
+        console.log(error);
+        $scope.log += 'error' + '\n';
+      });
+  };
+
+  $scope.geolocation = {
+    checked: false
   };
 
 });

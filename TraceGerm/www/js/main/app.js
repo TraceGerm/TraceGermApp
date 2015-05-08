@@ -4,7 +4,7 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova', 'pascalprecht.translate', 'ng-cordova-settings'])
+angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova', 'pascalprecht.translate', 'ng-cordova-settings', 'uiGmapgoogle-maps'])
 
 .factory('$localStorage', ['$window', function($window) {
   return {
@@ -23,8 +23,11 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova', 'pascalp
   };
 }])
 
-.run(function($ionicPlatform, $state, $cordovaFile, $translate, $cordovaGlobalization, settings, $location) {
+.run(function($ionicPlatform, $state, $cordovaFile, $translate, $cordovaGlobalization, settings, $location, uiGmapGoogleMapApi) {
   $ionicPlatform.ready(function() {
+    uiGmapGoogleMapApi.then(function(maps) {
+
+    });
 
     settings.read('username').then(function(result) {},
       function(error) {
@@ -53,7 +56,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova', 'pascalp
 })
 
 
-.config(function($stateProvider, $urlRouterProvider, $translateProvider) {
+.config(function($stateProvider, $urlRouterProvider, $translateProvider, uiGmapGoogleMapApiProvider) {
 
   $stateProvider
 
@@ -130,5 +133,11 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova', 'pascalp
 
   $translateProvider.preferredLanguage("en");
   $translateProvider.fallbackLanguage("en");
+
+  uiGmapGoogleMapApiProvider.configure({
+    //    key: 'your api key',
+    v: '3.17',
+    libraries: 'weather,geometry,visualization'
+  });
 
 });
