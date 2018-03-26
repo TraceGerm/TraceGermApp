@@ -1,0 +1,14 @@
+<ion-view view-title="Home">
+  <ion-content>
+    <h4 class="text-center">TraceGerm is a tracking application with a main goal to provide information to its user in case of an epidemic.</h4>
+    <li class="item item-toggle">
+      Watch my position
+      <label class="toggle toggle-assertive">
+        <input type="checkbox" ng-model="isWatchingPosition" ng-change="toggleWatchingPosition()">
+        <div class="track">
+          <div class="handle"></div>
+        </div>
+      </label>
+    </li>
+  </ion-content>
+</ion-view>

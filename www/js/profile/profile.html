@@ -1,0 +1,12 @@
+<ion-view view-title="Profile">
+  <ion-content>
+    <h4 class="text-center">Last positions of the user</h4>
+    <div map-lazy-load="https://maps.google.com/maps/api/js">
+    <map zoom="0" center="[{{currentPostion.latitude}}, {{currentPostion.longitude}}]">
+      <div ng-repeat="position in lastPostitions">
+        <marker position="[{{position.latitude}}, {{position.longitude}}]"></marker>
+     </div>
+    </map>
+      </div>
+  </ion-content>
+</ion-view>

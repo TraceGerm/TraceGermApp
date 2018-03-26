@@ -1,0 +1,29 @@
+<ion-view view-title="Login" hide-nav-bar="!isSideMenuOn">
+  <ion-header-bar>
+    <h1 class="title">Login</h1>
+  </ion-header-bar>
+  <ion-content>
+
+    <form name="loginForm" ng-submit="doLogin()">
+      <div class="list">
+        <label class="item item-input">
+          <input type="text" name="username" ng-model="loginInfo.username" required class="text-center"
+                     placeholder="Username (required)">
+        </label>
+        <label class="item item-input">
+          <input type="password" name="password" ng-model="loginInfo.password" required class="text-center"
+                 placeholder="Password (required)">
+        </label>
+        <label class="item">
+          <button class="button button-block button-positive" type="submit">Log in</button>
+          <div ng-show="loginError" class="text-center">Couldn't login. Incorrect username or password!</div>
+        </label>
+        <div class="text-center">
+          <a href ng-click="register()" class="text-center">Register</a>
+        </div>
+      </div>
+    </form>
+
+  </ion-content>
+
+</ion-view>

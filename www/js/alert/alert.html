@@ -1,0 +1,25 @@
+<ion-view view-title="Alert">
+  <ion-content>
+    <li class="item item-toggle">
+      Watch for alerts
+      <label class="toggle toggle-assertive">
+        <input type="checkbox" ng-model="isWatchingAlert" ng-change="toggleWatchingAlert()">
+        <div class="track">
+          <div class="handle"></div>
+        </div>
+      </label>
+    </li>
+    <label class="item">
+      <button class="button button-block button-positive" ng-click="sendAlert()">
+        Send alert
+      </button>
+    </label>
+    <ion-list>
+      <div ng-repeat="notification in notifications">
+        <ion-item ng-click="showNotification(notification)">
+          {{notification.alert.user.username }} : {{notification.alert.timestamp}}
+        </ion-item>
+      </div>
+    </ion-list>
+  </ion-content>
+</ion-view>
